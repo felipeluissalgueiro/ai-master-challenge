@@ -1,10 +1,10 @@
-<!-- Export do diário Obsidian, 23/09/2026, até workflow 78. Caminhos, IDs de sessão e detalhes internos de segurança omitidos. Estados históricos preservados. -->
+<!-- Export do diário Obsidian, 23/09/2026, até workflow 82. Caminhos, IDs de sessão e detalhes internos de segurança omitidos. Estados históricos preservados. -->
 
-> Estado atual: Brief consolidado; scripts Bronze/Silver em checkpoint; página pública sem login definida, ainda não implementada. O primeiro commit agrupa preparação anterior e não simula histórico retroativo.
+> Estado atual: Brief consolidado; PRD Draft v0.1; scripts Bronze/Silver em checkpoint; página pública sem login definida, ainda não implementada. O primeiro commit agrupa preparação anterior e não simula histórico retroativo.
 
 # Preparação da submissão — Felipe Salgueiro — Challenge 004
 
-Registro em primeira pessoa, redigido com apoio da Lia no Codex a partir das conversas e verificações realizadas. Os itens iniciais reconstituem a preparação de 21/09 e o trabalho de 23/09; não são anotações feitas em tempo real naqueles momentos. Este é um rascunho pessoal para minha revisão, que poderá compor o process log. As interpretações propostas pela IA estão identificadas; nenhuma solução foi implementada até este ponto.
+Registro em primeira pessoa, redigido com apoio da Lia no Codex a partir das conversas e verificações realizadas. Os itens iniciais reconstituem a preparação de 21/09 e o trabalho de 23/09; não são anotações feitas em tempo real naqueles momentos. Este é um rascunho pessoal para minha revisão, que poderá compor o process log. As interpretações propostas pela IA estão identificadas. Estado atual: processamento Bronze/Prata inicial implementado; análise de performance, interface e estratégia final pendentes.
 
 Estrutura baseada no [template oficial](https://github.com/Gestao-Quatro-Ponto-Zero/ai-master-challenge/blob/main/templates/submission-template.md) e no [guia de submissão](https://github.com/Gestao-Quatro-Ponto-Zero/ai-master-challenge/blob/main/submission-guide.md), relidos em 23/09/2026. Esta é uma exportação revisada do diário de trabalho; a cronologia mantém o estado de cada momento. Publicação no fork não equivale ao envio da PR ao G4.
 
@@ -16,17 +16,17 @@ Estrutura baseada no [template oficial](https://github.com/Gestao-Quatro-Ponto-Z
 
 ## Executive Summary
 
-Escolhi o Challenge 004 — Estratégia Social Media pela aderência à minha experiência em gestão de marcas e criação de conteúdo, considerando também a menor frequência de submissões desse case no levantamento público. Pedi a abertura de um projeto no Linear, no time Marketing, e a cascata formal de desenvolvimento. O enunciado é o briefing de entrada; evidências sobre o dataset ainda precisam ser reunidas antes de definir a solução. Ainda não há resultados de implementação. A cronologia preserva as alternativas anteriores e as correções de direção.
+Escolhi o Challenge 004 — Estratégia Social Media pela aderência à minha experiência em gestão de marcas e criação de conteúdo, considerando também a menor frequência de submissões desse case no levantamento público. Pedi a abertura de um projeto no Linear, no time Marketing, e a cascata formal de desenvolvimento. O Brief foi consolidado e autorizei iniciar o PRD em paralelo à auditoria. Já há scripts e validações Bronze/Prata; ainda não há interface nem estratégia final validada. A cronologia preserva as alternativas anteriores e as correções de direção.
 
 ## Solução
 
 ### Abordagem
 
-Defini uma análise de um case por vez, confrontando o pedido, a evidência disponível e minha experiência. A implementação ainda não começou.
+Defini uma análise de um case por vez, confrontando o pedido, a evidência disponível e minha experiência. Escolhi o 004 e adotei processamento Bronze/Prata/Ouro; a ingestão e as primeiras validações estão implementadas.
 
 ### Resultados / Findings
 
-Sem resultados sobre datasets ou solução nesta etapa. As descobertas preparatórias estão no workflow; não equivalem à resolução de um challenge.
+O checkpoint publicado reconstrói 52.214 registros na Bronze e nas métricas Prata. O checkpoint posterior do agente de dados valida dimensões e patrocínio; ainda aguarda integração. Esses resultados não equivalem a conclusões de performance nem à resolução do challenge.
 
 ### Recomendações
 
@@ -34,7 +34,7 @@ Foco decidido: 004 — Estratégia Social Media. Recomendações de negócio dep
 
 ### Limitações
 
-Ainda não inspecionei os datasets do desafio nesta sessão. Os pareceres de Maria e Vitor se baseiam no enunciado e em registros da minha trajetória. A pesquisa das PRs está em andamento. Participação de João Vitor ou Tallis na banca não confirmada; a pesquisa de suas posições públicas não é uma rubrica oficial.
+A inspeção confirmou fonte sintética e ausência de custos, receita e retenção de 3s. Creators, datas, demografia e comparações de performance permanecem em análise. A pesquisa das PRs é um retrato parcial, não um censo definitivo. Participação de João Vitor ou Tallis na banca não confirmada; a pesquisa de suas posições públicas não é uma rubrica oficial.
 
 ## Process Log — Como usei IA
 
@@ -217,6 +217,14 @@ Cronologia numerada em primeira pessoa. Cada nova etapa registra pedido ou açã
 
 78. **O primeiro checkpoint foi publicado no meu fork.** A Lia revisou e publicou 35 arquivos de estrutura, Brief, pesquisa, diagnóstico, catálogo, manifesto, scripts e process log no commit `b137f2c46695996ed84726046d64e5c5acb3cc18`, branch `submission/felipe-salgueiro`. Conferiu por Git o mesmo SHA no remoto. Executou Bronze e Silver em banco temporário isolado: 52.214 linhas em ambas, 27 colunas na origem e integridade OK; isso não valida a estratégia nem a UI. SQLite, CSV/ZIP, credenciais e detalhes privados ficaram fora. Este primeiro commit reúne trabalho local anterior sem simular commits retroativos; daqui em diante os checkpoints publicáveis serão enviados conforme avançamos. Não foi aberta PR ao G4.
 
+79. **Separei o trabalho paralelo da branch de entrega.** Pedi ao agente de dados uma branch própria para evitar conflito. A Lia conferiu uma worktree separada na branch `analysis/felipe-salgueiro-data`; a entrega continua em `submission/felipe-salgueiro`, com uma única PR final prevista. Ao perguntar se tudo estava registrado, recebi uma resposta parcial: os registros publicados iam até o item 78 e o novo segmento de dimensões ainda não estava consolidado. A Lia solicitou checkpoints com pedido humano, hipótese, alterações, testes reais, resultados, erros e pendências; o terminal não substitui o process log.
+
+80. **Pedi a conferência do checkpoint do agente de dados.** A Lia leu o pane pelo Herdr e o documento `checkpoint-silver-dimensions.md`. O agente registrou 52.214 linhas nas três tabelas, integridade OK e zero flags nas regras verificadas; 22.314 posts patrocinados e 29.900 não patrocinados segundo a flag. São resultados relatados no checkpoint, não uma nova execução independente pela Lia. O documento também preserva a correção da consulta `True` para o valor real `TRUE`. Meu racional é conferir a base antes de comparar desempenho: esse bloco valida dimensões e consistência interna, não recomenda investimento. Código e checkpoint continuam na worktree do agente, ainda sem integração à branch de entrega neste registro.
+
+81. **Autorizei iniciar o PRD em paralelo à conclusão da análise, seguindo nosso canon.** Após discutir se deveríamos aguardar, concordei em estruturar objetivo, experiência e requisitos, mantendo creators/seguidores, datas, demografia e resultados de performance como dependências para fechar o documento. A Lia consultou o Brief no Linear e acionou um subagente com a persona Paloma, conforme `linear-prd`, para redigir o rascunho no template canônico. Não autorizei por esse passo a implementação da página, deploy ou submissão. Epics e Stories não serão criados a partir de escopo ainda não aprovado; a validação técnica de Vitor vem após o grill do PRD.
+
+82. **O PRD foi redigido por Paloma e consolidado pela Lia como Draft v0.1.** A versão foi salva no [Linear](https://linear.app/cadencia/document/prd-challenge-004-estrategia-social-media-rastreavel-53e713ae38cf), com snapshots no contexto da worktree, Obsidian Empresa e pasta docs/02-prd da submissão. O documento organiza panorama, comparação, recomendação e método, com critérios de rastreabilidade e reprodução. A Lia ajustou os marcos aos existentes no projeto e explicitou que creator/audiência continuam perguntas obrigatórias mesmo quando a resposta for uma limitação. O grill permanece sem fechamento enquanto a análise não termina; Vitor ainda não validou este PRD, e nenhum Epic foi criado. Revisei a direção geral, não aprovei os requisitos finais. O diário também teve suas sínteses de estado atualizadas para não continuar dizendo que não há código ou commits; os eventos históricos foram preservados.
+
 ### Onde a IA errou e como corrigi
 
 | Ocorrência | Minha intervenção ou correção do agente | Resultado e evidência |
@@ -236,15 +244,15 @@ Registrei minha contribuição observável, sem alegar que uma IA seria incapaz 
 
 ### Iterações realizadas
 
-Esta seção adicional atende à pergunta do guia sobre quantidade de iterações. Conto ciclos de trabalho identificáveis, não número de comandos ou itens do diário. Não há total medido de prompts/tokens/horas, nem foram concluídas iterações de implementação.
+Esta seção adicional atende à pergunta do guia sobre quantidade de iterações. Conto ciclos de trabalho identificáveis, não número de comandos ou itens do diário. Não há total medido de prompts/tokens/horas. Os ciclos abaixo distinguem preparação, implementação analítica e entrega final.
 
 | Frente | Ciclos observados até esta revisão | Estado |
 |---|---|---|
 | Recuperação de contexto | 2 passagens: busca inicial incompleta; busca no transcript após minha correção. | Pesquisa histórica recuperada; fontes de João parcialmente sem revalidação. |
 | Diário/process log | 3 versões de estrutura: cronologia inicial; inclusão de ferramentas/multiagentes; adequação ao template oficial. | Em atualização contínua; não significa apenas três edições de arquivo. |
-| Comparação dos cases | 2 rodadas Maria/Vitor: primeira sobre Churn; segunda comparando os quatro após minha correção de condução. | Decidi tentar 003, 001 e 004, nessa ordem; workflow 46. |
+| Comparação dos cases | 2 rodadas Maria/Vitor: primeira sobre Churn; segunda comparando os quatro após minha correção de condução. | Prioridade inicial no workflow 46; depois escolhi exclusivamente 004. |
 | Pesquisa das PRs | 1 levantamento em andamento. | Sem análise completa validada. |
-| Solução do challenge | 0 ciclos de implementação/teste concluídos nesta sessão. | Escolha final: 004; preparação da abertura formal; implementação não iniciada. |
+| Solução do challenge | Checkpoint Bronze/métricas Prata implementado, testado e publicado; segmento de dimensões documentado pelo outro agente. | PRD em elaboração; análise de performance, interface e estratégia final pendentes. |
 
 ## Evidências
 
@@ -252,7 +260,7 @@ Esta seção adicional atende à pergunta do guia sobre quantidade de iteraçõe
 - [ ] Screenshots selecionados e anexados — ainda não preparados.
 - [ ] Screen recording — primeira gravação confirmada em andamento no workflow 38; parada informada por mim no 39. Nova gravação informada no 40. Vídeos finais ainda não revisados ou selecionados para submissão.
 - [ ] Chat exports para submissão — transcripts locais existem, mas não foram selecionados, sanitizados e anexados.
-- [ ] Git history da solução — ainda não há implementação ou histórico de commits do challenge produzido nesta sessão.
+- [x] Git history iniciado — checkpoints `b137f2c` e `79d36ba` publicados na branch de submissão; novos segmentos ainda dependem de integração.
 - [ ] Relatório e inventário das PRs — agente trabalhando; incorporar links após conferir os arquivos e a cobertura.
 
 Referências de sessões locais omitidas da versão pública; o diário de origem preserva a rastreabilidade.

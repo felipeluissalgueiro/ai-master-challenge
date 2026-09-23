@@ -1,6 +1,6 @@
 # Submissão — Felipe Salgueiro — Challenge 004
 
-**Em desenvolvimento.** Brief consolidado e processamento Bronze/Silver inicial disponível; página pública, estratégia final e submissão ao G4 ainda pendentes.
+**Em desenvolvimento.** Brief consolidado, [PRD em rascunho](docs/02-prd/prd.md) e processamento Bronze/Silver inicial disponível; página pública, estratégia final e submissão ao G4 ainda pendentes.
 
 ## Sobre mim
 - **Nome:** Felipe Salgueiro.
