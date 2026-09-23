@@ -42,6 +42,6 @@ test('rejects fractional sales visibly without rendering financial results', asy
   await fillScenario(page);
   await page.getByLabel('Vendas atribuídas no cenário', {exact: true}).fill('2.5');
   await page.getByRole('button', {name: 'Calcular cenário'}).click();
-  await expect(page.getByRole('alert')).toContainText('quantidade inteira');
+  await expect(page.getByRole('region', {name: 'Quanto essa campanha precisaria entregar?'}).getByRole('alert')).toContainText('quantidade inteira');
   await expect(page.locator('dl')).toHaveCount(0);
 });

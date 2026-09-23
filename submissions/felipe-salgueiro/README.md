@@ -1,6 +1,6 @@
 # Submissão — Felipe Salgueiro — Challenge 004
 
-**Em desenvolvimento.** Brief consolidado, [PRD em rascunho](docs/02-prd/prd.md) e processamento Bronze/Silver inicial disponível; página de avaliação, estratégia final e submissão ao G4 ainda pendentes.
+**Em desenvolvimento.** Brief, [PRD](docs/02-prd/prd.md), RFC e planejamento disponíveis. Pipeline Bronze/Prata/Ouro, exportador da aplicação e simulador implementados em checkpoints; integração da interface, QA e submissão final pendentes. A apresentação dos relatórios está em revisão, sem aprovação visual antecipada.
 
 ## Sobre mim
 - **Nome:** Felipe Salgueiro.
@@ -13,6 +13,10 @@ Escolhi o case pela minha experiência com marcas e conteúdo. Usei IA para comp
 ## Solução
 
 [Relatório executivo para o Head de Marketing](solution/reports/README.md): oito respostas, provas numéricas e estratégia em três passos. Baixe/clone e abra `solution/reports/performance-strategy.html` no navegador.
+
+**Revisão em andamento:** relatório e explorador publicados são checkpoints preservados. A linguagem, a organização das informações e a legibilidade visual foram reprovadas por Felipe; não representam a apresentação final aprovada.
+
+[Contrato de dados da aplicação](solution/data/app/README.md) e [simulador](docs/05-validacao/checkpoint-mar103-simulator.md): cálculos e testes locais disponíveis. O formulário ainda depende de validação integrada no shell; sem site publicado.
 
 [Protótipo HTML exploratório local](solution/prototype/README.md): baixe/clone e abra `solution/prototype/index.html`. O GitHub mostra o código-fonte; não há site implantado. Não é a interface final aprovada.
 
