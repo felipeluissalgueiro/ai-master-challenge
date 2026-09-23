@@ -1,0 +1,114 @@
+{
+  "updated": "2026-09-23",
+  "project": "PVT_kwHODD8M084Bkedf",
+  "url": "https://github.com/users/felipeluissalgueiro/projects/2",
+  "source": "Linear P-MAR-55",
+  "sync": "manual",
+  "items": [
+    {
+      "linear_id": "MAR-97",
+      "github_item_id": "PVTI_lAHODD8M084Bkedfzg8blJE",
+      "type": "epic",
+      "parent": null,
+      "blocked_by": [],
+      "source_status": "Backlog",
+      "github_status": "Todo"
+    },
+    {
+      "linear_id": "MAR-98",
+      "github_item_id": "PVTI_lAHODD8M084Bkedfzg8blJM",
+      "type": "epic",
+      "parent": null,
+      "blocked_by": [],
+      "source_status": "Backlog",
+      "github_status": "Todo"
+    },
+    {
+      "linear_id": "MAR-96",
+      "github_item_id": "PVTI_lAHODD8M084Bkedfzg8blJU",
+      "type": "epic",
+      "parent": null,
+      "blocked_by": [],
+      "source_status": "Backlog",
+      "github_status": "Todo"
+    },
+    {
+      "linear_id": "MAR-99",
+      "github_item_id": "PVTI_lAHODD8M084Bkedfzg8blJw",
+      "type": "story",
+      "parent": "MAR-97",
+      "blocked_by": [],
+      "source_status": "Backlog",
+      "github_status": "Todo"
+    },
+    {
+      "linear_id": "MAR-100",
+      "github_item_id": "PVTI_lAHODD8M084Bkedfzg8blKA",
+      "type": "story",
+      "parent": "MAR-97",
+      "blocked_by": [],
+      "source_status": "Backlog",
+      "github_status": "Todo"
+    },
+    {
+      "linear_id": "MAR-101",
+      "github_item_id": "PVTI_lAHODD8M084Bkedfzg8blJs",
+      "type": "story",
+      "parent": "MAR-98",
+      "blocked_by": [],
+      "source_status": "Backlog",
+      "github_status": "Todo"
+    },
+    {
+      "linear_id": "MAR-105",
+      "github_item_id": "PVTI_lAHODD8M084Bkedfzg8blJg",
+      "type": "story",
+      "parent": "MAR-98",
+      "blocked_by": [
+        "MAR-99",
+        "MAR-101"
+      ],
+      "source_status": "Backlog",
+      "github_status": "Todo"
+    },
+    {
+      "linear_id": "MAR-103",
+      "github_item_id": "PVTI_lAHODD8M084Bkedfzg8blJo",
+      "type": "story",
+      "parent": "MAR-98",
+      "blocked_by": [
+        "MAR-99",
+        "MAR-101"
+      ],
+      "source_status": "Backlog",
+      "github_status": "Todo"
+    },
+    {
+      "linear_id": "MAR-102",
+      "github_item_id": "PVTI_lAHODD8M084Bkedfzg8blKE",
+      "type": "story",
+      "parent": "MAR-96",
+      "blocked_by": [
+        "MAR-99",
+        "MAR-105"
+      ],
+      "source_status": "Backlog",
+      "github_status": "Todo"
+    },
+    {
+      "linear_id": "MAR-104",
+      "github_item_id": "PVTI_lAHODD8M084Bkedfzg8blJc",
+      "type": "story",
+      "parent": "MAR-96",
+      "blocked_by": [
+        "MAR-100",
+        "MAR-105",
+        "MAR-103",
+        "MAR-102"
+      ],
+      "source_status": "Backlog",
+      "github_status": "Todo"
+    }
+  ],
+  "verification": "Ten nodes read back individually: project ID, title, non-archived, Todo and source-status field confirmed. UI visibility not verified; aggregate listing previously returned zero."
+}
