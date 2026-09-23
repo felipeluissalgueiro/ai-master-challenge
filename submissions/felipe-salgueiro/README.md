@@ -11,6 +11,9 @@
 Escolhi o case pela minha experiência com marcas e conteúdo. Usei IA para comparar alternativas, pesquisar referências e organizar o projeto. A inspeção revelou uma fonte sintética e limites que mudaram o escopo. Estamos preparando uma página de avaliação com acesso protegido, com decisões explicáveis e resultados reproduzíveis, sem depender da operação do Cadência.
 
 ## Solução
+
+[Protótipo HTML exploratório local](solution/prototype/README.md): baixe/clone e abra `solution/prototype/index.html`. O GitHub mostra o código-fonte; não há site implantado. Não é a interface final aprovada.
+
 ### Abordagem
 Preservar a fonte na camada Bronze; validar e derivar métricas na Prata; somente depois produzir comparações e recomendações. [Brief consolidado](docs/01-brief/brief.md).
 ### Resultados / Findings
