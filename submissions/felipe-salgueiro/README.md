@@ -1,6 +1,6 @@
 # Submissão — Felipe Salgueiro — Challenge 004
 
-**Em desenvolvimento.** Brief consolidado, [PRD em rascunho](docs/02-prd/prd.md) e processamento Bronze/Silver inicial disponível; página pública, estratégia final e submissão ao G4 ainda pendentes.
+**Em desenvolvimento.** Brief consolidado, [PRD em rascunho](docs/02-prd/prd.md) e processamento Bronze/Silver inicial disponível; página de avaliação, estratégia final e submissão ao G4 ainda pendentes.
 
 ## Sobre mim
 - **Nome:** Felipe Salgueiro.
@@ -8,13 +8,13 @@
 - **Challenge:** 004 — Estratégia Social Media.
 
 ## Executive Summary
-Escolhi o case pela minha experiência com marcas e conteúdo. Usei IA para comparar alternativas, pesquisar referências e organizar o projeto. A inspeção revelou uma fonte sintética e limites que mudaram o escopo. Estamos preparando uma página pública sem login, com decisões explicáveis e resultados reproduzíveis, sem depender da operação do Cadência.
+Escolhi o case pela minha experiência com marcas e conteúdo. Usei IA para comparar alternativas, pesquisar referências e organizar o projeto. A inspeção revelou uma fonte sintética e limites que mudaram o escopo. Estamos preparando uma página de avaliação com acesso protegido, com decisões explicáveis e resultados reproduzíveis, sem depender da operação do Cadência.
 
 ## Solução
 ### Abordagem
 Preservar a fonte na camada Bronze; validar e derivar métricas na Prata; somente depois produzir comparações e recomendações. [Brief consolidado](docs/01-brief/brief.md).
 ### Resultados / Findings
-Ingestão e métricas iniciais disponíveis. Findings de performance e recomendações finais pendentes. [Reprodução e artefatos](solution/README.md).
+Ingestão e métricas iniciais disponíveis. Pipeline final disponível na worktree de análise; interpretação em revisão contra o dicionário oficial. Findings e recomendações finais ainda não integrados. [Reprodução e artefatos](solution/README.md).
 ### Recomendações
 Pendentes da análise.
 ### Limitações
@@ -36,6 +36,6 @@ Trouxe meu contexto de marcas/conteúdo, propus examinar gancho/contexto/informa
 - [Pesquisa preparatória e ressalvas](docs/01-brief/pesquisa/README.md).
 - [Workflow](process-log/README.md) e [proveniência dos exports](docs/proveniencia.md).
 
-Scripts iniciais e [registro de validação](docs/05-validacao/checkpoint-bronze-silver.md) incluídos. Gravações e notebook não anexados. O primeiro checkpoint reúne preparação local anterior; os próximos commits registrarão a evolução efetiva, sem retroagir datas. Banco gerado permanece fora do Git.
+Scripts iniciais e [registro de validação](docs/05-validacao/checkpoint-bronze-silver.md) incluídos. Gravações e notebook não anexados. O primeiro checkpoint reúne preparação local anterior; os próximos commits registrarão a evolução efetiva, sem retroagir datas. Snapshot integral do banco será incluído como evidência após preparação e validação; ainda não publicado. A aplicação usará dados Ouro exportados, sem banco integrado.
 
 **Submissão enviada em:** não enviada.

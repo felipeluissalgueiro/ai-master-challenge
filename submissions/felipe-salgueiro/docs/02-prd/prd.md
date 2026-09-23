@@ -1,16 +1,16 @@
-Fonte canônica: [PRD no Linear](https://linear.app/cadencia/document/prd-challenge-004-estrategia-social-media-rastreavel-53e713ae38cf). Snapshot Draft v0.2 de 23/09/2026; não editar independentemente da fonte.
+Fonte canônica: [PRD no Linear](https://linear.app/cadencia/document/prd-challenge-004-estrategia-social-media-rastreavel-53e713ae38cf). Snapshot Draft v0.3 de 23/09/2026; não editar independentemente da fonte.
 
 # PRD — Challenge 004: Estratégia Social Media rastreável
 
-**Projeto Linear:** [P-MAR-55](<https://linear.app/cadencia/project/tech-g4-ai-master-challenge-004-social-media-6da71df65f6c>) · **Autor:** Felipe, com elaboração assistida por Paloma (PO) e consolidação por Lia · **Status:** Draft v0.2 · **Data:** 23/09/2026
+**Projeto Linear:** [P-MAR-55](<https://linear.app/cadencia/project/tech-g4-ai-master-challenge-004-social-media-6da71df65f6c>) · **Autor:** Felipe, com elaboração assistida por Paloma (PO) e consolidação por Lia · **Status:** Draft v0.3 · **Data:** 23/09/2026
 
-Rascunho em paralelo à auditoria, ainda não submetido à aprovação. Requisitos propostos; não implementados como entrega integrada. Fonte de escopo: [Brief aprovado](<https://linear.app/cadencia/document/brief-d5c5e4cd5481>).
+Rascunho atualizado com decisões do grill; aprovação integral e revisão técnica pendentes. Requisitos propostos; não implementados como entrega integrada. Fonte de escopo: [Brief aprovado](<https://linear.app/cadencia/document/brief-d5c5e4cd5481>).
 
 ## Problema
 
 O Head de Marketing precisa decidir onde concentrar esforço, quais parcerias testar e o que reduzir ou medir melhor. Contagens e médias isoladas não sustentam essas decisões. Esse é o problema proposto pelo enunciado; não é diagnóstico de uma operação real do G4.
 
-A fonte contém 52.214 registros sintéticos e 27 colunas. O checkpoint do agente registra Bronze, métricas e dimensões Prata com paridade de linhas; creators/seguidores, datas, demografia e comparações de performance permanecem pendentes. Não há estratégia validada, camada Ouro ou página implementada. O volume não comprova representatividade nem utilidade dos sinais.
+A fonte contém 52.214 registros sintéticos e 27 colunas. O checkpoint do agente registra Bronze, métricas e dimensões Prata com paridade de linhas; os resultados de creators/seguidores, datas, demografia e performance precisam incorporar essa revisão antes de sustentar exclusões de funcionalidades. O agente concluiu o pipeline até Ouro em sua worktree, mas a interpretação do relatório está em revisão contra o dicionário oficial. Integração desses artefatos e página continuam pendentes. O volume não comprova representatividade nem utilidade dos sinais.
 
 ## Objetivo & métricas de sucesso
 
@@ -21,7 +21,7 @@ Critérios propostos de aceite:
 * Cobrir as quatro perguntas analíticas e os quatro tópicos estratégicos obrigatórios com evidência ou limitação explícita.
 * Vincular 100% das recomendações a pergunta, evidência, limite e ação candidata.
 * Reconciliar todos os valores exibidos com os resultados analíticos, admitindo apenas arredondamento documentado.
-* Permitir concluir sem conta os percursos de panorama, comparação, recomendação e método.
+* Permitir aos avaliadores autorizados concluir os percursos de panorama, comparação, recomendação e método.
 * Reconstruir resultados seguindo as instruções entregues e disponibilizar process log revisado.
 
 São critérios da entrega; não prometem aumento de engajamento, receita ou desempenho empresarial.
@@ -35,6 +35,8 @@ São critérios da entrega; não prometem aumento de engajamento, receita ou des
 
 ## Escopo (in)
 
+* Aplicação e função do chat na Vercel; consumo de arquivos Ouro exportados, sem SQLite gravável em produção nem VPS Master/Dev. Chave OpenRouter exclusiva do challenge, somente no servidor e com limite de crédito a definir.
+* SQLite completo como evidência no fork, em snapshot consistente acompanhado de scripts, manifesto e instruções de consulta. Preparação, tamanho, integridade e inclusão efetiva ainda pendentes; original de trabalho e auxiliares permanecem preservados/ignorados.
 * Análise descritiva por plataforma, formato, categoria e patrocínio; tamanho de creator e demografia são perguntas obrigatórias cuja resposta depende da auditoria, podendo resultar em limitação documentada. Recortes por período são condicionais à utilidade comprovada.
 * Estratégia priorizada: concentração de esforço, política de patrocínio, atividades a reduzir e quick wins.
 * Página independente: panorama → comparação → justificativa → método.
@@ -45,7 +47,7 @@ São critérios da entrega; não prometem aumento de engajamento, receita ou des
 
 **Evolução futura proposta por Felipe:** avaliar a criação/adaptação de uma SLM especializada em marketing com dados autorizados dos creators da empresa. É uma proposta de gestão para o G4, não um recurso disponível nem treinamento aprovado. Depende de governança, consentimentos/permissões, qualidade do corpus e avaliação de fidelidade, custo e utilidade; modelo menor não garante menos alucinações. A entrega atual usa LLM via OpenRouter.
 
-Cadência operacional, login, tenants, integrações operacionais externas (CRM/Meta), campanhas, publicação de conteúdo, dados privados de outros projetos, Jev e preditor. Não calcular ROI, inventar alcance/retenção, atribuir causalidade ou interpretar textos sintéticos como voz da audiência. Framework e hospedagem permanecem sem decisão.
+Cadência operacional, cadastro próprio de usuários, tenants, integrações operacionais externas (CRM/Meta), campanhas, publicação de conteúdo, dados privados de outros projetos, Jev e preditor. Não calcular ROI, inventar alcance/retenção, atribuir causalidade ou interpretar textos sintéticos como voz da audiência. Hospedagem escolhida: Vercel. Framework de UI ainda a definir.
 
 ## Requisitos funcionais
 
@@ -63,7 +65,7 @@ Cadência operacional, login, tenants, integrações operacionais externas (CRM/
 
 ## Requisitos não-funcionais
 
-Acesso público sem login e sem ações operacionais. A integração de inferência via OpenRouter usará credencial apenas no servidor, nunca no navegador ou no Git; limites de uso/custo, contexto enviado, proteção contra abuso e estado de indisponibilidade devem ser definidos na RFC antes de disponibilizar o chat. Conteúdo e controles legíveis em desktop e celular, operáveis por teclado; tabelas e textos devem explicar gráficos.
+Acesso restrito aos avaliadores, com proteção nativa da Vercel como direção escolhida por Felipe; confirmar habilitação e cobrança do recurso no plano antes de ativá-lo. Não criar sistema próprio de usuários neste escopo. Sem ações operacionais. A integração de inferência via OpenRouter usará credencial apenas no servidor, nunca no navegador ou no Git; limites de uso/custo, contexto enviado, proteção contra abuso e estado de indisponibilidade devem ser definidos na RFC antes de disponibilizar o chat. Conteúdo e controles legíveis em desktop e celular, operáveis por teclado; tabelas e textos devem explicar gráficos.
 
 Transformações determinísticas, proveniência verificável, exclusões explícitas e ausência de imputação silenciosa. Divisão por zero deve produzir valor nulo sinalizado.
 
@@ -71,6 +73,7 @@ Desempenho de carregamento e contrato de exportação serão definidos com o vol
 
 ## Riscos & dependências
 
+* **Revisão de interpretação solicitada por Felipe:** fonte fictícia é intencional e não invalida análise descritiva do cenário. O dicionário oficial define seguidores na data do post, idade/gênero predominantes e duração em segundos para vídeos ou palavras para texto. Variar seguidores não invalida sozinho um creator; identidade e nomes devem ser avaliados separadamente. A exclusão ampla de análise longitudinal e o veredito único de medir melhor estão sob revisão. Não inventar diferenças relevantes nem ROI ausente. Fonte: [descrição do Kaggle](<https://www.kaggle.com/datasets/omenkj/social-media-sponsorship-and-engagement-dataset/data>), conferida via API em 23/09/2026.
 * **Creators/seguidores:** validar identidade, repetição e consistência antes de definir faixas ou tratar posts como observações independentes.
 * **Datas:** validar formato, período e cobertura; data de publicação não comprova janela equivalente de exposição nem frequência ótima.
 * **Demografia:** validar estrutura, somas e consistência por creator/post; campos inadequados devem gerar limitação explícita.
