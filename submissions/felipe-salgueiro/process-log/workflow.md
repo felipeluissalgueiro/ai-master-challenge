@@ -1,6 +1,6 @@
-<!-- Export do diário Obsidian, 23/09/2026, até workflow 90. Caminhos, IDs de sessão e detalhes internos de segurança omitidos. Estados históricos preservados. -->
+<!-- Export do diário Obsidian, 23/09/2026, até workflow 94. Caminhos, IDs de sessão e detalhes internos de segurança omitidos. Estados históricos preservados. -->
 
-> Estado atual: PRD Draft v0.3 incorpora acesso protegido, Ouro na Vercel e SQLite completo no fork como evidência. Pipeline final executado pelo agente; interpretação em revisão, integração/publicação pendentes. Página não implementada. O primeiro commit agrupa preparação anterior e não simula histórico retroativo.
+> Estado atual: PRD Draft v0.3 incorpora acesso protegido e Ouro na Vercel. SQLite completo integrado como evidência com integridade e hashes conferidos; scripts finais e relatório corrigido ainda aguardam integração. Página não implementada. O primeiro commit agrupa preparação anterior e não simula histórico retroativo.
 
 # Preparação da submissão — Felipe Salgueiro — Challenge 004
 
@@ -244,6 +244,10 @@ Cronologia numerada em primeira pessoa. Cada nova etapa registra pedido ou açã
 91. **Autorizei o espelhamento do projeto no GitHub Projects.** Mantive o Linear como fonte de verdade e pedi um quadro público vinculado ao meu fork, para que o avaliador possa acompanhar minha organização sem acesso ao Linear. Concluí a autorização de acesso a Projects. O CLI reportou falha de escrita na configuração local, mas as chamadas de API de consulta e criação funcionaram; não houve alteração de permissões para contornar o erro.
 
 92. **Criei com apoio da Lia o quadro público e conferi os registros.** O [Project do Challenge 004](https://github.com/users/felipeluissalgueiro/projects/2) está público e vinculado ao fork. Espelhei Brief v1, PRD Draft v0.3 e os marcos Diagnóstico, Execução e Validação como cinco cartões de referência, não como tarefas concluídas. Cada cartão foi consultado individualmente e pertence ao projeto, sem arquivamento. A listagem agregada da API, porém, retornou zero itens; a visibilidade dos cartões na interface ainda não foi validada. Não recriei cartões para evitar duplicação. O Linear continua sem issues neste checkpoint; Epics e Stories não foram inventadas. O espelhamento é manual por checkpoints, sem sincronização automática.
+
+93. **Pedi que avançássemos após a configuração do Project.** Questionei como disponibilizar Brief e PRD e relatei que o fork não aparecia no seletor de repositórios. A Lia confirmou o vínculo pela API; a diferença na interface ficou como pendência não bloqueante, sem mudar configurações por suposição.
+
+94. **Pedi a integração do banco preparado pelo agente de dados.** Os agentes alinharam o destino `solution/data/evidence/` dentro da minha submissão. Mantive um único responsável por commit e push: Lia. O SQLite completo foi copiado sem alterar o original, acompanhado de manual, manifesto e checkpoint. A cópia passou por conferência independente de integridade, hash físico e dump lógico. A contagem foi esclarecida: 14 tabelas, 9 índices explícitos e 7 automáticos; uma consulta inicial com aspas incorretas foi corrigida. Não reexecutamos o pipeline. A regra antiga de elegibilidade de creators permanece identificada como superada e não deve ser usada. Os scripts finais e o relatório corrigido ainda precisam ser integrados; a publicação do banco de evidência não significa que a interface esteja pronta ou que o PRD esteja aprovado.
 
 ### Onde a IA errou e como corrigi
 

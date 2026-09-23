@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0.0",
+  "artifact": {
+    "file": "social_media_analysis.sqlite",
+    "role": "complete_audit_evidence_not_runtime_database",
+    "created_by": "sqlite_online_backup_from_validated_generated_artifact",
+    "size_bytes": 61607936,
+    "size_mib": 58.75390625,
+    "sha256": "7279027727b912c4c4ad8ec49704164f86e0eeb039218d8ee2b00d0ab78d7bad",
+    "logical_dump_sha256": "7e74618660769dfcd944c005844fd9cb02d51638fd0ead6ebeaa2ef2a6a5abc5",
+    "source_database_sha256": "dfd96b591d495fc302cef20bbb25d98fef5f7e7670c4859694e6ddb769eea2c3",
+    "integrity_check": "ok",
+    "table_count": 14,
+    "index_count": 9,
+    "index_count_scope": "explicit_indexes_only",
+    "automatic_index_count": 7
+  },
+  "source": {
+    "dataset": "Social Media Sponsorship & Engagement Dataset",
+    "publisher": "omenkj",
+    "source_url": "https://www.kaggle.com/datasets/omenkj/social-media-sponsorship-and-engagement-dataset/data",
+    "metadata_url": "https://www.kaggle.com/api/v1/datasets/view/omenkj/social-media-sponsorship-and-engagement-dataset",
+    "license": "MIT",
+    "nature": "simulated_dataset_as_declared_by_publisher",
+    "zip_sha256": "ce78ea3352fe1ae6093e6f5d48b506ad591c6e6ca90fbab6ac91866a8c34202e",
+    "csv_sha256": "693a2df6e609d1c099f3430d9a5b894b224fe12b2420c0d93e6defe90d15f18e"
+  },
+  "row_counts": {
+    "bronze_posts_raw": 52214,
+    "silver_posts_metrics": 52214,
+    "silver_posts_dimensions": 52214,
+    "silver_creator_profiles": 5000,
+    "silver_posts_dates": 52214,
+    "silver_posts_audience": 52214,
+    "silver_posts_content": 52214,
+    "silver_posts_follower_bands": 52214,
+    "silver_follower_band_definitions": 4,
+    "gold_segment_summaries": 68,
+    "gold_sponsorship_comparisons": 60,
+    "gold_numeric_correlations": 45
+  },
+  "github_delivery": {
+    "regular_git_hard_limit_mib": 100,
+    "warning_threshold_mib": 50,
+    "browser_upload_limit_mib": 25,
+    "fits_regular_git_hard_limit": true,
+    "triggers_large_file_warning": true,
+    "can_upload_through_github_browser": false,
+    "delivery_method": "git_command_line_by_lia"
+  },
+  "privacy_and_safety": {
+    "declared_simulated": true,
+    "verified_anonymization_claim": false,
+    "handling_note": "Names, comments and URLs are treated as simulated fields, not as verified real people or destinations."
+  },
+  "known_interpretation_constraints": [
+    "The current creator_profile_eligible field uses a superseded rule that incorrectly required stable follower_count; do not use it.",
+    "creator_id is the canonical simulated identity; creator_name is inconsistent and must not label rankings.",
+    "follower_count is followers at post time and may vary legitimately.",
+    "content_length is seconds for video and words for text; image and mixed units are undocumented.",
+    "Audience fields are predominant categorical labels, not percentage distributions.",
+    "Sponsored versus not sponsored differences are descriptive and do not establish causality or ROI.",
+    "Reach, impressions, spend, revenue, conversions and video retention events are absent."
+  ]
+}

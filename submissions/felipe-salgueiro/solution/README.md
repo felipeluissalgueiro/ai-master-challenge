@@ -8,6 +8,7 @@ primeiro segmento Silver de métricas já possuem scripts determinísticos.
 
 - `analysis/`: scripts Python versionáveis, somente com biblioteca padrão.
 - `data/generated/`: SQLite derivado e reconstruível, ignorado pelo Git.
+- [data/evidence/](data/evidence/README.md): snapshot completo Bronze/Prata/Ouro, manifesto e contrato de leitura; evidência para auditoria, não banco da aplicação.
 - `../docs/01-brief/dados/`: proveniência, diagnóstico, catálogo de métricas e
   matriz de perguntas.
 
@@ -15,7 +16,7 @@ O banco local canônico é
 `data/generated/social_media_bronze.sqlite`. O CSV e o ZIP de origem não são
 copiados para o repositório.
 
-## Reconstrução
+## Reconstrução do checkpoint inicial
 
 Executar a partir da raiz da submissão, informando os arquivos-fonte locais:
 
@@ -37,7 +38,9 @@ sqlite3 -readonly solution/data/generated/social_media_bronze.sqlite \
 ```
 
 O primeiro comando recria a camada Bronze. O segundo acrescenta a tabela
-`silver_posts_metrics`. Não há app, modelo, correlação ou camada Gold
-implementados neste estágio.
+`silver_posts_metrics`. Estes dois comandos reproduzem somente o checkpoint inicial,
+não todas as tabelas do snapshot completo. Os scripts finais do outro agente
+ainda aguardam integração/revisão nesta branch. O snapshot já contém Ouro;
+app e modelo ainda não foram implementados.
 
 Validação executada e limites: [checkpoint Bronze/Silver](../docs/05-validacao/checkpoint-bronze-silver.md).

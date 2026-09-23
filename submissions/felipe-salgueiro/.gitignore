@@ -3,6 +3,7 @@
 *.sqlite.tmp
 *.db
 *.db-*
+!solution/data/evidence/social_media_analysis.sqlite
 __pycache__/
 .env
 .env.*

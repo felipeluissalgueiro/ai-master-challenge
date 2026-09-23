@@ -37,6 +37,6 @@ Trouxe meu contexto de marcas/conteúdo, propus examinar gancho/contexto/informa
 - [Pesquisa preparatória e ressalvas](docs/01-brief/pesquisa/README.md).
 - [Workflow](process-log/README.md) e [proveniência dos exports](docs/proveniencia.md).
 
-Scripts iniciais e [registro de validação](docs/05-validacao/checkpoint-bronze-silver.md) incluídos. Gravações e notebook não anexados. O primeiro checkpoint reúne preparação local anterior; os próximos commits registrarão a evolução efetiva, sem retroagir datas. Snapshot integral do banco será incluído como evidência após preparação e validação; ainda não publicado. A aplicação usará dados Ouro exportados, sem banco integrado.
+Scripts iniciais e [registro de validação](docs/05-validacao/checkpoint-bronze-silver.md) incluídos. Gravações e notebook não anexados. O primeiro checkpoint reúne preparação local anterior; os próximos commits registrarão a evolução efetiva, sem retroagir datas. [Snapshot integral do banco](solution/data/evidence/README.md) incluído com manifesto e limites conhecidos; [validação da integração](docs/05-validacao/checkpoint-integracao-evidencia.md). Scripts finais ainda aguardam integração. A aplicação usará dados Ouro exportados, sem banco integrado.
 
 **Submissão enviada em:** não enviada.
