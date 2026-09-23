@@ -19,11 +19,12 @@ Snapshot revisado em 23/09/2026 para checkpoints no fork, autorizados por Felipe
 | [Revisão crítica](01-brief/pesquisa/revisao-critica.md) | Conferências registradas no workflow 47–48 | Síntese editorial, não export de documento Linear |
 | [Hipóteses](01-brief/hipoteses-e-lacunas.md) | Debate registrado no workflow | Síntese editorial; não é Brief aprovado |
 | READMEs e método | Organização solicitada por Felipe | Redação assistida por Lia, sem validar a solução |
+| [Parecer UX completo](03-rfc/parecer-ux-sofia-g4-challenge004-20260923.md) | Parecer e síntese de Sofia registrados na worktree Marketing por Lia | Snapshot integral com wireframes, fontes, tokens aproximados e ressalva analítica; proposta não implementada, validada em browser ou publicada como aplicação |
 
 Na consulta inicial havia zero documentos e issues. Posteriormente, o [Brief v1](01-brief/brief.md) foi criado no Linear e exportado. O [PRD Draft v0.3](02-prd/prd.md) foi elaborado por Paloma e consolidado por Lia; seu fechamento depende da análise e revisão. RFC e tarefas individuais permanecem pendentes; não foram fabricados para preencher a estrutura.
 
 SHA-256 das notas originais no momento da exportação (antes do tratamento):
-- Diário atualizado até workflow 101: `7d2295713e9332f7bed4fc00883708a26dcec6bc1fdcfb561e5eb951de029943`.
+- Diário atualizado até workflow 102: `25e4e6df9f7bbfe4ff569cc46b0d4c726a1736e9980cce36b0cddd7519ae7fe0`.
 - Panorama: `9168a5b643541134189f1418a93c1aade7a881e9ab10ae97b61e374d6f79538b`.
 - Inventário: `04490e62970f30ac2ea7ac950d25fd88ad1d8ff3a635165baf3770ad551de33d`.
 

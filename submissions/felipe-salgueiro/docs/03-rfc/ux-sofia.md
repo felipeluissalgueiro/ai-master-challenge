@@ -1,5 +1,7 @@
 # Insumo UX para a RFC — Sofia
 
+Síntese do [parecer completo da Sofia](parecer-ux-sofia-g4-challenge004-20260923.md), registrado com wireframes, tokens provisórios e ressalva de revisão. Este resumo foi preservado; o parecer é evidência de investigação/proposta, não de implementação.
+
 Data: 23/09/2026. **Proposta investigada, não interface implementada nem RFC aprovada.** Base escolhida por Felipe: Astryx; referência visual: G4 Educação. Parecer produzido pela persona Sofia em pane separado, consolidado por Lia.
 
 ## Jornada e hierarquia
