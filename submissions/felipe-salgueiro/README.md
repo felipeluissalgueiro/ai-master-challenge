@@ -31,6 +31,7 @@ Pedi nova recuperação de contexto e interrompi perguntas que desviavam da deci
 Trouxe meu contexto de marcas/conteúdo, propus examinar gancho/contexto/informação/chamada se houver dados e defini o foco do projeto. São contribuições observáveis, não alegações de exclusividade humana.
 
 ## Evidências
+- [Quadro público no GitHub Projects](https://github.com/users/felipeluissalgueiro/projects/2) — espelho manual do Linear; [escopo e verificação](docs/00-projeto/github-project.md).
 - [Projeto e marcos](docs/00-projeto/README.md).
 - [Documentos por etapa](docs/README.md).
 - [Pesquisa preparatória e ressalvas](docs/01-brief/pesquisa/README.md).

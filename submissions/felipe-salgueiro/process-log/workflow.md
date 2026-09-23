@@ -241,6 +241,10 @@ Cronologia numerada em primeira pessoa. Cada nova etapa registra pedido ou açã
 
 90. **Pedi continuar atualizando o fork e o workflow.** A Lia atualizou o PRD no Linear para Draft v0.3 com acesso restrito aos avaliadores, hospedagem Vercel com dados Ouro, chave OpenRouter exclusiva e SQLite completo no fork como evidência. Gerou os snapshots correspondentes e atualizou a política de entrega dos dados, distinguindo decisão de publicação efetivamente realizada. O relatório analítico anterior não foi integrado como conclusão definitiva enquanto sua interpretação está sendo revisada. Não houve deploy, ativação de cobrança ou publicação do snapshot SQLite nesta etapa.
 
+91. **Autorizei o espelhamento do projeto no GitHub Projects.** Mantive o Linear como fonte de verdade e pedi um quadro público vinculado ao meu fork, para que o avaliador possa acompanhar minha organização sem acesso ao Linear. Concluí a autorização de acesso a Projects. O CLI reportou falha de escrita na configuração local, mas as chamadas de API de consulta e criação funcionaram; não houve alteração de permissões para contornar o erro.
+
+92. **Criei com apoio da Lia o quadro público e conferi os registros.** O [Project do Challenge 004](https://github.com/users/felipeluissalgueiro/projects/2) está público e vinculado ao fork. Espelhei Brief v1, PRD Draft v0.3 e os marcos Diagnóstico, Execução e Validação como cinco cartões de referência, não como tarefas concluídas. Cada cartão foi consultado individualmente e pertence ao projeto, sem arquivamento. A listagem agregada da API, porém, retornou zero itens; a visibilidade dos cartões na interface ainda não foi validada. Não recriei cartões para evitar duplicação. O Linear continua sem issues neste checkpoint; Epics e Stories não foram inventadas. O espelhamento é manual por checkpoints, sem sincronização automática.
+
 ### Onde a IA errou e como corrigi
 
 | Ocorrência | Minha intervenção ou correção do agente | Resultado e evidência |
