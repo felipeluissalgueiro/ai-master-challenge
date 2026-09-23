@@ -1,7 +1,8 @@
 # MAR-103 — núcleo do simulador
 
-Estado: função pura e testes implementados; formulário, integração e QA visual
-pendentes. Não é funcionalidade de UI pronta nem issue concluída.
+Estado: função pura e testes implementados; formulário e rota preparados.
+Integração no shell e QA de navegador/visual pendentes. Não é UI aprovada nem
+issue concluída.
 
 ## Contrato
 
@@ -38,3 +39,21 @@ limites numéricos, ausência de dependências e separação entre cálculo/form
 Não é revisão por pares. A UI deve identificar cenário hipotético e pedir
 entradas do mesmo escopo/período; testes de função não comprovam essa jornada.
 Sem alterações em relatórios, paleta, dados, credenciais ou deploy.
+
+## Formulário e rota — próximo checkpoint
+
+Preparados `src/components/simulator/cost-simulator.tsx` e
+`src/app/simulador/page.tsx`: entradas vazias, cenário hipotético identificado,
+escopo/período comuns, labels, resultados em região aria-live e invalidação do
+resultado após cada alteração. CRM/CAC permanecem futuros.
+
+TypeScript estrito e ESLint passaram para o componente/rota; a verificação
+isolada usou os tipos React já instalados na worktree UI, mapeados explicitamente
+em configuração temporária. A primeira tentativa não encontrou as declarações
+React entre worktrees; não foi corrigida com any nem supressão de erro.
+Isso não substitui typecheck/build da aplicação integrada.
+
+`e2e/simulator.spec.ts` contém quatro cenários de browser: ausência inicial de
+valores comerciais, cálculo/invalidação, zero versus vazio e vendas fracionárias.
+ESLint passou para a spec. **Playwright ainda não executado para o formulário**;
+aguarda integração do shell, sem marcar PASS ou entregar para QA humano.
