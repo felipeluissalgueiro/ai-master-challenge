@@ -17,7 +17,13 @@ oito recomendações propostas (não decisões econômicas validadas), cobertura
 limites. Números indisponíveis são null com motivo. `manifest.json` registra
 hashes da fonte, banco, gerador e resultado; sem relógio variável no export.
 
-Estado: quatro testes e Ruff dos dois arquivos novos passaram. O gate completo
-da pasta analysis não passou (Ruff, complexidade e coleta JSCPD), portanto não
-há aprovação geral nem fechamento da MAR-99. Validação de schema completa,
-tipagem/integração com UI e gates formais permanecem pendentes.
+Estado: dez testes, Ruff, Radon (máximo B) e JSCPD (0% em dois arquivos)
+passaram no escopo do exportador e seus testes. O gate anterior da pasta
+analysis inteira continua sem aprovação; não foi confundido com esse escopo.
+Tipagem/integração com UI e registro dos gates formais permanecem pendentes.
+Não há fechamento da MAR-99. Ver checkpoint de validação em docs/05-validacao.
+
+A validação verifica estruturas consumidas, unidades, cobertura das oito
+perguntas, ordem dos quartis e IQR, reconciliação dos segmentos e ausência de
+valores não finitos/campos históricos superados. O snapshot ID depende de todo
+o conteúdo exportado; IDs de evidência/recomendação permanecem estáveis.

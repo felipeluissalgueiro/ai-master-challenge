@@ -3,6 +3,7 @@
 import argparse
 import hashlib
 import json
+import math
 import sqlite3
 from contextlib import closing
 from pathlib import Path
@@ -25,22 +26,88 @@ ACTIONS = (
     "Suspender conclusões de desperdício sem custo e receita medidos.",
     "Instrumentar campanha, padronizar métricas e registrar hipóteses.",
 )
+FORBIDDEN_FIELDS = {"creator_profile_eligible", "action_candidate", "measure_better"}
+COVERAGE_FIELDS = {"question", "status", "status_label", "basis", "limit"}
 
 
 def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def require(condition, message):
+    if not condition:
+        raise ValueError(message)
+
+
+def validate_tree(value):
+    """Reject legacy policy fields and values JSON consumers cannot represent."""
+    if isinstance(value, dict):
+        require(not FORBIDDEN_FIELDS.intersection(value), "Historical policy field rejected")
+        for child in value.values():
+            validate_tree(child)
+    elif isinstance(value, list):
+        for child in value:
+            validate_tree(child)
+    elif isinstance(value, float):
+        require(math.isfinite(value), "Non-finite metric rejected")
+
+
+def validate_summary(summary):
+    require(isinstance(summary, dict), "Invalid metric summary")
+    require(type(summary.get("n")) is int and summary["n"] > 0, "Invalid sample size")
+    points = [summary.get(key) for key in ("minimum", "p25", "median", "p75", "maximum")]
+    require(all(type(value) in (int, float) for value in points), "Missing numeric summary")
+    require(points == sorted(points), "Invalid quantile order")
+    spread = summary.get("iqr")
+    require(type(spread) in (int, float), "Missing IQR")
+    require(math.isclose(spread, points[3] - points[1], abs_tol=1e-10), "Invalid IQR")
+
+
+def validate_profiles(data):
+    profiles = data["performance"].get("profiles", {})
+    require(isinstance(profiles, dict), "Invalid profiles")
+    for dimension in ("platform", "content_type", "content_category", "follower_band"):
+        groups = profiles.get(dimension)
+        require(isinstance(groups, list) and bool(groups), f"Missing dimension: {dimension}")
+        require(all(isinstance(group, dict) for group in groups), "Invalid segment object")
+        labels = [group.get("label") for group in groups]
+        require(all(isinstance(label, str) and label for label in labels), "Invalid labels")
+        require(len(set(labels)) == len(labels), "Duplicate segment label")
+        for group in groups:
+            validate_summary(group.get("interaction_per_view_pct"))
+        require(sum(group["interaction_per_view_pct"]["n"] for group in groups) == 52214,
+                "Segment coverage does not reconcile")
+
+
+def validate_coverage(coverage_items):
+    for index, coverage in enumerate(coverage_items, start=1):
+        require(isinstance(coverage, dict) and set(coverage) == COVERAGE_FIELDS,
+                "Invalid coverage fields")
+        require(all(isinstance(value, str) and value for value in coverage.values()),
+                "Empty coverage text")
+        require(coverage["question"].startswith(f"{index}. "), "Coverage order changed")
+
+
 def validate_source(data):
+    require(isinstance(data, dict), "Evidence must be an object")
+    validate_tree(data)
+    for key in (*SECTIONS, "source", "metric", "availability"):
+        require(isinstance(data.get(key), dict), f"Missing object: {key}")
+    require(isinstance(data.get("coverage"), list), "Missing coverage")
+    require(isinstance(data.get("interpretation_guards"), list), "Missing limits")
     if data.get("schema_version") != "1.0.0":
         raise ValueError("Unsupported evidence schema")
     metric = data.get("metric", {})
     if metric.get("unit") != "percent" or metric.get("difference_unit") != "percentage_points":
         raise ValueError("Incompatible metric units")
-    if data["overall"]["rows"] != 52214 or len(data["coverage"]) != 8:
+    if data["overall"].get("rows") != 52214 or len(data["coverage"]) != 8:
         raise ValueError("Unexpected evidence coverage")
-    if data["source"]["database_sha256"] != DATABASE_HASH:
+    if data["source"].get("database_sha256") != DATABASE_HASH:
         raise ValueError("Unexpected source database")
+    validate_coverage(data["coverage"])
+    for key in ("views", "total_interactions", "interaction_per_view_pct"):
+        validate_summary(data["overall"].get(key))
+    validate_profiles(data)
 
 
 def build_contract(data):
@@ -56,17 +123,25 @@ def build_contract(data):
             **coverage, "action": action, "action_kind": "proposed_not_validated",
             "evidence_ids": [f"ev-{section}" for section in sections],
         })
-    return {
-        "schema_version": 1, "snapshot_id": f"g4-{EVIDENCE_HASH[:16]}",
+    payload = {
+        "schema_version": 1,
         "source": data["source"], "metric": data["metric"],
         "evidence": evidence, "recommendations": recommendations,
         "availability": data["availability"], "limits": data["interpretation_guards"],
         "commercial": {"revenue": None, "cost_per_sale": None, "cac": None,
                        "reason": "Costs, attributed sales and customers absent from source"},
     }
+    content = json.dumps(payload, sort_keys=True, ensure_ascii=False, allow_nan=False)
+    payload["snapshot_id"] = "g4-" + hashlib.sha256(content.encode()).hexdigest()[:24]
+    return payload
 
 
 def export(source, database, output):
+    protected = {source.resolve(), database.resolve(), source.parent.resolve() / "manifest.json"}
+    for filename in ("dashboard.json", "manifest.json"):
+        target = output / filename
+        require(not target.is_symlink() and target.resolve() not in protected,
+                "Output conflicts with protected evidence")
     if digest(source) != EVIDENCE_HASH or digest(database) != DATABASE_HASH:
         raise ValueError("Source hash mismatch; review checkpoint before exporting")
     with closing(sqlite3.connect(database.resolve().as_uri() + "?mode=ro", uri=True)) as connection:

@@ -50,6 +50,62 @@ class ExportTests(unittest.TestCase):
                 export(SOLUTION / "reports/README.md", DATABASE, target)
             self.assertFalse(target.exists())
 
+    def test_reject_missing_sections(self):
+        for key in ("overall", "source", "metric", "performance", "coverage", "availability"):
+            invalid = copy.deepcopy(self.data)
+            del invalid[key]
+            with self.subTest(key=key), self.assertRaises(ValueError):
+                validate_source(invalid)
+
+    def test_reject_historical_fields_and_nonfinite_metrics(self):
+        for field in ("creator_profile_eligible", "action_candidate", "measure_better"):
+            invalid = copy.deepcopy(self.data)
+            invalid["creators"][field] = True
+            with self.subTest(field=field), self.assertRaises(ValueError):
+                validate_source(invalid)
+        for number in (float("nan"), float("inf"), float("-inf")):
+            invalid = copy.deepcopy(self.data)
+            invalid["overall"]["views"]["median"] = number
+            with self.subTest(number=number), self.assertRaises(ValueError):
+                validate_source(invalid)
+
+    def test_reject_coverage_order_and_injected_id(self):
+        invalid = copy.deepcopy(self.data)
+        invalid["coverage"].reverse()
+        with self.assertRaisesRegex(ValueError, "order"):
+            validate_source(invalid)
+        invalid = copy.deepcopy(self.data)
+        invalid["coverage"][0]["id"] = "injected"
+        with self.assertRaisesRegex(ValueError, "coverage fields"):
+            validate_source(invalid)
+
+    def test_reject_bad_summary_and_segment_counts(self):
+        invalid = copy.deepcopy(self.data)
+        invalid["overall"]["views"]["p25"] = 999999
+        with self.assertRaisesRegex(ValueError, "quantile"):
+            validate_source(invalid)
+        invalid = copy.deepcopy(self.data)
+        invalid["performance"]["profiles"]["platform"][0]["interaction_per_view_pct"]["n"] += 1
+        with self.assertRaisesRegex(ValueError, "reconcile"):
+            validate_source(invalid)
+
+    def test_snapshot_changes_with_content_but_ids_are_stable(self):
+        before = build_contract(self.data)
+        altered = copy.deepcopy(self.data)
+        altered["coverage"][0]["basis"] += " Revisão."
+        after = build_contract(altered)
+        self.assertNotEqual(before["snapshot_id"], after["snapshot_id"])
+        self.assertEqual(before["recommendations"][0]["id"], after["recommendations"][0]["id"])
+
+    def test_protect_source_manifest_and_symlink(self):
+        with self.assertRaisesRegex(ValueError, "protected"):
+            export(SOURCE, DATABASE, SOURCE.parent)
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory)
+            (target / "dashboard.json").symlink_to(SOURCE)
+            with self.assertRaisesRegex(ValueError, "protected"):
+                export(SOURCE, DATABASE, target)
+
 
 if __name__ == "__main__":
     unittest.main()
