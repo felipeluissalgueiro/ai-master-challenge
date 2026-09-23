@@ -6,6 +6,7 @@ pipeline completo Bronze/Prata/Ouro possuem scripts determinísticos versionados
 
 ## Estrutura analítica
 
+- [reports/](reports/README.md): relatório executivo de performance e estratégia, com evidência estruturada e navegação para o visualizador.
 - [prototype/](prototype/README.md): HTML exploratório autocontido e gerador reproduzível; abrir `index.html` localmente. Sem deploy; GitHub exibe o fonte.
 - `analysis/`: scripts Python versionáveis, somente com biblioteca padrão.
 - `data/generated/`: SQLite derivado e reconstruível, ignorado pelo Git.

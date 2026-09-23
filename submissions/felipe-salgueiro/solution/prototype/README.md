@@ -2,7 +2,8 @@
 
 Página HTML estática e autocontida, gerada deterministicamente das tabelas Ouro
 do SQLite de evidência. Não possui login, LLM, backend, dependências externas ou
-deploy. Não é a interface final aprovada.
+deploy. Não é a interface final aprovada. Compartilha o padrão visual G4 do
+relatório executivo e oferece navegação direta entre os dois artefatos.
 
 ## Gerar
 
@@ -50,7 +51,9 @@ explicitamente fora deste protótipo.
 
 ## Limites deliberados
 
-- Não usa `creator_profile_eligible` nem mostra ranking de creators.
+- Não usa `creator_profile_eligible`. O ranking de creators ficou fora deste
+  visualizador por escolha de escopo; `creator_id` é válido, enquanto
+  `creator_name` é inconsistente na fonte.
 - Não consome `action_candidate` nem apresenta `measure_better` como decisão.
 - Não calcula ROI, alcance, impressões ou retenção ausentes.
 - Não transforma diferenças pequenas em instrução de corte ou escala.

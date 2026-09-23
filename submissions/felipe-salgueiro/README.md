@@ -12,6 +12,8 @@ Escolhi o case pela minha experiência com marcas e conteúdo. Usei IA para comp
 
 ## Solução
 
+[Relatório executivo para o Head de Marketing](solution/reports/README.md): oito respostas, provas numéricas e estratégia em três passos. Baixe/clone e abra `solution/reports/performance-strategy.html` no navegador.
+
 [Protótipo HTML exploratório local](solution/prototype/README.md): baixe/clone e abra `solution/prototype/index.html`. O GitHub mostra o código-fonte; não há site implantado. Não é a interface final aprovada.
 
 ### Abordagem
