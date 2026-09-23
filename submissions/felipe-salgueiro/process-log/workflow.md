@@ -1,6 +1,6 @@
-<!-- Export do diário Obsidian, 23/09/2026, até workflow 82. Caminhos, IDs de sessão e detalhes internos de segurança omitidos. Estados históricos preservados. -->
+<!-- Export do diário Obsidian, 23/09/2026, até workflow 85. Caminhos, IDs de sessão e detalhes internos de segurança omitidos. Estados históricos preservados. -->
 
-> Estado atual: Brief consolidado; PRD Draft v0.1; scripts Bronze/Silver em checkpoint; página pública sem login definida, ainda não implementada. O primeiro commit agrupa preparação anterior e não simula histórico retroativo.
+> Estado atual: Brief consolidado; PRD Draft v0.2; scripts Bronze/Silver em checkpoint; página pública sem login definida, ainda não implementada. O primeiro commit agrupa preparação anterior e não simula histórico retroativo.
 
 # Preparação da submissão — Felipe Salgueiro — Challenge 004
 
@@ -224,6 +224,12 @@ Cronologia numerada em primeira pessoa. Cada nova etapa registra pedido ou açã
 81. **Autorizei iniciar o PRD em paralelo à conclusão da análise, seguindo nosso canon.** Após discutir se deveríamos aguardar, concordei em estruturar objetivo, experiência e requisitos, mantendo creators/seguidores, datas, demografia e resultados de performance como dependências para fechar o documento. A Lia consultou o Brief no Linear e acionou um subagente com a persona Paloma, conforme `linear-prd`, para redigir o rascunho no template canônico. Não autorizei por esse passo a implementação da página, deploy ou submissão. Epics e Stories não serão criados a partir de escopo ainda não aprovado; a validação técnica de Vitor vem após o grill do PRD.
 
 82. **O PRD foi redigido por Paloma e consolidado pela Lia como Draft v0.1.** A versão foi salva no [Linear](https://linear.app/cadencia/document/prd-challenge-004-estrategia-social-media-rastreavel-53e713ae38cf), com snapshots no contexto da worktree, Obsidian Empresa e pasta docs/02-prd da submissão. O documento organiza panorama, comparação, recomendação e método, com critérios de rastreabilidade e reprodução. A Lia ajustou os marcos aos existentes no projeto e explicitou que creator/audiência continuam perguntas obrigatórias mesmo quando a resposta for uma limitação. O grill permanece sem fechamento enquanto a análise não termina; Vitor ainda não validou este PRD, e nenhum Epic foi criado. Revisei a direção geral, não aprovei os requisitos finais. O diário também teve suas sínteses de estado atualizadas para não continuar dizendo que não há código ou commits; os eventos históricos foram preservados.
+
+83. **Corrigi a condução do PRD: eu precisava participar do grill antes da consolidação.** A Lia havia salvo o rascunho sem discutir seus requisitos comigo. Questionei isso e retomamos as decisões uma por vez. Defini que o gestor precisa entender o que funciona, o que é desperdício e o que fazer agora, com recomendações justificadas em números. Pedi comparação com o histórico do creator e benchmark genérico estático na UI, sem scraping; rankings temporais dependem dos dados.
+
+84. **Defini a visão comercial e o papel do agente.** Conteúdo é um canal de aquisição; quero mostrar a possibilidade de acompanhar leads, vendas e retorno. Decidi que CRM e CAC por campanha são capacidades futuras, sem inventar dados comerciais. Para a versão atual, quero conversar apenas sobre a recomendação selecionada, como na Gestão de Tráfego do Cadência. Propus classificador determinístico e eventual JEV quando útil/disponível; para pago, pedi reaproveitar os critérios do Cadência que considero validados, respeitando os campos necessários.
+
+85. **Esclareci que a SLM é uma proposta futura, não o modelo desta entrega.** Como gestor da área, eu proporia avaliar uma SLM especializada em marketing com dados autorizados dos creators da empresa. Não temos acesso a esse recurso agora. Para o projeto, escolhi LLM via OpenRouter. A Lia registrou essa distinção no PRD Draft v0.2, com contexto restrito à recomendação, métricas calculadas por código, reconhecimento de lacunas e dependências de segurança/custo para a RFC. Não houve treinamento, chamada de inferência, acesso a credenciais, integração CRM ou implantação. O PRD completo continua sem aprovação final.
 
 ### Onde a IA errou e como corrigi
 

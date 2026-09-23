@@ -5,7 +5,7 @@ Esta pasta organiza os documentos pelo estágio da cascata usada no Linear, sem 
 |---|---|---|
 | [00-projeto](00-projeto/README.md) | Projeto e marcos reais do Linear | Exportados |
 | [01-brief](01-brief/README.md) | Entrada, pesquisa, hipóteses e lacunas | Brief v1 consolidado; auditoria em andamento |
-| [02-prd](02-prd/README.md) | Requisitos e aceitação | Draft v0.1; fechamento depende da análise |
+| [02-prd](02-prd/README.md) | Requisitos e aceitação | Draft v0.2; fechamento depende da análise |
 | [03-rfc](03-rfc/README.md) | Arquitetura quando aplicável | Gate pendente |
 | [04-planejamento](04-planejamento/README.md) | Epics, Stories e planos | Ainda sem issues no projeto |
 | [05-validacao](05-validacao/README.md) | Evidências de qualidade da solução | Checkpoint Bronze/Silver; não valida a solução final |

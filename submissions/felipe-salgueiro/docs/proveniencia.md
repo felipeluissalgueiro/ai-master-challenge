@@ -20,10 +20,10 @@ Snapshot revisado em 23/09/2026 para checkpoints no fork, autorizados por Felipe
 | [Hipóteses](01-brief/hipoteses-e-lacunas.md) | Debate registrado no workflow | Síntese editorial; não é Brief aprovado |
 | READMEs e método | Organização solicitada por Felipe | Redação assistida por Lia, sem validar a solução |
 
-Na consulta inicial havia zero documentos e issues. Posteriormente, o [Brief v1](01-brief/brief.md) foi criado no Linear e exportado. O [PRD Draft v0.1](02-prd/prd.md) foi elaborado por Paloma e consolidado por Lia; seu fechamento depende da análise e revisão. RFC e tarefas individuais permanecem pendentes; não foram fabricados para preencher a estrutura.
+Na consulta inicial havia zero documentos e issues. Posteriormente, o [Brief v1](01-brief/brief.md) foi criado no Linear e exportado. O [PRD Draft v0.2](02-prd/prd.md) foi elaborado por Paloma e consolidado por Lia; seu fechamento depende da análise e revisão. RFC e tarefas individuais permanecem pendentes; não foram fabricados para preencher a estrutura.
 
 SHA-256 das notas originais no momento da exportação (antes do tratamento):
-- Diário atualizado até workflow 82: `285be19a78da690fc50e98ac0454f1384dd76d538d8a1f09cf0207df0232bc0a`.
+- Diário atualizado até workflow 85: `19039b5f229f26efc3a85104866834183d3df39a968903d747a0f5083c4504dc`.
 - Panorama: `9168a5b643541134189f1418a93c1aade7a881e9ab10ae97b61e374d6f79538b`.
 - Inventário: `04490e62970f30ac2ea7ac950d25fd88ad1d8ff3a635165baf3770ad551de33d`.
 
