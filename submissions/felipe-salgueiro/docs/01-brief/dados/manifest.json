@@ -1,0 +1,38 @@
+{
+  "dataset": {
+    "name": "Social Media Sponsorship and Engagement Dataset",
+    "publisher": "omenkj",
+    "source_url": "https://www.kaggle.com/datasets/omenkj/social-media-sponsorship-and-engagement-dataset/data",
+    "metadata_url": "https://www.kaggle.com/api/v1/datasets/view/omenkj/social-media-sponsorship-and-engagement-dataset",
+    "license": "MIT",
+    "nature": "simulated_dataset_as_declared_by_publisher",
+    "zip_sha256": "ce78ea3352fe1ae6093e6f5d48b506ad591c6e6ca90fbab6ac91866a8c34202e",
+    "csv_sha256": "693a2df6e609d1c099f3430d9a5b894b224fe12b2420c0d93e6defe90d15f18e",
+    "rows": 52214,
+    "source_columns": 27
+  },
+  "generated_artifact": {
+    "relative_path": "solution/data/generated/social_media_bronze.sqlite",
+    "git_policy": "ignored_rebuildable_artifact",
+    "snapshot_sha256": "7216557b386fa3898b72c71af3637099ead55790ecddf54a62ae9f84be6109f4",
+    "logical_dump_sha256": "c4e3a37e085c9799f356264db567952c5eb38548856737c40d106dc54ee7d67d",
+    "integrity_check": "ok",
+    "bronze_rows": 52214,
+    "silver_metric_rows": 52214
+  },
+  "scripts": [
+    {
+      "relative_path": "solution/analysis/build_bronze.py",
+      "sha256": "6b2033da25e0aab7be3c7ca36bfad3922e542fb0adba9790b4fc51ee60c72a4b"
+    },
+    {
+      "relative_path": "solution/analysis/build_silver_metrics.py",
+      "sha256": "e8add1ddd4181f711b6d4154b9d86cd517dfd67ac9398455c965ed168d951f1f"
+    }
+  ],
+  "notes": [
+    "The SQLite byte hash is a snapshot identifier; logical contents are validated separately.",
+    "The source ZIP and CSV remain outside the repository.",
+    "No JEV, model, app, deployment or Gold layer is part of this snapshot."
+  ]
+}
