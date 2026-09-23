@@ -1,8 +1,8 @@
-Fonte canônica: [PRD no Linear](https://linear.app/cadencia/document/prd-challenge-004-estrategia-social-media-rastreavel-53e713ae38cf). Snapshot Draft v0.3 de 23/09/2026; não editar independentemente da fonte.
+Fonte canônica: [PRD no Linear](https://linear.app/cadencia/document/prd-challenge-004-estrategia-social-media-rastreavel-53e713ae38cf). Snapshot Draft v0.4 de 23/09/2026; não editar independentemente da fonte.
 
 # PRD — Challenge 004: Estratégia Social Media rastreável
 
-**Projeto Linear:** [P-MAR-55](<https://linear.app/cadencia/project/tech-g4-ai-master-challenge-004-social-media-6da71df65f6c>) · **Autor:** Felipe, com elaboração assistida por Paloma (PO) e consolidação por Lia · **Status:** Draft v0.3 · **Data:** 23/09/2026
+**Projeto Linear:** [P-MAR-55](<https://linear.app/cadencia/project/tech-g4-ai-master-challenge-004-social-media-6da71df65f6c>) · **Autor:** Felipe, com elaboração assistida por Paloma (PO) e consolidação por Lia · **Status:** Draft v0.4 · **Data:** 23/09/2026
 
 Rascunho atualizado com decisões do grill; aprovação integral e revisão técnica pendentes. Requisitos propostos; não implementados como entrega integrada. Fonte de escopo: [Brief aprovado](<https://linear.app/cadencia/document/brief-d5c5e4cd5481>).
 
@@ -10,7 +10,7 @@ Rascunho atualizado com decisões do grill; aprovação integral e revisão téc
 
 O Head de Marketing precisa decidir onde concentrar esforço, quais parcerias testar e o que reduzir ou medir melhor. Contagens e médias isoladas não sustentam essas decisões. Esse é o problema proposto pelo enunciado; não é diagnóstico de uma operação real do G4.
 
-A fonte contém 52.214 registros sintéticos e 27 colunas. O checkpoint do agente registra Bronze, métricas e dimensões Prata com paridade de linhas; os resultados de creators/seguidores, datas, demografia e performance precisam incorporar essa revisão antes de sustentar exclusões de funcionalidades. O agente concluiu o pipeline até Ouro em sua worktree, mas a interpretação do relatório está em revisão contra o dicionário oficial. Integração desses artefatos e página continuam pendentes. O volume não comprova representatividade nem utilidade dos sinais.
+A fonte contém 52.214 registros sintéticos e 27 colunas. Pipeline Bronze/Prata/Ouro, relatório revisado pelo dicionário oficial e SQLite de evidência foram integrados ao fork (checkpoints cf0ba03 e f04988b). A integração conferiu hashes, integridade do banco e sintaxe/imports dos scripts; a execução completa foi realizada pelo agente de dados, sem repetição pela Lia. As análises descritivas estão disponíveis; contrato/exportador Ouro e página permanecem pendentes. O volume não comprova representatividade nem utilidade dos sinais.
 
 ## Objetivo & métricas de sucesso
 
@@ -36,7 +36,7 @@ São critérios da entrega; não prometem aumento de engajamento, receita ou des
 ## Escopo (in)
 
 * Aplicação e função do chat na Vercel; consumo de arquivos Ouro exportados, sem SQLite gravável em produção nem VPS Master/Dev. Chave OpenRouter exclusiva do challenge, somente no servidor e com limite de crédito a definir.
-* SQLite completo como evidência no fork, em snapshot consistente acompanhado de scripts, manifesto e instruções de consulta. Preparação, tamanho, integridade e inclusão efetiva ainda pendentes; original de trabalho e auxiliares permanecem preservados/ignorados.
+* SQLite completo como evidência no fork, em snapshot consistente acompanhado de scripts, manifesto e instruções de consulta. Snapshot publicado com 58,75 MiB, integridade e hashes conferidos; original de trabalho e auxiliares permanecem preservados/ignorados.
 * Análise descritiva por plataforma, formato, categoria e patrocínio; tamanho de creator e demografia são perguntas obrigatórias cuja resposta depende da auditoria, podendo resultar em limitação documentada. Recortes por período são condicionais à utilidade comprovada.
 * Estratégia priorizada: concentração de esforço, política de patrocínio, atividades a reduzir e quick wins.
 * Página independente: panorama → comparação → justificativa → método.
@@ -54,14 +54,16 @@ Cadência operacional, cadastro próprio de usuários, tenants, integrações op
 - [ ] **RF01 — Panorama:** apresentar origem, natureza sintética, cobertura, perguntas obrigatórias e estado das evidências, sem antecipar findings.
 - [ ] **RF02 — Comparação:** filtrar plataforma, formato, categoria e flag de patrocínio; incorporar creator/período somente após validação de qualidade e utilidade. Exibir recorte, n, denominador, medida, dispersão e exclusões.
 - [ ] **RF03 — Métricas:** nomear explicitamente interações/views, interações/seguidores e views/seguidores; informar fórmula e agregação. O CSV não contém engagement_rate.
-- [ ] **RF04 — Patrocínio:** comparar grupos comparáveis nas dimensões validadas, sem alegar equivalência causal; usar “não patrocinado segundo a flag”. Explicitar limites para custo implícito e decisão de investimento. Sem custo, qualquer preço-limite será cenário com premissas, nunca resultado observado; sua inclusão depende do fechamento do escopo.
+- [ ] **RF04 — Patrocínio:** comparar grupos comparáveis nas dimensões validadas, sem alegar equivalência causal; usar “não patrocinado segundo a flag”. Explicitar limites para custo implícito e decisão de investimento. Sem custo observado, explorar custos somente no simulador hipotético RF12; nenhum cenário comprova retorno ou preço justo da parceria.
 - [ ] **RF05 — Audiência:** apresentar composição agregada apenas após auditoria; não identificar essa composição como perfil dos indivíduos que engajaram. Se inadequada, responder à pergunta com a lacuna e medição necessária.
 - [ ] **RF06 — Recomendação:** mostrar pergunta, evidência identificável, limite, ação candidata e justificativa da prioridade. Cobrir foco, patrocínio, o que parar e quick wins; indicar quando frequência ou threshold de seguidores/engajamento não são identificáveis. Separar continuidade do tema, da execução e desdobramento editorial, sem classificar conteúdo sem evidência semântica.
 - [ ] **RF07 — Insuficiência:** distinguir recorte vazio, dado inválido, evidência insuficiente e desempenho inferior. Sem sustentação, recomendar medir melhor ou um experimento.
 - [ ] **RF08 — Reprodução:** ligar resultados Ouro às transformações Prata e à origem Bronze; documentar execução e incluir process log com ferramentas, decomposição, erros, correções e julgamento humano.
 - [ ] **RF09 — Conversa contextual:** usar LLM via OpenRouter nesta entrega para explicar exclusivamente a recomendação selecionada, seus indicadores calculados, regras e limitações. Não realizar cálculos de negócio no modelo, inventar números, responder fora do contexto ou executar ações. Informar insuficiência de dados e apontar a evidência de cada resposta factual. Modelo específico e configuração ainda a definir.
 - [ ] **RF10 — Comparação e decisão:** priorizar o que continuar, rever/parar ou testar, com justificativas numéricas. Comparar com a média do próprio creator quando houver histórico comparável; apresentar benchmark genérico estático, com fonte, período e fórmula verificados, sem scraping. A referência externa é contextual e não fundamenta automaticamente decisões de investimento em uma base sintética.
-- [ ] **RF11 — Visão comercial futura:** representar na UI leads, vendas e CAC como não mensurados, nunca como zero ou dados fictícios. Conexão ao CRM é capacidade futura; CAC por campanha requer custos, novos clientes e atribuição definidos.
+- [ ] **RF11 — Visão comercial futura:** representar na UI leads, vendas e CAC como não mensurados, nunca como zero ou dados fictícios. Conexão ao CRM é capacidade futura: associar vendas efetivamente registradas ao parceiro por link rastreado ou cupom, com regra de atribuição e deduplicação explícitas. Clique não comprova venda. CAC por campanha exige custos e novos clientes atribuídos; venda de cliente recorrente não conta como nova aquisição.
+
+- [ ] **RF12 — Simulador hipotético de patrocínio:** permitir informar o custo considerado da parceria e a quantidade hipotética de vendas atribuídas. Calcular deterministicamente custo por mil views (`1000 × custo / views`), custo por interação (`custo / interações`) e custo por venda (`custo / vendas atribuídas`). Explicitar componentes de custo (parceria, comissão, produção ou outros informados), unidades, período/recorte e origem de cada denominador. Views e interações podem vir do recorte selecionado como referência descritiva, nunca previsão de entrega; se a referência for por post, indicar a hipótese de custo de um post, sem misturar custo de campanha com mediana por post. Separar visualmente métricas observadas no dataset de entradas e resultados hipotéticos. Não preencher vendas ou taxas de conversão fictícias como evidência. Com zero vendas, exibir custo por venda não calculável e “sem vendas atribuídas no cenário”; vazio significa não informado. Rejeitar valores negativos e vendas fracionárias. Não denominar custo por venda como CAC ou ROI. Exemplo de aceite: R$ 2.000 / 20 vendas hipotéticas = R$ 100 por venda.
 
 ## Requisitos não-funcionais
 
@@ -73,7 +75,7 @@ Desempenho de carregamento e contrato de exportação serão definidos com o vol
 
 ## Riscos & dependências
 
-* **Revisão de interpretação solicitada por Felipe:** fonte fictícia é intencional e não invalida análise descritiva do cenário. O dicionário oficial define seguidores na data do post, idade/gênero predominantes e duração em segundos para vídeos ou palavras para texto. Variar seguidores não invalida sozinho um creator; identidade e nomes devem ser avaliados separadamente. A exclusão ampla de análise longitudinal e o veredito único de medir melhor estão sob revisão. Não inventar diferenças relevantes nem ROI ausente. Fonte: [descrição do Kaggle](<https://www.kaggle.com/datasets/omenkj/social-media-sponsorship-and-engagement-dataset/data>), conferida via API em 23/09/2026.
+* **Revisão de interpretação solicitada por Felipe:** fonte fictícia é intencional e não invalida análise descritiva do cenário. O dicionário oficial define seguidores na data do post, idade/gênero predominantes e duração em segundos para vídeos ou palavras para texto. Variar seguidores não invalida sozinho um creator; identidade e nomes devem ser avaliados separadamente. A revisão permite rankings descritivos por creator_id e segmentos predominantes. creator_name não é confiável; a elegibilidade histórica baseada em seguidores estáveis foi superada. O valor measure_better é fixo no código Ouro histórico, não um classificador aprovado; ambos os campos não podem orientar o produto. Não inventar diferenças relevantes nem ROI ausente. Fonte: [descrição do Kaggle](<https://www.kaggle.com/datasets/omenkj/social-media-sponsorship-and-engagement-dataset/data>), conferida via API em 23/09/2026.
 * **Creators/seguidores:** validar identidade, repetição e consistência antes de definir faixas ou tratar posts como observações independentes.
 * **Datas:** validar formato, período e cobertura; data de publicação não comprova janela equivalente de exposição nem frequência ótima.
 * **Demografia:** validar estrutura, somas e consistência por creator/post; campos inadequados devem gerar limitação explícita.
@@ -86,7 +88,7 @@ Desempenho de carregamento e contrato de exportação serão definidos com o vol
 
 **Grill — avaliação preliminar:** manter em rascunho; fechamento pendente. O usuário de referência e os limites de acesso/reutilização vêm do Brief aprovado. A rastreabilidade é critério verificável, não promessa de impacto de negócio. Se não houver diferenças úteis, a entrega deve demonstrar insuficiência e orientar medição/experimentos, sem fabricar vencedores. O grill está em andamento com Felipe: recomendações fundamentadas, conversa restrita à recomendação, benchmark estático, CRM/SLM futuros e LLM via OpenRouter foram definidos durante a discussão. O documento completo ainda não foi aprovado.
 
-As dependências analíticas impedem fechar o PRD para aprovação e criar Epics, sem impedir seu refinamento paralelo. Vitor valida viabilidade e agrupamento somente após o fechamento do grill; RFC e implementação da página não foram autorizadas por este rascunho.
+A análise revisada já foi integrada. O simulador com custo por venda foi aprovado por Felipe neste grill; essa aprovação não equivale à aprovação integral de todo o documento. O fechamento do escopo e os critérios do contrato Ouro ainda devem ser consolidados antes da criação de Epics. Vitor valida viabilidade e agrupamento somente após o fechamento do grill; RFC e implementação da página não foram autorizadas por este rascunho.
 
 ## Stories previstas
 
@@ -94,7 +96,7 @@ Candidatas, sem tickets, agrupadas em três capacidades verticais:
 
 1. **Entender a evidência:** consultar panorama; verificar cobertura e qualidade; reproduzir métricas com proveniência.
 2. **Comparar com contexto:** selecionar recortes válidos; comparar patrocínio; reconhecer insuficiência e limites demográficos/temporais.
-3. **Decidir com rastreabilidade:** inspecionar recomendações priorizadas; navegar à evidência; consultar método, limitações e process log.
+3. **Decidir com rastreabilidade:** inspecionar recomendações priorizadas; navegar à evidência; simular custos por views, interação e venda sem confundir cenários com observações; consultar método, limitações e process log.
 
 ## Marcos
 
