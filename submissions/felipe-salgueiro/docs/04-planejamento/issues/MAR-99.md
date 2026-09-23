@@ -55,3 +55,5 @@ Scenario: fechar contrato e exportar evidências para a aplicação
 | Then | Evidência |
 | -- | -- |
 | AC-1:1 | gate:reproducibilidade-e-reconciliacao — verificação objetiva descrita no cenário, a implementar/executar; não é PASS existente |
+
+Plano técnico: [plano MAR-99](../planos/MAR-99.md), anexado também ao Linear e à issue real do GitHub; estado planejado, não iniciado.

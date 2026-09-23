@@ -25,4 +25,8 @@ Dez descrições passaram no template_guard feature. Critérios, cenários e ver
 
 ## Espelho GitHub
 
-[Project público](https://github.com/users/felipeluissalgueiro/projects/2). Linear é a fonte; cartões são drafts de planejamento, não issues upstream. Atualização manual por checkpoints. Hierarquia e dependências constam no corpo dos cartões; não simular sub-issues nativas entre drafts.
+[Issues reais do fork](https://github.com/felipeluissalgueiro/ai-master-challenge/issues) criadas após autorização explícita de Felipe: #1 a #10. Linear é a fonte; planos e vínculos constam nos corpos. [Project público](https://github.com/users/felipeluissalgueiro/projects/2) recebeu os vínculos, mas a listagem agregada continua vazia, apesar da confirmação individual; visibilidade no quadro não resolvida. Os drafts anteriores foram preservados. [Mapeamento e verificação](github-project-items.json).
+
+## Planos técnicos
+
+Sete planos curtos em planos/MAR-99.md a MAR-105.md, anexados ao Linear e às issues reais GitHub. Decisões já fechadas foram reaproveitadas a pedido de Felipe; start e implementação não executados nesta rodada.
