@@ -14,9 +14,9 @@ Escolhi o case pela minha experiência com marcas e conteúdo. Usei IA para comp
 ### Abordagem
 Preservar a fonte na camada Bronze; validar e derivar métricas na Prata; somente depois produzir comparações e recomendações. [Brief consolidado](docs/01-brief/brief.md).
 ### Resultados / Findings
-Ingestão e métricas iniciais disponíveis. Pipeline final disponível na worktree de análise; interpretação em revisão contra o dicionário oficial. Findings e recomendações finais ainda não integrados. [Reprodução e artefatos](solution/README.md).
+Pipeline analítico, banco de evidência e [relatório revisado](docs/01-brief/dados/relatorio-final.md) disponíveis. Comparações descritivas integradas; estratégia final e exportador da aplicação ainda pendentes. [Reprodução e artefatos](solution/README.md).
 ### Recomendações
-Pendentes da análise.
+O [relatório revisado](docs/01-brief/dados/relatorio-final.md) propõe priorizar testes e melhorar medição; a estratégia final do produto ainda não foi aprovada.
 ### Limitações
 Fonte sintética; sem retenção de 3s, alcance, impressões, custos ou conversões. Campos textuais não serão tratados como voz real da audiência. Patrocínio não comprova mídia paga; associação não prova causalidade.
 
@@ -37,6 +37,6 @@ Trouxe meu contexto de marcas/conteúdo, propus examinar gancho/contexto/informa
 - [Pesquisa preparatória e ressalvas](docs/01-brief/pesquisa/README.md).
 - [Workflow](process-log/README.md) e [proveniência dos exports](docs/proveniencia.md).
 
-Scripts iniciais e [registro de validação](docs/05-validacao/checkpoint-bronze-silver.md) incluídos. Gravações e notebook não anexados. O primeiro checkpoint reúne preparação local anterior; os próximos commits registrarão a evolução efetiva, sem retroagir datas. [Snapshot integral do banco](solution/data/evidence/README.md) incluído com manifesto e limites conhecidos; [validação da integração](docs/05-validacao/checkpoint-integracao-evidencia.md). Scripts finais ainda aguardam integração. A aplicação usará dados Ouro exportados, sem banco integrado.
+Scripts iniciais e [registro de validação](docs/05-validacao/checkpoint-bronze-silver.md) incluídos. Gravações e notebook não anexados. O primeiro checkpoint reúne preparação local anterior; os próximos commits registrarão a evolução efetiva, sem retroagir datas. [Snapshot integral do banco](solution/data/evidence/README.md) incluído com manifesto e limites conhecidos; [validação da integração](docs/05-validacao/checkpoint-integracao-evidencia.md). Scripts finais integrados com hashes preservados e limites históricos documentados. A aplicação usará dados Ouro exportados, sem banco integrado.
 
 **Submissão enviada em:** não enviada.

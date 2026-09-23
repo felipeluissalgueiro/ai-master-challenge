@@ -16,3 +16,13 @@
 Divisões por zero produzem valor nulo e flag explícita. Nesta versão, os cinco
 campos numéricos não apresentam zero. Nenhuma métrica autoriza inferência
 causal.
+
+## Alertas observados
+
+- `interaction_per_follower_pct` tem correlação de Spearman -0,9991 com
+  `follower_count`; o numerador varia pouco e a razão é dominada pelo
+  denominador. Não usar para concluir que posts de bases menores engajam melhor.
+- `views_per_follower` tem o mesmo problema, com rho -0,9998.
+- `interaction_per_view_pct` é a única razão utilizável como demonstração
+  descritiva nesta fonte, ainda sem alcance, pessoas únicas, retenção ou
+  causalidade.

@@ -1,6 +1,6 @@
-<!-- Export do diário Obsidian, 23/09/2026, até workflow 94. Caminhos, IDs de sessão e detalhes internos de segurança omitidos. Estados históricos preservados. -->
+<!-- Export do diário Obsidian, 23/09/2026, até workflow 95. Caminhos, IDs de sessão e detalhes internos de segurança omitidos. Estados históricos preservados. -->
 
-> Estado atual: PRD Draft v0.3 incorpora acesso protegido e Ouro na Vercel. SQLite completo integrado como evidência com integridade e hashes conferidos; scripts finais e relatório corrigido ainda aguardam integração. Página não implementada. O primeiro commit agrupa preparação anterior e não simula histórico retroativo.
+> Estado atual: PRD Draft v0.3 incorpora acesso protegido e Ouro na Vercel. SQLite completo integrado como evidência com integridade e hashes conferidos; scripts finais e relatório corrigido integrados, com regras históricas superadas explicitadas. Página não implementada. O primeiro commit agrupa preparação anterior e não simula histórico retroativo.
 
 # Preparação da submissão — Felipe Salgueiro — Challenge 004
 
@@ -248,6 +248,8 @@ Cronologia numerada em primeira pessoa. Cada nova etapa registra pedido ou açã
 93. **Pedi que avançássemos após a configuração do Project.** Questionei como disponibilizar Brief e PRD e relatei que o fork não aparecia no seletor de repositórios. A Lia confirmou o vínculo pela API; a diferença na interface ficou como pendência não bloqueante, sem mudar configurações por suposição.
 
 94. **Pedi a integração do banco preparado pelo agente de dados.** Os agentes alinharam o destino `solution/data/evidence/` dentro da minha submissão. Mantive um único responsável por commit e push: Lia. O SQLite completo foi copiado sem alterar o original, acompanhado de manual, manifesto e checkpoint. A cópia passou por conferência independente de integridade, hash físico e dump lógico. A contagem foi esclarecida: 14 tabelas, 9 índices explícitos e 7 automáticos; uma consulta inicial com aspas incorretas foi corrigida. Não reexecutamos o pipeline. A regra antiga de elegibilidade de creators permanece identificada como superada e não deve ser usada. Os scripts finais e o relatório corrigido ainda precisam ser integrados; a publicação do banco de evidência não significa que a interface esteja pronta ou que o PRD esteja aprovado.
+
+95. **Integrei o restante da análise com apoio da Lia.** O agente de dados entregou o mapa de arquivos; preservamos os dois scripts já idênticos e adicionamos oito scripts, o relatório revisado e os checkpoints. Os dez hashes de scripts coincidem com o manifesto; sintaxe e imports via CLI foram conferidos, sem executar novamente o pipeline ou modificar o SQLite. Os checkpoints antigos receberam links para a correção do dicionário. Identificamos também que `measure_better` é um valor fixo no Ouro histórico, não uma classificação validada; ele e a elegibilidade superada de creators não devem orientar a UI. A análise descritiva está integrada; contrato/exportador Ouro e estratégia final continuam pendentes.
 
 ### Onde a IA errou e como corrigi
 
