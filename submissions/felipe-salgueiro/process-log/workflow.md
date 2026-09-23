@@ -1,4 +1,4 @@
-<!-- Export do diário Obsidian, 23/09/2026, até workflow 77. Caminhos, IDs de sessão e detalhes internos de segurança omitidos. Estados históricos preservados. -->
+<!-- Export do diário Obsidian, 23/09/2026, até workflow 78. Caminhos, IDs de sessão e detalhes internos de segurança omitidos. Estados históricos preservados. -->
 
 > Estado atual: Brief consolidado; scripts Bronze/Silver em checkpoint; página pública sem login definida, ainda não implementada. O primeiro commit agrupa preparação anterior e não simula histórico retroativo.
 
@@ -214,6 +214,8 @@ Cronologia numerada em primeira pessoa. Cada nova etapa registra pedido ou açã
 76. **Fechei o escopo da experiência pública e a consolidação do Brief.** Decidi não usar o Cadência operacional nem criar login: uma página exclusiva do challenge deve permitir ao avaliador entender meu raciocínio e explorar uma UI coerente com o problema. Podemos reaproveitar componentes com arquitetura mais simples, sem recriar a plataforma. A Lia salvou o [Brief v1 no Linear](https://linear.app/cadencia/document/brief-d5c5e4cd5481), com escopo, limites dos dados, critérios de conclusão e essa decisão; gerou snapshots identificados no fork, contexto da própria worktree e Obsidian Empresa. Alinhou Catarina, Vitor e o agente de dados. Não houve implementação de interface, conta, deploy ou publicação. O próximo documento é o PRD, detalhando jornadas, interações e critérios verificáveis.
 
 77. **Exigi que o progresso e a estrutura de pastas apareçam no fork durante o trabalho.** Ao consultar o GitHub, percebi que arquivos locais não estavam publicados e questionei a ausência de commits. A Lia confirmou que a branch só existia localmente e não havia commits próprios; autorizei commits e push contínuos de checkpoints, incluindo a organização das pastas e os documentos. Isso não autoriza abrir a PR final ao G4 nem expor arquivos privados ou bancos gerados. A Lia iniciou a revisão e atualização dos snapshots e coordenou com o agente de dados para publicar somente arquivos estáveis, sem fabricar histórico retroativo. Neste item o primeiro push ainda está em preparação; sua confirmação depende da verificação remota.
+
+78. **O primeiro checkpoint foi publicado no meu fork.** A Lia revisou e publicou 35 arquivos de estrutura, Brief, pesquisa, diagnóstico, catálogo, manifesto, scripts e process log no commit `b137f2c46695996ed84726046d64e5c5acb3cc18`, branch `submission/felipe-salgueiro`. Conferiu por Git o mesmo SHA no remoto. Executou Bronze e Silver em banco temporário isolado: 52.214 linhas em ambas, 27 colunas na origem e integridade OK; isso não valida a estratégia nem a UI. SQLite, CSV/ZIP, credenciais e detalhes privados ficaram fora. Este primeiro commit reúne trabalho local anterior sem simular commits retroativos; daqui em diante os checkpoints publicáveis serão enviados conforme avançamos. Não foi aberta PR ao G4.
 
 ### Onde a IA errou e como corrigi
 

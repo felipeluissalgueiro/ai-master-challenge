@@ -23,7 +23,7 @@ Snapshot revisado em 23/09/2026 para checkpoints no fork, autorizados por Felipe
 Na consulta inicial havia zero documentos e issues. Posteriormente, o [Brief v1](01-brief/brief.md) foi criado no Linear e exportado. PRD, RFC e tarefas individuais permanecem pendentes; não foram fabricados para preencher a estrutura.
 
 SHA-256 das notas originais no momento da exportação (antes do tratamento):
-- Diário atualizado até workflow 77: `14603f34dd9627381f9fe77b6df3b6be3a56a301e22d7094f92db55788ec07e0`.
+- Diário atualizado até workflow 78: `d328700a4c336913e5689e60d31c30566a5136534766ed8c4869fa1bf3d88bc1`.
 - Panorama: `9168a5b643541134189f1418a93c1aade7a881e9ab10ae97b61e374d6f79538b`.
 - Inventário: `04490e62970f30ac2ea7ac950d25fd88ad1d8ff3a635165baf3770ad551de33d`.
 
