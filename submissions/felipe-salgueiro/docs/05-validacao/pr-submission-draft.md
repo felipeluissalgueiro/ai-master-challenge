@@ -33,5 +33,5 @@ pendências. Todas as mudanças estão dentro da minha pasta de submissão.
 - [x] Lint, tipos, 18 testes unitários e build passaram após os ajustes do QA.
 - [ ] Reteste dos ajustes na nova Preview e registro das lacunas restantes.
 - [ ] Endereço LinkedIn conferido.
-- [ ] Vídeo opcional revisado para publicação; por enquanto somente local.
+- [x] Seleção de vídeo incluída, autorizada por Felipe; conferência por quadros a cada segundo e limites documentados.
 - [ ] PR final enviada — ainda não enviada.

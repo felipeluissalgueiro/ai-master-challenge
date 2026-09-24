@@ -331,6 +331,8 @@ Cronologia numerada em primeira pessoa. Cada nova etapa registra pedido ou açã
 
 135. **Revisão do repositório para submissão.** Pedi conferir o repo, workflow e QA, com acesso claro para o avaliador. Lia corrigiu resumos antigos que ainda diziam interface/exportador pendentes, incluiu roteiro de uso e setup, preservando a cronologia. Camila retornou QA parcial real no Brave: navegação, filtros e cenário principal do simulador funcionaram; encontrou títulos encobertos pelo menu e rótulos em inglês. Lia corrigiu os dois pontos; lint, tipos, 18 testes unitários e build passaram, com evidence.json/SQLite intactos. Nova Preview Ready foi publicada para reteste. Links relativos dos documentos alterados e identidade dos cinco prints foram conferidos. Diff contra main oficial restrito à pasta da submissão; PR ainda não enviada.
 
+136. **Vídeo autorizado para publicação.** Pedi subir a seleção e deixar a submissão preparada. Lia conferiu 24 quadros, um por segundo ao longo dos 24 segundos, sem identificar credenciais nessa amostragem; isso não equivale a revisão de todos os frames ou dos vídeos brutos. O MP4 sem áudio foi incluído em process-log/videos, com origem, intervalos e edição documentados. A revisão do repo é focada nos pontos de entrada, links alterados, escopo Git e gates executados; não foi declarada auditoria integral de todos os documentos históricos. QA remoto permanece parcial até conclusão do reteste.
+
 ### Onde a IA errou e como corrigi
 
 | Ocorrência | Minha intervenção ou correção do agente | Resultado e evidência |
@@ -364,7 +366,7 @@ Esta seção adicional atende à pergunta do guia sobre quantidade de iteraçõe
 
 - [x] Narrativa escrita: este documento, redigido com apoio de IA e ainda sujeito à minha revisão final.
 - [x] Cinco screenshots selecionados e anexados, com contexto e limites.
-- [ ] Screen recording — primeira gravação confirmada em andamento no workflow 38; parada informada por mim no 39. Nova gravação informada no 40. Vídeos finais ainda não revisados ou selecionados para submissão.
+- [x] Screen recording — seleção editada de 24 segundos incluída com origem e limites de revisão. Vídeos brutos não publicados.
 - [ ] Chat exports para submissão — transcripts locais existem, mas não foram selecionados, sanitizados e anexados.
 - [x] Git history — checkpoints de análise, implementação, correções e publicação na mesma branch de submissão.
 - [ ] Relatório e inventário das PRs — agente trabalhando; incorporar links após conferir os arquivos e a cobertura.
