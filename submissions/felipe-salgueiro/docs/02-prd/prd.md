@@ -2,6 +2,9 @@ Fonte canônica: [PRD no Linear](https://linear.app/cadencia/document/prd-challe
 
 # PRD — Challenge 004: Estratégia Social Media rastreável
 
+**Decisão posterior ao snapshot:** [chat retirado por Felipe](../03-rfc/decisao-retirada-chat.md).
+Este snapshot histórico não deve ser usado para reintroduzir a funcionalidade.
+
 **Projeto Linear:** [P-MAR-55](<https://linear.app/cadencia/project/tech-g4-ai-master-challenge-004-social-media-6da71df65f6c>) · **Autor:** Felipe, com elaboração assistida por Paloma (PO) e consolidação por Lia · **Status:** Consolidado v0.5 — gate técnico pendente · **Data:** 23/09/2026
 
 Escopo consolidado por solicitação de Felipe após as decisões do grill, com prioridade de entrega em 23/09/2026. Gate técnico, arquitetura e validação da entrega ainda pendentes. Consolidar não significa implementar, fazer deploy ou enviar a PR final. Fonte de escopo: [Brief aprovado](<https://linear.app/cadencia/document/brief-d5c5e4cd5481>).

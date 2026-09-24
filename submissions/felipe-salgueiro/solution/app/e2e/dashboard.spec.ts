@@ -1,14 +1,23 @@
 import {test, expect} from '@playwright/test';
-test('shows audited values, eight actions and readable provenance', async ({page}) => {
+test('shows three decisions, weekly plan and working evidence links without chat', async ({page, request}) => {
   await page.goto('/');
-  await expect(page.getByRole('region', {name: 'Panorama geral da base'})).toContainText('52.214');
-  await expect(page.getByRole('region', {name: 'Panorama geral da base'})).toContainText('19,899%');
-  await expect(page.locator('.decision-card')).toHaveCount(8);
-  const first = page.locator('#rec-q1');
-  await first.getByText('Conferir evidência e regra').click();
-  await expect(first).toContainText('ev-performance');
-  await expect(first).toContainText('descriptive-q1-v1');
-  await expect(page.getByText('Dados pendentes', {exact: true})).toHaveCount(0);
+  const main = page.locator('#main-content');
+  await expect(main).toContainText('52.214');
+  await expect(main.locator('.decision-card')).toHaveCount(3);
+  await expect(main.locator('#conteudo')).toContainText('1,6 interação');
+  await expect(main.locator('#patrocinio')).toContainText('33 a 27');
+  await expect(main.getByRole('heading', {name: 'Seu plano para esta semana'})).toBeVisible();
+  await expect(main).not.toContainText('descriptive-q1');
+  await expect(main).not.toContainText('Conferir evidência e regra');
+  await expect(main).not.toContainText('Conversar sobre');
+  const response = await request.post('/api/explain', {data: {question: 'test'}});
+  expect(response.status()).toBe(404);
+  await main.getByRole('link', {name: 'Ver análise de conteúdo'}).click();
+  await expect(page).toHaveURL(/performance-strategy.html#engajamento$/);
+  await expect(page.locator('#engajamento')).toBeVisible();
+  await page.goto('/');
+  await page.locator('#main-content').getByRole('link', {name: 'Ver comparação de patrocínio'}).click();
+  await expect(page.locator('#patrocinio')).toBeVisible();
 });
 test('valid filter preserves exact values, empty filter has a recovery action', async ({page}) => {
   await page.goto('/?dimension=platform&value=Instagram');

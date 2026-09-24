@@ -10,15 +10,15 @@ A home consome diretamente o snapshot canônico de MAR-99 em
 `../data/app/dashboard.json`. Não lê SQLite, não define contrato concorrente
 e não inclui LLM, login ou servidor de banco.
 
-A home apresenta oito recomendações com evidência, regra e limites, além de
+A home apresenta três decisões executivas e um plano proposto para a semana, além de
 comparações por plataforma, formato, categoria, seguidores e audiência.
 Seletores Astryx atualizam `dimension`/`value` imediatamente na URL; trocar dimensão
 limpa o grupo anterior. O filtro afeta só o painel comparativo; não recalcula
 as conclusões gerais. Recortes vazios e combinações não exportadas têm estados
 explícitos e ação de limpeza. A leitura valida unidade, contagens e referências;
 contrato inválido aciona a página de erro em vez de mostrar números parciais.
-As oito recomendações são organizadas em conteúdo/audiência, patrocínio e
-próximo ciclo, com títulos de decisão. Enunciados e regras não são a navegação.
+As oito perguntas permanecem no relatório completo. Os cards abrem as seções
+de análise correspondentes. Datas sintéticas não são apresentadas como evolução semanal.
 
 ## Artefatos revisados
 
@@ -33,11 +33,9 @@ isolado e oferecem abertura em tela inteira; links relativos são preservados.
 O simulador MAR-103 está integrado em `/simulador`, acessível pela navegação.
 Calcula custos hipotéticos por mil views, interação e venda, sem preencher
 dados comerciais inexistentes. Sua lógica pura permanece separada da UI.
-Chat contextual tem UI, montagem de contexto e transporte OpenRouter implementados
-e testados com mocks. A rota real retorna 503 até autorização e quota global
-serem implementadas/verificadas; `chat-policy.ts` falha fechado, sem flag de bypass.
-Veja [checkpoint MAR-102](../../docs/05-validacao/checkpoint-mar102-chat.md).
-Integração ao CRM ainda não está implementada.
+Chat removido do escopo por decisão de Felipe: sem UI, rota, transporte,
+configuração OpenRouter ou dependência de autenticação para inferência.
+O código anterior é recuperável no Git. Integração ao CRM não implementada.
 
 O build precisa da pasta `solution/`, não só de `app/`: Turbopack e tracing
 resolvem a raiz um nível acima para importar o JSON sem duplicá-lo.

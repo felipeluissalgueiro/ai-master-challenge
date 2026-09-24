@@ -317,6 +317,8 @@ Cronologia numerada em primeira pessoa. Cada nova etapa registra pedido ou açã
 
 128. **Verifiquei a correção com dados e interação real de navegador.** Lia conferiu que os campos existentes de evidence.json eram idênticos ao snapshot anterior: apenas executive_translation foi acrescentado. Atualizou o hash de origem do exportador e reproduziu dashboard.json sem alteração; 10 testes Python passaram após corrigir o diretório de execução. Lint, TypeScript, build, 27 testes unitários e 36 testes de navegador passaram. Inspeção de imagens locais desktop/mobile verificou cores, seletores, recomendações e páginas incorporadas. Testes locais não significam aceite humano, aparelho físico ou deploy; OpenRouter continua desativado e nenhuma chamada paga ocorreu.
 
+129. **Retirei o chat para reduzir o escopo e reprovei a apresentação técnica dos cards.** Pedi uma leitura rápida para gestor, sem estatísticas repetidas e sem códigos internos apresentados como conferência. Lia removeu UI, endpoint, transporte OpenRouter, configuração de exemplo e testes exclusivos do chat; código anterior recuperável no Git. A home passou de oito cards para três decisões com consequência e ação, seguida de plano proposto para esta semana. A diferença de taxa entre plataformas foi traduzida em interações por 10 mil views, sem criar dados semanais. Os links agora abrem as seções reais do relatório e o JSON de evidências. Lint, TypeScript, build, 18 unitários e 30 testes de navegador passaram; QA por imagem realizado em desktop/mobile emulado. Sem deploy, chamada paga ou aceite humano presumido.
+
 ### Onde a IA errou e como corrigi
 
 | Ocorrência | Minha intervenção ou correção do agente | Resultado e evidência |

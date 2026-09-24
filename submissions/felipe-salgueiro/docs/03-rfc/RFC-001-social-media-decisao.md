@@ -1,5 +1,8 @@
 # RFC-001: Evidência, decisão e explicação de Social Media
 
+**Escopo atualizado:** [chat retirado por decisão de Felipe](decisao-retirada-chat.md).
+As referências a chat abaixo são históricas e não integram a entrega vigente.
+
 > **Status:** Rascunho consolidado para revisão técnica; não implementada.
 > **Data:** 2026-09-23 · **Autor:** Felipe, com consolidação por Lia e insumos de Vitor/Sofia.
 > **Projeto:** [P-MAR-55](https://linear.app/cadencia/project/tech-g4-ai-master-challenge-004-social-media-6da71df65f6c)

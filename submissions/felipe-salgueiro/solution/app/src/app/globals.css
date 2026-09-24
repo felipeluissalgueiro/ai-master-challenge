@@ -240,7 +240,7 @@
     letter-spacing: 0.12em;
   }
 
-  .decision-card h4 {
+  .decision-card h3 {
     font-size: 1.125rem;
     line-height: 1.4;
   }
@@ -249,6 +249,9 @@
     font-size: 0.875rem;
     line-height: 1.5;
   }
+
+  .decision-card .metric-value { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; }
+  .weekly-actions { display: grid; gap: 1rem; padding-left: 1.5rem; line-height: 1.6; }
 
   .report-card__action {
     margin-top: auto;
