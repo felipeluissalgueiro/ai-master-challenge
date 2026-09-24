@@ -1,5 +1,8 @@
 # Challenge 004 Insight Lab — aplicação de decisão
 
+[Abrir Preview Vercel](https://g4-social-insight-1e2g3f722-felipeluissalgueiros-projects.vercel.app).
+[Registro de publicação e limites](../../docs/05-validacao/checkpoint-preview-vercel.md).
+
 Aplicação Next.js/TypeScript com componentes Astryx, dashboard, simulador,
 relatório executivo e explorador de dados. Tema navy/gold e fonte Manrope
 alinhados aos artefatos revisados, sem se apresentar como produto oficial G4.
