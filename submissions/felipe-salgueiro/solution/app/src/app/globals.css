@@ -30,7 +30,7 @@
     --g4-coral-500-approx: #f2675c;
     --g4-surface-muted-approx: #f5f6f8;
     --g4-border-approx: #d9dde5;
-    --color-accent: var(--g4-coral-500-approx);
+    --color-accent: #c43f37;
     --color-accent-muted: #fee8e5;
     --color-on-accent: #ffffff;
     --color-icon-accent: #c43f37;
@@ -137,6 +137,8 @@
     text-decoration: none;
   }
 
+  .primary-nav > a[href^='/relatorios'] { color: #ffffff; }
+
   .brand:focus-visible,
   .primary-nav a:focus-visible,
   .viewer-actions a:focus-visible {
@@ -160,6 +162,14 @@
     display: grid;
     gap: 2rem;
   }
+
+  .page-stack a:not([role='button']) {
+    color: #96362d;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .decision-card > [role='img'] { align-self: flex-start; }
 
   .hero,
   .compact-hero {
@@ -313,12 +323,15 @@
     }
 
     .primary-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       width: 100%;
       padding-bottom: 0.15rem;
       gap: 1rem;
-      overflow-x: auto;
-      scrollbar-width: thin;
+      overflow: visible;
     }
+
+    .page-stack { padding-inline: 1rem; }
 
     .primary-nav > * {
       flex: 0 0 auto;

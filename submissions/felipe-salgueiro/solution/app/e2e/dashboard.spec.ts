@@ -25,3 +25,22 @@ test('unsupported cross has no invented filtered metrics', async ({page}) => {
   await expect(page.getByRole('article', {name: 'Instagram', exact: true})).toHaveCount(0);
   await expect(page.locator('#main-content').getByText('não mensurados', {exact: true})).toBeVisible();
 });
+
+test('mobile has gutters and all menu destinations fit without horizontal scrolling', async ({page}) => {
+  await page.setViewportSize({width: 390, height: 844});
+  await page.goto('/');
+  const geometry = await page.locator('#main-content .page-stack').evaluate(element => {
+    const hero = element.querySelector('.hero')!.getBoundingClientRect();
+    const nav = document.querySelector('.primary-nav')!;
+    return {left: hero.left, right: hero.right, width: window.innerWidth, navOverflow: nav.scrollWidth - nav.clientWidth};
+  });
+  expect(geometry.left).toBeGreaterThanOrEqual(16);
+  expect(geometry.right).toBeLessThanOrEqual(geometry.width - 16);
+  expect(geometry.navOverflow).toBeLessThanOrEqual(1);
+  const contrastColors = await page.locator('.primary-nav a').last().evaluate(element => {
+    const style = getComputedStyle(element);
+    return {foreground: style.color, background: style.backgroundColor};
+  });
+  expect(contrastColors).toEqual({foreground: 'rgb(255, 255, 255)', background: 'rgb(196, 63, 55)'});
+  await expect(page.getByRole('link', {name: 'Simular custos', exact: true})).toBeInViewport();
+});

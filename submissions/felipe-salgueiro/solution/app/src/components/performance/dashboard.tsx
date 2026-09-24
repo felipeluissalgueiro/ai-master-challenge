@@ -59,7 +59,7 @@ export function PerformanceDashboard({data, query}: {data: Dashboard; query: Rec
       <Grid columns={{minWidth: 300, max: 2, repeat: 'fit'}} gap={4}>
         {data.recommendations.map(item => <Card key={item.id} padding={5}>
           <article className="decision-card" id={item.id} aria-labelledby={item.id + '-title'}>
-            <Badge label={item.status_label} variant="neutral" />
+            <div><Badge label={item.status_label} variant="neutral" /></div>
             <h3 id={item.id + '-title'}>{item.question}</h3><p>{item.basis}.</p>
             {item.evidence_ids.includes('ev-performance') && !item.evidence_ids.includes('ev-sponsorship')
               && <MetricRange data={data} dimension="platform" />}
