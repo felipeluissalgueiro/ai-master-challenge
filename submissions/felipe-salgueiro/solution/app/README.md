@@ -1,8 +1,8 @@
-# Challenge 004 Insight Lab — shell UI e simulador
+# Challenge 004 Insight Lab — aplicação de decisão
 
-Aplicação Next.js/TypeScript mínima para a MAR-101. Entrega chrome Astryx,
-navegação acessível, estados técnicos e rotas reservadas para o relatório
-executivo e o explorador.
+Aplicação Next.js/TypeScript com componentes Astryx, dashboard, simulador,
+relatório executivo e explorador de dados. Tema navy/gold e fonte Manrope
+alinhados aos artefatos revisados, sem se apresentar como produto oficial G4.
 
 ## Limite da Story
 
@@ -12,21 +12,23 @@ e não inclui LLM, login ou servidor de banco.
 
 A home apresenta oito recomendações com evidência, regra e limites, além de
 comparações por plataforma, formato, categoria, seguidores e audiência.
-O filtro GET `dimension`/`value` afeta só o painel comparativo; não recalcula
+Seletores Astryx atualizam `dimension`/`value` imediatamente na URL; trocar dimensão
+limpa o grupo anterior. O filtro afeta só o painel comparativo; não recalcula
 as conclusões gerais. Recortes vazios e combinações não exportadas têm estados
 explícitos e ação de limpeza. A leitura valida unidade, contagens e referências;
 contrato inválido aciona a página de erro em vez de mostrar números parciais.
-Identidade navy/coral aproximada; não é um manual de marca oficial.
+As oito recomendações são organizadas em conteúdo/audiência, patrocínio e
+próximo ciclo, com títulos de decisão. Enunciados e regras não são a navegação.
 
-Apenas a integração de novas versões de `solution/reports/**`,
-`solution/prototype/**` e da paleta `gold-v2` permanece congelada até o handoff
-aprovado da revisão da Maria.
+## Artefatos revisados
 
-## Freeze de artefatos
-
-`npm run check:artifact-freeze` bloqueia dev/build se `public/artifacts` contiver
-qualquer arquivo. O shell preserva as rotas desacopladas, mas não copia nem exibe
-as páginas em revisão.
+O handoff `2d7b2b5` substitui o freeze anterior. `npm run prepare:artifacts`
+confere hashes fixos e copia somente cinco arquivos de reports/prototype e a
+fonte local para `public/artifacts`, ignorado do Git. Dev/build executam essa
+preparação; arquivos inesperados (incluindo SQLite) são recusados.
+Não há cópia recursiva nem fonte de dados concorrente. Mudanças de hash exigem
+revisão explícita do próximo handoff. Relatório e explorador usam iframe
+isolado e oferecem abertura em tela inteira; links relativos são preservados.
 
 O simulador MAR-103 está integrado em `/simulador`, acessível pela navegação.
 Calcula custos hipotéticos por mil views, interação e venda, sem preencher

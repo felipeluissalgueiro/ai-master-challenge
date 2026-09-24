@@ -20,7 +20,7 @@ test.afterEach(async ({page}) => {
 
 test('navigates by keyboard and preserves the current query', async ({page}) => {
   await page.goto('/?platform=instagram&format=video');
-  await expect(page.getByRole('heading', {level: 1})).toContainText('Decisões de social media');
+  await expect(page.getByRole('heading', {level: 1})).toContainText('Performance e decisões');
   await expect(page.locator('.decision-card')).toHaveCount(8);
   await expect(page.locator('#main-content').getByText('Dados sintéticos.', {exact: true})).toBeVisible();
 
@@ -37,7 +37,7 @@ test('navigates by keyboard and preserves the current query', async ({page}) => 
   ).toHaveAttribute('href', '/relatorios/executivo?platform=instagram&format=video');
 });
 
-test('keeps both report routes navigable without publishing rejected artifacts', async ({page}) => {
+test('opens both final report artifacts', async ({page}) => {
   const artifacts = [
     {
       route: '/relatorios/executivo',
@@ -52,21 +52,21 @@ test('keeps both report routes navigable without publishing rejected artifacts',
   for (const artifact of artifacts) {
     await page.goto(artifact.route);
     await expect(page.getByRole('heading', {level: 1, name: artifact.heading})).toBeVisible();
-    await expect(page.getByText('Publicação congelada')).toBeVisible();
-    await expect(page.getByText('Aguardando handoff aprovado')).toBeVisible();
-    await expect(page.locator('iframe')).toHaveCount(0);
+    await expect(page.locator('iframe')).toHaveCount(1);
+    await expect(page.frameLocator('iframe').locator('h1')).toBeVisible();
+    await expect(page.getByText('Publicação congelada')).toHaveCount(0);
   }
 });
 
-test('keeps every shell route within the viewport and exposes the unavailable state', async ({page}) => {
+test('shows the actual explorer with keyboard access', async ({page}) => {
   await page.goto('/explorar');
   await expect(page.getByRole('heading', {level: 1, name: 'Explorar dados'})).toBeVisible();
-  await expect(page.getByText('Visualização ainda não conectada')).toBeVisible();
+  await expect(page.frameLocator('iframe').locator('h1')).toBeVisible();
 
   const fitsViewport = await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth);
   expect(fitsViewport).toBeTruthy();
 
-  const viewerLink = page.getByRole('link', {name: 'Ver estado do visualizador'});
+  const viewerLink = page.getByRole('link', {name: 'Abrir em tela inteira'});
   await viewerLink.focus();
   await expect(viewerLink).toBeFocused();
   const focusOutline = await viewerLink.evaluate((element) => getComputedStyle(element).outlineStyle);

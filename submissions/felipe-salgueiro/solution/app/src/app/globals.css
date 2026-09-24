@@ -2,6 +2,14 @@
 @import '@astryxdesign/core/astryx.css';
 @import '@astryxdesign/theme-neutral/theme.css';
 
+@font-face {
+  font-family: Manrope;
+  src: url('/artifacts/fonts/manrope.woff2') format('woff2');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer product {
   :root {
     color-scheme: light;
@@ -12,7 +20,7 @@
   }
 
   html {
-    background: #f4f6f9;
+    background: #F5F4F3;
   }
 
   body {
@@ -25,31 +33,32 @@
   }
 
   .brand-shell {
-    --g4-navy-950-approx: #111827;
-    --g4-navy-800-approx: #1e293b;
-    --g4-coral-500-approx: #f2675c;
-    --g4-surface-muted-approx: #f5f6f8;
-    --g4-border-approx: #d9dde5;
-    --color-accent: #c43f37;
-    --color-accent-muted: #fee8e5;
-    --color-on-accent: #ffffff;
-    --color-icon-accent: #c43f37;
-    --color-text-accent: #c43f37;
-    --color-text-primary: var(--g4-navy-950-approx);
+    --font-family-body: Manrope, Arial, sans-serif;
+    --font-family-heading: Manrope, Arial, sans-serif;
+    --g4-navy: #001F35;
+    --g4-blue: #184560;
+    --g4-gold: #B9915B;
+    --g4-surface: #F5F4F3;
+    --g4-border: #d9dde5;
+    --color-accent: #B9915B;
+    --color-accent-muted: #F1E9DF;
+    --color-on-accent: #001F35;
+    --color-icon-accent: #184560;
+    --color-text-accent: #184560;
+    --color-text-primary: var(--g4-navy);
     --color-text-secondary: #526071;
-    --color-background-body: var(--g4-surface-muted-approx);
+    --color-background-body: var(--g4-surface);
     --color-background-surface: #ffffff;
     --color-background-card: #ffffff;
-    --color-border: var(--g4-border-approx);
+    --color-border: var(--g4-border);
     min-height: 100dvh;
-    background:
-      radial-gradient(circle at 12% -10%, rgba(242, 103, 92, 0.12), transparent 28rem),
-      var(--color-background-body);
+    background: var(--color-background-body);
+    font-family: Manrope, Arial, sans-serif;
   }
 
   .site-header {
     border-bottom: 1px solid rgba(255, 255, 255, 0.14);
-    background: var(--g4-navy-950-approx);
+    background: var(--g4-navy);
     color: #ffffff;
   }
 
@@ -61,7 +70,7 @@
     padding: 0.75rem 1rem;
     border-radius: 8px;
     background: #ffffff;
-    color: var(--g4-navy-950-approx);
+    color: var(--g4-navy);
     font-weight: 700;
     opacity: 0;
     pointer-events: none;
@@ -70,7 +79,7 @@
 
   .skip-link:focus {
     opacity: 1;
-    outline: 3px solid var(--g4-coral-500-approx);
+    outline: 3px solid var(--g4-gold);
     outline-offset: 2px;
     pointer-events: auto;
     transform: translateY(0);
@@ -99,7 +108,7 @@
     width: 46px;
     height: 38px;
     place-items: center;
-    border: 2px solid var(--g4-coral-500-approx);
+    border: 2px solid var(--g4-gold);
     border-radius: 10px 3px 10px 3px;
     color: #ffffff;
     font-size: 0.75rem;
@@ -137,7 +146,7 @@
     text-decoration: none;
   }
 
-  .primary-nav > a[href^='/relatorios'] { color: #ffffff; }
+  .primary-nav > a[href^='/relatorios'] { color: #001F35; }
 
   .brand:focus-visible,
   .primary-nav a:focus-visible,
@@ -150,7 +159,7 @@
   .brand-shell main a:focus-visible,
   .brand-shell main button:focus-visible {
     border-radius: 6px;
-    outline: 3px solid #c43f37;
+    outline: 3px solid #184560;
     outline-offset: 3px;
   }
 
@@ -163,8 +172,8 @@
     gap: 2rem;
   }
 
-  .page-stack a:not([role='button']) {
-    color: #96362d;
+  .page-stack a:not(.astryx-button) {
+    color: #184560;
     text-decoration: underline;
     text-underline-offset: 3px;
   }
@@ -181,7 +190,7 @@
 
   .hero h1,
   .compact-hero h1 {
-    color: var(--g4-navy-950-approx);
+    color: var(--g4-navy);
     letter-spacing: -0.045em;
   }
 
@@ -225,14 +234,15 @@
   }
 
   .decision-card__number {
-    color: var(--g4-coral-500-approx);
+    color: var(--g4-gold);
     font-size: 0.8rem;
     font-weight: 800;
     letter-spacing: 0.12em;
   }
 
-  .decision-card h3 {
+  .decision-card h4 {
     font-size: 1.125rem;
+    line-height: 1.4;
   }
 
   .decision-card p {
@@ -299,7 +309,7 @@
     border: 1px solid #d9dde5;
     border-radius: 14px;
     background: #ffffff;
-    color: #111827;
+    color: #001F35;
     font-family: Arial, sans-serif;
   }
 
@@ -308,7 +318,7 @@
     padding: 0.75rem 1rem;
     border: 0;
     border-radius: 8px;
-    background: #f2675c;
+    background: #B9915B;
     color: #ffffff;
     font: inherit;
     font-weight: 700;
@@ -331,7 +341,7 @@
       overflow: visible;
     }
 
-    .page-stack { padding-inline: 1rem; }
+    .page-stack, .viewer-page { padding-inline: 1rem; }
 
     .primary-nav > * {
       flex: 0 0 auto;
@@ -361,11 +371,18 @@
 
   .metric-value { display: block; font-size: clamp(1.6rem, 4vw, 2.2rem); }
   .page-section h3 { font-size: 18px; line-height: 1.4; }
-  .dashboard-filters { display: flex; flex-wrap: wrap; gap: 1rem; align-items: end; margin: 1rem 0; }
+  .dashboard-filters { display: grid; grid-template-columns: minmax(180px, 1fr) minmax(180px, 1fr) auto; gap: 1rem; align-items: end; margin: 1rem 0; padding: 1.25rem; background: white; border: 1px solid var(--color-border); border-radius: 12px; }
+  .filter-status { grid-column: 1 / -1; font-size: .8rem; color: var(--color-text-secondary); }
+  @media (max-width: 760px) { .dashboard-filters { grid-template-columns: 1fr; } }
+  .decision-card { border-top: 3px solid var(--g4-gold); padding-top: 1rem; }
+  .metric-value { color: var(--g4-navy); }
+  .hero { max-width: 940px; }
+  .page-stack { padding-bottom: 3rem; }
   .dashboard-filters label { display: grid; gap: .4rem; max-width: 100%; }
-  .dashboard-filters input, .dashboard-filters select, .dashboard-filters button {
-    font: inherit; padding: .7rem; border: 1px solid #64748b; border-radius: .4rem; max-width: 100%;
-  }
+  .decision-group { display: grid; gap: 1rem; scroll-margin-top: 12rem; }
+  .decision-group > h3 { font-size: 1.125rem; letter-spacing: .02em; color: var(--g4-blue); }
+  .decision-navigation { display: flex; flex-wrap: wrap; gap: .75rem; }
+  .viewer-page { padding-top: 1.5rem; padding-bottom: 2rem; }
   .dashboard-notice { padding: 1.25rem; border: 1px solid #64748b; border-radius: .5rem; }
   .decision-card details { overflow-wrap: anywhere; }
   .decision-card summary { cursor: pointer; padding: .7rem 0; font-weight: 600; }

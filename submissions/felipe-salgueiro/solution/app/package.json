@@ -10,9 +10,9 @@
   },
   "scripts": {
     "astryx": "node node_modules/@astryxdesign/cli/clients/cli/bin/astryx.mjs",
-    "check:artifact-freeze": "node scripts/assert-artifacts-frozen.mjs",
-    "dev": "npm run check:artifact-freeze && next dev",
-    "prebuild": "npm run check:artifact-freeze",
+    "prepare:artifacts": "node scripts/prepare-artifacts.mjs",
+    "dev": "npm run prepare:artifacts && next dev",
+    "prebuild": "npm run prepare:artifacts",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",

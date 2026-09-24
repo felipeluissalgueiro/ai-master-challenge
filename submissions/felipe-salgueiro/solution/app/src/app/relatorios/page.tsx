@@ -15,15 +15,15 @@ export const metadata: Metadata = {title: 'Relatórios'};
 const reports = [
   {
     title: 'Análise de performance e estratégia',
-    description: 'Rota preservada; conteúdo e linguagem de gestor aguardam a revisão aprovada.',
+    description: 'Conclusões sobre conteúdo e patrocínio, prioridades de investimento e plano de ação.',
     href: '/relatorios/executivo',
-    status: 'Em revisão',
+    status: 'Disponível',
   },
   {
     title: 'Explorar dados',
-    description: 'Rota preservada; explicação de SQLite, categorias e gráficos ainda está bloqueada.',
+    description: 'Leitura visual dos dados derivados do SQLite, com filtros, categorias e explicação dos gráficos.',
     href: '/relatorios/visualizador',
-    status: 'Em revisão',
+    status: 'Disponível',
   },
 ] as const;
 
@@ -36,10 +36,10 @@ export default function ReportsPage() {
       content={(
         <div className="page-stack">
           <section className="compact-hero">
-            <Text as="p" type="label">Rotas reservadas</Text>
+            <Text as="p" type="label">Biblioteca de análises</Text>
             <Heading level={1}>Ver relatórios</Heading>
             <Text as="p" type="large" color="secondary">
-              A navegação permanece testável, mas nenhum artefato reprovado é copiado ou exibido pelo shell.
+              Consulte a análise executiva ou investigue os números que sustentam cada recomendação.
             </Text>
           </section>
 
@@ -47,7 +47,7 @@ export default function ReportsPage() {
             {reports.map((report) => (
               <Card key={report.href} padding={6} minHeight={280}>
                 <div className="report-card">
-                  <Badge label={report.status} variant="warning" />
+                  <Badge label={report.status} variant="neutral" />
                   <Heading level={2}>{report.title}</Heading>
                   <Text as="p" type="supporting">{report.description}</Text>
                   <div className="report-card__action">
@@ -77,7 +77,7 @@ export default function ReportsPage() {
           </Grid>
 
           <Text as="p" type="supporting">
-            A publicação está congelada até a revisão da Maria e um novo handoff completo com hashes.
+            Base sintética. Estes relatórios descrevem o dataset do desafio, não a operação real do G4.
           </Text>
         </div>
       )}

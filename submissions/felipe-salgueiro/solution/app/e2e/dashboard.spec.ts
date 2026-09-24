@@ -13,8 +13,7 @@ test('shows audited values, eight actions and readable provenance', async ({page
 test('valid filter preserves exact values, empty filter has a recovery action', async ({page}) => {
   await page.goto('/?dimension=platform&value=Instagram');
   await expect(page.getByRole('article', {name: 'Instagram', exact: true})).toContainText('19,889%');
-  await page.locator('#main-content').getByLabel('Valor exato do recorte').fill('inexistente');
-  await page.getByRole('button', {name: 'Aplicar recorte'}).click();
+  await page.goto('/?dimension=platform&value=inexistente');
   await expect(page.getByRole('heading', {name: 'Recorte sem registros'})).toBeVisible();
   await page.getByRole('link', {name: 'Limpar filtros e ver a base'}).click();
   await expect(page.getByRole('article', {name: 'Instagram', exact: true})).toBeVisible();
@@ -41,6 +40,27 @@ test('mobile has gutters and all menu destinations fit without horizontal scroll
     const style = getComputedStyle(element);
     return {foreground: style.color, background: style.backgroundColor};
   });
-  expect(contrastColors).toEqual({foreground: 'rgb(255, 255, 255)', background: 'rgb(196, 63, 55)'});
+  expect(contrastColors).toEqual({foreground: 'rgb(0, 31, 53)', background: 'rgb(185, 145, 91)'});
   await expect(page.getByRole('link', {name: 'Simular custos', exact: true})).toBeInViewport();
+});
+
+test('changing Astryx selectors updates comparison without submitting', async ({page}) => {
+  await page.goto('/');
+  const main = page.locator('#main-content');
+  await main.getByRole('combobox', {name: 'Comparar por', exact: true}).click();
+  await page.getByRole('option', {name: 'Formato', exact: true}).click();
+  await expect(page).toHaveURL(/dimension=content_type/);
+  await expect(main.getByRole('article', {name: 'Instagram', exact: true})).toHaveCount(0);
+  const group = main.getByRole('combobox', {name: 'Grupo', exact: true});
+  await group.click();
+  const option = page.getByRole('option').filter({hasNotText: 'Todos os grupos'}).first();
+  const title = await option.innerText();
+  await option.click();
+  await expect(page).toHaveURL(/value=/);
+  await expect(main.locator('[aria-labelledby="comparison-title"] article')).toHaveCount(1);
+  await expect(main.locator('[aria-labelledby="comparison-title"] article')).toContainText(title.trim());
+  await main.getByRole('combobox', {name: 'Comparar por', exact: true}).click();
+  await page.getByRole('option', {name: 'Plataforma', exact: true}).click();
+  await expect(page).toHaveURL(/dimension=platform$/);
+  await expect(main.getByRole('article', {name: 'Instagram', exact: true})).toBeVisible();
 });

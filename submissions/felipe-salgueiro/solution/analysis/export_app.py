@@ -9,7 +9,7 @@ from contextlib import closing
 from pathlib import Path
 
 DATABASE_HASH = "7279027727b912c4c4ad8ec49704164f86e0eeb039218d8ee2b00d0ab78d7bad"
-EVIDENCE_HASH = "e4a0b622450b1dbd089bac8e2c910772a817a028fb7fca2f819b56a7eeda6c4f"
+EVIDENCE_HASH = "de0502d33bec4b09fe6970686196f4c83c1fe484b659c40fc607b75d6d1ddf1d"
 SECTIONS = ("overall", "performance", "sponsorship", "audience", "creators", "temporal")
 QUESTION_SECTIONS = (
     ("performance",), ("sponsorship",), ("audience",),
