@@ -1,10 +1,10 @@
 # Submissão — Felipe Salgueiro — Challenge 004
 
-**Preview publicada; preparação do PR em andamento.** [Abrir aplicação](https://g4-social-insight-the4349yo-felipeluissalgueiros-projects.vercel.app), sem login. Pipeline, dashboard, relatórios, explorador e simulador integrados. QA remoto no Brave parcial; [cobertura e achados](docs/05-validacao/checkpoint-qa-brave.md). [Estado do deploy](docs/05-validacao/checkpoint-preview-vercel.md).
+**Preview publicada; pacote preparado para PR.** [Abrir aplicação](https://g4-social-insight-da2ghmdai-felipeluissalgueiros-projects.vercel.app), sem login. Pipeline, dashboard, relatórios, explorador e simulador integrados. Fluxo principal e correções retestados no Brave; [cobertura e limites](docs/05-validacao/checkpoint-qa-brave.md). [Estado do deploy](docs/05-validacao/checkpoint-preview-vercel.md).
 
 ## Sobre mim
 - **Nome:** Felipe Salgueiro.
-- **LinkedIn:** a conferir.
+- **LinkedIn:** [Felipe Luis Salgueiro](https://www.linkedin.com/in/felipe-luis-salgueiro/).
 - **Challenge:** 004 — Estratégia Social Media.
 
 ## Executive Summary
@@ -14,13 +14,13 @@ Escolhi o case pela minha experiência com marcas e conteúdo. Usei IA para inve
 
 ### Acesso e roteiro de avaliação
 
-Abra a **[Preview pública](https://g4-social-insight-the4349yo-felipeluissalgueiros-projects.vercel.app)** no navegador. Não precisa de conta, senha, chave de API ou instalação.
+Abra a **[Preview pública](https://g4-social-insight-da2ghmdai-felipeluissalgueiros-projects.vercel.app)** no navegador. Não precisa de conta, senha, chave de API ou instalação.
 
 1. **Performance e decisões:** leia os três cards e o plano de ação proposto. Eles separam engajamento observado, condições de patrocínio e lacunas para decidir cortes.
 2. **Comparações:** escolha dimensão e grupo. A URL e o painel comparativo mudam; as conclusões gerais não são recalculadas pelo filtro.
 3. **Ver relatórios:** abra o relatório executivo para consultar as oito respostas, gráficos e provas. Use a opção de tela inteira para leitura ampliada.
 4. **Explorar dados:** consulte o dicionário e os recortes do Ouro. O navegador lê artefatos exportados; não acessa o SQLite diretamente.
-5. **Simulador:** informe um cenário. Exemplo: R$ 2.000, 10.000 views, 2.000 interações e 20 vendas resultam em R$ 200 por mil views, R$ 1 por interação e R$ 100 por venda. Esses valores são hipotéticos, não resultados do dataset.
+5. **Simulador:** escolha o escopo e informe um período comum (ex.: “1 a 7 de outubro”). Exemplo: R$ 2.000, 10.000 views, 2.000 interações e 20 vendas resultam em R$ 200 por mil views, R$ 1 por interação e R$ 100 por venda. Esses valores são hipotéticos, não resultados do dataset.
 
 Para rodar localmente, clone o fork e siga o [setup da aplicação](solution/app/README.md). Para conferir a origem dos números, consulte o [banco de evidência](solution/data/evidence/README.md). O snapshot é sintético e estático: não é um painel conectado aos canais ou CRM do G4.
 
@@ -36,6 +36,10 @@ As versões iniciais foram reprovadas por mim e reformuladas para leitura gerenc
 Preservar a fonte na camada Bronze; validar e derivar métricas na Prata; somente depois produzir comparações e recomendações. [Brief consolidado](docs/01-brief/brief.md).
 ### Resultados / Findings
 Pipeline analítico, banco de evidência, exportador e comparações descritivas integrados. A análise utiliza 52.214 posts; os resultados e suas provas estão no relatório executivo. [Reprodução e artefatos](solution/README.md).
+
+- Nas dimensões de conteúdo, a maior diferença entre medianas equivale a cerca de 1,7 interação por 10 mil views: não basta para escolher um vencedor de negócio.
+- Das 60 células de patrocínio comparáveis, 33 favoreceram posts marcados como patrocinados e 27 os demais; o sentido mudou entre faixas de seguidores em 14 de 15 combinações.
+- Retorno financeiro permanece desconhecido. O simulador separa explicitamente hipóteses comerciais dos resultados da base.
 ### Recomendações
 Priorizar testes de conteúdo e medir o resultado correspondente ao objetivo da campanha antes de ampliar ou cortar investimento. O relatório detalha condições, limites e ações; o plano semanal é proposto, não uma série temporal real do G4.
 ### Limitações
@@ -43,20 +47,28 @@ Fonte sintética; sem retenção de 3s, alcance, impressões, custos ou convers�
 
 ## Process Log — Como usei IA
 ### Ferramentas usadas
-Codex e personas do PD Framework; Gemini em uma consulta trazida por mim; Herdr, Linear, Obsidian e Git. [Método de trabalho](docs/metodo/README.md).
+Codex apoiou análise, implementação, documentação e QA por agentes com papéis definidos; Gemini apoiou uma consulta sobre a transcrição de podcast trazida por mim. Usei Herdr para coordenar sessões, Linear para planejar, Obsidian para o diário e Git para versionar a evolução. Python/SQLite fizeram os cálculos determinísticos; FFmpeg preparou o vídeo. [Método de trabalho](docs/metodo/README.md).
 ### Workflow
-Comparei os cases, questionei recomendações da IA, escolhi Social Media e organizei a investigação. [Registro detalhado](process-log/workflow.md).
+1. Comparei os cases e escolhi Social Media pela aderência à minha experiência.
+2. Pedi auditoria dos dados antes de fechar recomendações e requisitos.
+3. Organizei briefing, PRD, arquitetura e tarefas; agentes trabalharam em frentes delimitadas.
+4. Revisei a linguagem dos relatórios, questionei hipóteses e reduzi o escopo.
+5. Exigi testes, evidências, publicação em Preview e QA no navegador.
+
+O [registro detalhado](process-log/workflow.md) documenta as iterações por frente. Não há contagem auditada de todos os prompts; os ciclos documentados não são apresentados como total exato.
 ### Onde a IA errou e como corrigi
 Uma lembrança sobre Tallis não foi confirmada e deixou de sustentar a escolha. Questionei o PRD elaborado sem discussão suficiente, reprovei relatórios tecnicamente corretos mas difíceis de usar e pedi conclusões, números contextualizados e ações. Também retirei o chat para concentrar a entrega no que já estava sustentado por dados. Os prints e o workflow mostram essas intervenções.
 ### O que eu adicionei que a IA sozinha não faria
 Trouxe meu contexto de marcas/conteúdo, propus examinar gancho/contexto/informação/chamada se houver dados e defini o foco do projeto. São contribuições observáveis, não alegações de exclusividade humana.
 
 ## Evidências
+- [Revisão contra o guia e cobertura das oito perguntas](docs/05-validacao/submission-audit.md).
 - [Planejamento e issues exportadas](docs/04-planejamento/issues/README.md) — leitura no próprio repositório, sem depender do Linear ou da renderização do GitHub Projects.
 - [Projeto e marcos](docs/00-projeto/README.md).
 - [Documentos por etapa](docs/README.md).
 - [Pesquisa preparatória e ressalvas](docs/01-brief/pesquisa/README.md).
 - [Workflow](process-log/README.md), [cinco screenshots comentados](process-log/evidencias/README.md) e [proveniência dos exports](docs/proveniencia.md).
+- [Conversas de 15 sessões do projeto](process-log/chat-exports/README.md), com [legenda das personas](process-log/README.md#quem-são-as-personas-mencionadas).
 
 O [snapshot integral do banco](solution/data/evidence/README.md) está no fork com manifesto e limites conhecidos; a aplicação usa exportações Ouro, sem SQLite no deploy. O histórico Git registra a evolução, sem retroagir datas. Incluí uma [seleção de vídeo do processo](process-log/videos/README.md), de 24 segundos, com cortes documentados; gravações brutas e notebook não foram anexados. Chat com LLM e integração ao CRM não fazem parte da versão entregue.
 

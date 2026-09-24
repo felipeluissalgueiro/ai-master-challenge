@@ -29,14 +29,15 @@ function unavailable(reason: string): UnitCost {
 
 function validate(input: Scenario): string[] {
   const errors: string[] = [];
+  const fieldNames = {cost: 'Custo', views: 'Visualizações', interactions: 'Interações', sales: 'Vendas'};
   for (const key of ['cost', 'views', 'interactions', 'sales'] as const) {
     const value = input[key];
     if (value !== null && (!Number.isFinite(value) || value < 0)) {
-      errors.push(`${key}: informe um número finito não negativo.`);
+      errors.push(`${fieldNames[key]}: informe um número finito não negativo.`);
     }
   }
   if (input.sales !== null && !Number.isSafeInteger(input.sales)) {
-    errors.push('sales: use uma quantidade inteira de vendas dentro do limite numérico.');
+    errors.push('Vendas: use uma quantidade inteira de vendas dentro do limite numérico.');
   }
   const bases = ['post', 'campaign'];
   if (!bases.includes(input.costBasis) || !bases.includes(input.metricsBasis)

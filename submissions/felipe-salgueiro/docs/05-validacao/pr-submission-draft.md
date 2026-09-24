@@ -30,8 +30,10 @@ pendências. Todas as mudanças estão dentro da minha pasta de submissão.
 - [x] README com acesso, roteiro, achados, limites e process log.
 - [x] Scripts, snapshot e aplicação incluídos.
 - [x] Cinco screenshots contextualizados e histórico Git.
-- [x] Lint, tipos, 18 testes unitários e build passaram após os ajustes do QA.
-- [ ] Reteste dos ajustes na nova Preview e registro das lacunas restantes.
-- [ ] Endereço LinkedIn conferido.
+- [x] Lint, tipos, 19 testes unitários, 10 testes Python e build passaram na revisão final.
+- [x] Reteste dos dois ajustes no Brave; lacunas restantes registradas.
+- [x] Endereço LinkedIn confirmado diretamente por Felipe.
 - [x] Seleção de vídeo incluída, autorizada por Felipe; conferência por quadros a cada segundo e limites documentados.
 - [ ] PR final enviada — ainda não enviada.
+
+Matriz de conformidade e limites: [revisão da submissão](submission-audit.md).

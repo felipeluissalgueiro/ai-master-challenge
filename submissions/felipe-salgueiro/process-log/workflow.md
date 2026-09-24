@@ -4,6 +4,9 @@ Estado atual: Preview pública sem login, relatórios e simulador integrados; QA
 
 # Preparação da submissão — Felipe Salgueiro — Challenge 004
 
+[Quem são as personas do meu OS de agentes](README.md#quem-são-as-personas-mencionadas)
+· [Conversas por sessão](chat-exports/README.md).
+
 Registro em primeira pessoa, redigido com apoio da Lia no Codex a partir das conversas e verificações realizadas. Os itens iniciais reconstituem a preparação de 21/09 e o trabalho de 23/09; não são anotações feitas em tempo real naqueles momentos. As interpretações propostas pela IA estão identificadas. Estado atual: pipeline e aplicação implementados, Preview pública e QA remoto parcial. A cronologia preserva o estado de cada momento; o resumo inicial foi atualizado para não apresentar pendências antigas como atuais.
 
 Estrutura baseada no [template oficial](https://github.com/Gestao-Quatro-Ponto-Zero/ai-master-challenge/blob/main/templates/submission-template.md) e no [guia de submissão](https://github.com/Gestao-Quatro-Ponto-Zero/ai-master-challenge/blob/main/submission-guide.md), relidos em 23/09/2026. Esta é uma exportação revisada do diário de trabalho; a cronologia mantém o estado de cada momento. Publicação no fork não equivale ao envio da PR ao G4.
@@ -11,7 +14,7 @@ Estrutura baseada no [template oficial](https://github.com/Gestao-Quatro-Ponto-Z
 ## Sobre mim
 
 - **Nome:** Felipe Salgueiro.
-- **LinkedIn:** pendente de conferência do endereço para a submissão.
+- **LinkedIn:** [Felipe Luis Salgueiro](https://www.linkedin.com/in/felipe-luis-salgueiro/) — endereço confirmado por mim.
 - **Challenge escolhido:** 004 — Estratégia Social Media. A decisão posterior substitui a prioridade anterior de tentar três; 003 e 001 ficam fora da execução por enquanto. Envio da PR final não autorizado; checkpoints no fork autorizados posteriormente, conforme workflow 77.
 
 ## Executive Summary
@@ -333,6 +336,10 @@ Cronologia numerada em primeira pessoa. Cada nova etapa registra pedido ou açã
 
 136. **Vídeo autorizado para publicação.** Pedi subir a seleção e deixar a submissão preparada. Lia conferiu 24 quadros, um por segundo ao longo dos 24 segundos, sem identificar credenciais nessa amostragem; isso não equivale a revisão de todos os frames ou dos vídeos brutos. O MP4 sem áudio foi incluído em process-log/videos, com origem, intervalos e edição documentados. A revisão do repo é focada nos pontos de entrada, links alterados, escopo Git e gates executados; não foi declarada auditoria integral de todos os documentos históricos. QA remoto permanece parcial até conclusão do reteste.
 
+137. **Conferência final contra o guia.** Confirmei meu LinkedIn e pedi revisar a submissão completa. Lia releu guia, CONTRIBUTING, template e Challenge 004; mapeou as oito perguntas ao relatório e registrou a matriz de conformidade. Inventário de 163 arquivos/91 Markdown antes da revisão, sem links relativos de arquivo quebrados nem alterações fora da pasta de submissão; varredura textual sem padrões de credenciais e sem caches/env versionados. SQLite íntegro e hashes dos manifests reconciliados; 10 testes Python do exportador passaram. Camila confirmou no Brave as duas correções, fluxo principal, negativos/fracionários, 404 e home/simulador mobile. Um rótulo sales remanescente foi traduzido, com teste de regressão: lint, tipos, 19 unitários e build passaram. Nova Preview Ready; último reteste dessa microcopy solicitado. Limites de ROI, frequência, vídeo, acessibilidade e tempo não foram ocultados. PR continua não enviada.
+
+138. **Export multiagente e legenda do meu OS de agentes.** Pedi exportar o chat e esclareci que a evidência deve cobrir todas as sessões vinculadas ao projeto, não só Lia. Pedi também explicar as personas do PD Framework, meu OS de agentes. Lia localizou 15 sessões por metadados, tarefa e vínculos de coordenação, exportando 1.013 mensagens visíveis sanitizadas em arquivos separados. Incluiu dados, UI, UX, pareceres, QA e apoios retirados; excluiu processos internos de segurança, ferramentas e raciocínio interno. Prompts de coordenação/handoffs não são atribuídos automaticamente a mim, e contexto herdado não conta como execução independente. Caminhos, e-mails, IDs e padrões de credenciais receberam marcadores. O índice informa limites e snapshots, sem alegar captura universal de sessões não localizadas. A tentativa inicial de seleção por prefixos colidiu com outras sessões; antes de publicar, Lia refez a seleção por IDs completos conferidos. Camila confirmou também a microcopy final no Brave, sem bloqueio nos dois casos retestados.
+
 ### Onde a IA errou e como corrigi
 
 | Ocorrência | Minha intervenção ou correção do agente | Resultado e evidência |
@@ -367,7 +374,7 @@ Esta seção adicional atende à pergunta do guia sobre quantidade de iteraçõe
 - [x] Narrativa escrita: este documento, redigido com apoio de IA e ainda sujeito à minha revisão final.
 - [x] Cinco screenshots selecionados e anexados, com contexto e limites.
 - [x] Screen recording — seleção editada de 24 segundos incluída com origem e limites de revisão. Vídeos brutos não publicados.
-- [ ] Chat exports para submissão — transcripts locais existem, mas não foram selecionados, sanitizados e anexados.
+- [x] Chat exports — 15 sessões do projeto, sanitizadas e identificadas por frente; não inclui ferramentas, raciocínio interno ou sessões não localizadas.
 - [x] Git history — checkpoints de análise, implementação, correções e publicação na mesma branch de submissão.
 - [ ] Relatório e inventário das PRs — agente trabalhando; incorporar links após conferir os arquivos e a cobertura.
 

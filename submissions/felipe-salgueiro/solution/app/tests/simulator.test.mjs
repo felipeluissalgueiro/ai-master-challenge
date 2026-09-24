@@ -53,6 +53,13 @@ test('sales must be safe whole counts', () => {
   }
 });
 
+test('validation names are readable in Portuguese', () => {
+  for (const [key, name] of Object.entries({cost: 'Custo', views: 'Visualizações', interactions: 'Interações', sales: 'Vendas'})) {
+    assert.equal(simulateCosts({...scenario, [key]: -1}).errors[0], `${name}: informe um número finito não negativo.`);
+  }
+  assert.match(simulateCosts({...scenario, sales: 1.5}).errors[0], /^Vendas: use uma quantidade inteira/);
+});
+
 test('refuses mixing per-post reference with campaign investment', () => {
   assert.ok(simulateCosts({...scenario, metricsBasis: 'post'}).errors.length);
   assert.ok(simulateCosts({...scenario, costBasis: 'unknown', metricsBasis: 'unknown'}).errors.length);

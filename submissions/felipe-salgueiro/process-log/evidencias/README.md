@@ -14,6 +14,6 @@ Cinco capturas feitas por Felipe, selecionadas e inspecionadas visualmente com a
 
 ## Gravações e outros formatos
 
-Incluímos uma [seleção de vídeo de 24 segundos](../videos/README.md), com origem, cortes e limites da revisão documentados. Gravações brutas e chat exports integrais não foram anexados.
+Incluímos uma [seleção de vídeo de 24 segundos](../videos/README.md) e [exports sanitizados de 15 sessões](../chat-exports/README.md), com origem e limites documentados. Gravações brutas, ferramentas e raciocínio interno não foram anexados.
 
 O [guia oficial](../../../../submission-guide.md) aceita escolher ou combinar formatos. Esta entrega usa narrativa, capturas e histórico Git; vídeo e notebook não são obrigações cumulativas. O [workflow](../workflow.md) preserva decisões e correções com mais contexto.

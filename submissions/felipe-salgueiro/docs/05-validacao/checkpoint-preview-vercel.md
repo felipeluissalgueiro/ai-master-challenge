@@ -2,7 +2,14 @@
 
 ## Publicado
 
-### Revisão após QA
+### Correção final de microcopy
+
+- Preview: https://g4-social-insight-da2ghmdai-felipeluissalgueiros-projects.vercel.app
+- Deployment: `dpl_DMNmSJHAXAPa2KQGUgYv2zT4Uvm2`; target preview e Ready confirmados por `vercel inspect`.
+- Única alteração funcional de apresentação: nomes dos campos nas mensagens de erro em português; nenhuma fórmula alterada.
+- 19 testes unitários, lint, tipos e build passaram; ver reteste no [checkpoint Brave](checkpoint-qa-brave.md).
+
+### Revisão anterior após QA
 
 - Preview atual: https://g4-social-insight-the4349yo-felipeluissalgueiros-projects.vercel.app
 - Deployment `dpl_3c4p61YaXRvN4LPdhUJhMEA8JwVU`: target preview e Ready confirmados por `vercel inspect`.
