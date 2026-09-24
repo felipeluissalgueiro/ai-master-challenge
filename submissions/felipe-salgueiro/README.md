@@ -33,7 +33,17 @@ As versões iniciais foram reprovadas por mim e reformuladas para leitura gerenc
 [Explorador dos dados Ouro](solution/prototype/README.md): disponível na aplicação e como HTML local em `solution/prototype/index.html`. O GitHub exibe o código-fonte; a Preview permite navegar.
 
 ### Abordagem
-Preservar a fonte na camada Bronze; validar e derivar métricas na Prata; somente depois produzir comparações e recomendações. [Brief consolidado](docs/01-brief/brief.md).
+
+1. **Comecei pela decisão do gestor, não pelo gráfico.** Escolhi Social Media pela proximidade com minha experiência em gerir marcas e produzir conteúdo. Queria responder o que continuar fazendo, quando patrocinar e o que interromper. Comparei os cases com apoio das personas de Marketing e Desenvolvimento, mas mantive comigo a escolha e a revisão do resultado.
+2. **Confrontei minha experiência com o que a base realmente permite.** Trouxe critérios que uso em conteúdo: views, retenção nos primeiros três segundos e comentários como pistas para novos ganchos. Pedi verificar esses campos antes de desenhar a solução. Não transformei métricas ausentes nem textos sintéticos em evidência de comportamento real.
+3. **Separei as perguntas em análise, estratégia e ferramenta de decisão.** Pedi uma frente independente de auditoria enquanto discutia os requisitos com o time de agentes. O planejamento passou por [Brief](docs/01-brief/brief.md), [PRD](docs/02-prd/prd.md), arquitetura e [tarefas](docs/04-planejamento/issues/README.md). Os documentos preservam propostas históricas; nem toda capacidade discutida virou implementação.
+4. **Exigi uma origem verificável para cada número.** Preservei a fonte na Bronze, validei e derivei métricas na Prata e produzi comparações na Ouro. Mantive o SQLite reconstruível no fork para auditoria e usei exportações estáticas na aplicação, evitando banco e infraestrutura adicionais no deploy. O [contrato de dados](solution/data/app/README.md) explica o consumo.
+5. **Distingui engajamento de aquisição e venda.** Meu racional é que conteúdo pode ser um canal de aquisição, mas seu retorno precisa ser medido conforme o objetivo. Como faltam custos e conversões, preferi um simulador explícito a inventar ROI. CRM, atribuição e modelo especializado de marketing ficaram como evolução, não entrega atual.
+6. **Reduzi escopo e revisei a usabilidade.** Considerei aproveitar o Cadência inteiro, depois optei por uma aplicação mais simples. Separei relatório executivo, explorador e dashboard; reprovei versões com números sem contexto e pedi conclusão, justificativa e ação. Retirei o chat com LLM para concentrar a entrega em análise verificável e navegação funcional.
+7. **Validei antes de preparar a submissão.** Usei gates de lint, tipos, testes e build, além de QA no Brave e correções após minha leitura. Autorizei revisão pelo próprio modelo para equilibrar prazo e qualidade, sem declarar revisão independente inexistente. A [matriz de validação](docs/05-validacao/submission-audit.md) distingue cobertura comprovada de limites.
+
+O [diário do processo](process-log/workflow.md) preserva a sequência, mudanças de ideia e intervenções; os [exports multiagente](process-log/chat-exports/README.md) mostram mensagens visíveis de 15 sessões. Esta seção é a síntese das decisões registradas, não uma reconstrução de raciocínio interno dos modelos.
+
 ### Resultados / Findings
 Pipeline analítico, banco de evidência, exportador e comparações descritivas integrados. A análise utiliza 52.214 posts; os resultados e suas provas estão no relatório executivo. [Reprodução e artefatos](solution/README.md).
 
@@ -41,11 +51,49 @@ Pipeline analítico, banco de evidência, exportador e comparações descritivas
 - Das 60 células de patrocínio comparáveis, 33 favoreceram posts marcados como patrocinados e 27 os demais; o sentido mudou entre faixas de seguidores em 14 de 15 combinações.
 - Retorno financeiro permanece desconhecido. O simulador separa explicitamente hipóteses comerciais dos resultados da base.
 ### Recomendações
-Priorizar testes de conteúdo e medir o resultado correspondente ao objetivo da campanha antes de ampliar ou cortar investimento. O relatório detalha condições, limites e ações; o plano semanal é proposto, não uma série temporal real do G4.
+
+1. **Definir objetivo e medição antes de investir.** Para engajamento, acompanhar interações por views; para aquisição e vendas, registrar custos e conversões com rastreamento e CRM. Sem isso, não recomendo escolher canais por suposto retorno financeiro.
+2. **Testar conteúdo em recortes comparáveis.** As diferenças pequenas entre grupos não justificam reorganizar a produção só pelo ranking da base. Formular uma hipótese por teste e avaliar contexto, volume e consistência antes de escalar.
+3. **Tratar patrocínio como experimento, não regra universal.** A divisão de 33 contra 27 células e as mudanças entre faixas de seguidores não sustentam um perfil vencedor universal. Escolher parceiros pela aderência ao objetivo e à audiência e pactuar medição antes do investimento.
+4. **Não recomendar cortes financeiros sem evidência financeira.** Interromper a prática de decidir apenas por seguidores ou médias agregadas; a base não permite declarar que um investimento específico desperdiçou dinheiro.
+5. **Executar os primeiros passos nesta semana.** Definir objetivo e indicadores, selecionar uma hipótese de conteúdo e uma de parceria, registrar o cenário no simulador e preparar a coleta comercial. São ações propostas a partir das lacunas e dos achados, não ganhos já demonstrados.
+
+O [relatório executivo](solution/reports/README.md) detalha as oito perguntas, números e condições. O plano semanal é proposto, não uma série temporal real do G4.
+
 ### Limitações
-Fonte sintética; sem retenção de 3s, alcance, impressões, custos ou conversões. Campos textuais não serão tratados como voz real da audiência. Patrocínio não comprova mídia paga; associação não prova causalidade.
+
+- **Fonte e causalidade:** dataset sintético. Comparações são descritivas; associação não prova causa. A marcação de patrocínio não comprova compra de mídia nem permite calcular seu retorno.
+- **Criativo e audiência:** faltam retenção de 3s e evidência real dos comentários para testar meus critérios de gancho e conteúdo. Campos textuais sintéticos não representam a voz real de consumidores.
+- **Negócio:** sem alcance, impressões, custos ou conversões, não determinei ROI, CAC, custo por venda observado nem um threshold de investimento validado. O simulador calcula cenários informados pelo usuário.
+- **Tempo e recorrência:** o snapshot não sustenta recomendações de frequência de postagem nem “insights desta semana” como monitoramento real. Não há integração ativa com canais ou CRM.
+- **Escopo entregue:** chat/LLM, SLM especializado e atribuição comercial não foram implementados na versão final. Não anexei notebook; disponibilizei scripts, banco, manifestos, relatórios e aplicação.
+- **Validação:** os gates e o QA cobrem os casos registrados, não todos os dispositivos ou uma auditoria completa de acessibilidade. O [checkpoint do Brave](docs/05-validacao/checkpoint-qa-brave.md) explicita o que foi testado.
+
+#### O que retirei e o que faria com mais tempo
+
+**Decisões de corte para esta entrega:** não portar o Cadência inteiro; não hospedar SQLite como backend; não acrescentar autenticação a um painel público sem dados privados; retirar o chat com LLM. Mantive o banco como evidência no fork e o deploy com dados estáticos. Também deixei de perseguir um modelo preditivo experimental para não desviar da análise e da estratégia obrigatórias. Esses cortes preservaram o núcleo da entrega e reduziram dependências.
+
+**Próximo ciclo, em ordem de prioridade:**
+
+1. **Validar com dados reais e um gestor.** Testar a compreensão das recomendações e coletar métricas de conteúdo, retenção e audiência com definições consistentes. Só então propor uma cadência recorrente de atualização.
+2. **Conectar resultados comerciais.** Integrar custos, links/cupom e CRM para acompanhar leads e vendas por campanha/parceiro, explicitando limites de atribuição. Separar custo por venda de CAC, que exige identificar novos clientes e delimitar quais custos entram no cálculo.
+3. **Validar critérios de decisão.** Comparar o creator com seu próprio histórico e, havendo fonte comparável, com benchmark externo. Testar regras determinísticas antes de definir thresholds ou automatizar recomendações; não tratar benchmark ilustrativo como resultado medido.
+4. **Ampliar qualidade e operação.** Completar a matriz de QA mobile/acessibilidade, testar atualização dos dados e monitorar o uso. A implantação atual é uma Preview, não uma operação de marketing integrada.
+5. **Reavaliar assistência por IA.** Retomar uma conversa contextual sobre a recomendação, restrita às evidências, com avaliações de respostas, autenticação e controles de custo. Um SLM especializado em marketing foi uma proposta futura minha, condicionada a dados, acesso e validação; não um modelo treinado ou disponível neste projeto.
+
+Mais tempo, sozinho, não resolveria a ausência de dados comerciais nem transformaria uma base sintética em evidência de retorno real.
 
 ## Process Log — Como usei IA
+
+### Organização e quality gates
+
+Segui meu **Dev Workflow do PD Framework**: briefing → PRD → RFC/arquitetura → decomposição em tarefas → implementação → validação → Preview → revisão humana → preparação da PR. Usei Linear para organizar o trabalho, Obsidian para registrar decisões e Git para checkpoints. A [documentação por etapa](docs/README.md) e as [tarefas exportadas](docs/04-planejamento/issues/README.md) permitem conferir esse processo sem acesso às minhas ferramentas privadas.
+
+Separei as frentes de dados, interface, UX e QA e revisei os handoffs antes da integração. As personas são papéis de IA do meu OS de agentes, não uma equipe humana adicional. Usei DRY, facilidade de mudança e separação de responsabilidades como critérios de arquitetura.
+
+Para equilibrar prazo e qualidade, **autorizei a revisão pelo próprio modelo em vez de exigir revisão por pares/múltiplos modelos**. Essa simplificação não dispensou os gates técnicos: lint, tipos, 19 testes unitários da aplicação, 10 testes Python do exportador e build passaram na revisão registrada. O QA visual e funcional teve checkpoints e retestes no Brave; mantive explícita sua cobertura limitada. Não afirmo que cada commit passou novamente por todos esses gates.
+
+O histórico preserva erros e correções: relatório difícil de ler, navegação/âncoras, linguagem do simulador e redução de escopo. O [registro de validação](docs/05-validacao/submission-audit.md) mostra evidências e pendências, em vez de usar o método como garantia abstrata de qualidade. **Publicar a Preview e preparar a branch não equivale a enviar a PR.**
 ### Ferramentas usadas
 Codex apoiou análise, implementação, documentação e QA por agentes com papéis definidos; Gemini apoiou uma consulta sobre a transcrição de podcast trazida por mim. Usei Herdr para coordenar sessões, Linear para planejar, Obsidian para o diário e Git para versionar a evolução. Python/SQLite fizeram os cálculos determinísticos; FFmpeg preparou o vídeo. [Método de trabalho](docs/metodo/README.md).
 ### Workflow
@@ -62,6 +110,7 @@ Uma lembrança sobre Tallis não foi confirmada e deixou de sustentar a escolha.
 Trouxe meu contexto de marcas/conteúdo, propus examinar gancho/contexto/informação/chamada se houver dados e defini o foco do projeto. São contribuições observáveis, não alegações de exclusividade humana.
 
 ## Evidências
+- [Histórico Git da branch de submissão](https://github.com/felipeluissalgueiro/ai-master-challenge/commits/submission/felipe-salgueiro/) e [guia dos checkpoints](process-log/git-history.md) — evolução real do código, correções e decisões de escopo.
 - [Revisão contra o guia e cobertura das oito perguntas](docs/05-validacao/submission-audit.md).
 - [Planejamento e issues exportadas](docs/04-planejamento/issues/README.md) — leitura no próprio repositório, sem depender do Linear ou da renderização do GitHub Projects.
 - [Projeto e marcos](docs/00-projeto/README.md).

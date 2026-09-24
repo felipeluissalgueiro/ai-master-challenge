@@ -24,7 +24,7 @@ Snapshot revisado em 23/09/2026 para checkpoints no fork, autorizados por Felipe
 Na consulta inicial havia zero documentos e issues. Posteriormente, o [Brief v1](01-brief/brief.md) foi criado no Linear e exportado. O [PRD Draft v0.3](02-prd/prd.md) foi elaborado por Paloma e consolidado por Lia; seu fechamento depende da análise e revisão. RFC e tarefas individuais permanecem pendentes; não foram fabricados para preencher a estrutura.
 
 SHA-256 das notas originais no momento da exportação (antes do tratamento):
-- Diário atualizado até workflow 138: `68991459c9d476d87b75acfc23bdee3e9bc4a0fb6c4f0b1e7efbca401ebc6fe9`.
+- Diário atualizado até workflow 140: `23ece3bb92afead88dd6568b56ae3906a034286313765d14b9dc65461eaa0558`.
 - Panorama: `9168a5b643541134189f1418a93c1aade7a881e9ab10ae97b61e374d6f79538b`.
 - Inventário: `04490e62970f30ac2ea7ac950d25fd88ad1d8ff3a635165baf3770ad551de33d`.
 
