@@ -21,8 +21,8 @@ test.afterEach(async ({page}) => {
 test('navigates by keyboard and preserves the current query', async ({page}) => {
   await page.goto('/?platform=instagram&format=video');
   await expect(page.getByRole('heading', {level: 1})).toContainText('Decisões de social media');
-  await expect(page.getByRole('heading', {level: 3})).toHaveCount(8);
-  await expect(page.locator('#main-content').getByText('Shell pronto para integração')).toBeVisible();
+  await expect(page.locator('.decision-card')).toHaveCount(8);
+  await expect(page.locator('#main-content').getByText('Dados sintéticos.', {exact: true})).toBeVisible();
 
   const reportsLink = page.getByRole('link', {name: 'Ver relatórios'}).first();
   await reportsLink.focus();

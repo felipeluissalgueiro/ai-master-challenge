@@ -6,12 +6,17 @@ executivo e o explorador.
 
 ## Limite da Story
 
-O shell não implementa o dashboard analítico da MAR-105, não lê SQLite, não
-define contrato concorrente e não inclui LLM, login ou servidor de banco.
+A home consome diretamente o snapshot canônico de MAR-99 em
+`../data/app/dashboard.json`. Não lê SQLite, não define contrato concorrente
+e não inclui LLM, login ou servidor de banco.
 
-O shell segue o plano da MAR-101 e apresenta as oito decisões do Head de Social
-Media com identidade própria navy/coral aproximada. Não atribui essa identidade
-à marca analisada e não antecipa métricas ou recomendações.
+A home apresenta oito recomendações com evidência, regra e limites, além de
+comparações por plataforma, formato, categoria, seguidores e audiência.
+O filtro GET `dimension`/`value` afeta só o painel comparativo; não recalcula
+as conclusões gerais. Recortes vazios e combinações não exportadas têm estados
+explícitos e ação de limpeza. A leitura valida unidade, contagens e referências;
+contrato inválido aciona a página de erro em vez de mostrar números parciais.
+Identidade navy/coral aproximada; não é um manual de marca oficial.
 
 Apenas a integração de novas versões de `solution/reports/**`,
 `solution/prototype/**` e da paleta `gold-v2` permanece congelada até o handoff
@@ -26,7 +31,11 @@ as páginas em revisão.
 O simulador MAR-103 está integrado em `/simulador`, acessível pela navegação.
 Calcula custos hipotéticos por mil views, interação e venda, sem preencher
 dados comerciais inexistentes. Sua lógica pura permanece separada da UI.
-Dashboard analítico e chat ainda não estão implementados.
+Chat e integração ao CRM ainda não estão implementados.
+
+O build precisa da pasta `solution/`, não só de `app/`: Turbopack e tracing
+resolvem a raiz um nível acima para importar o JSON sem duplicá-lo.
+Não há dependência de SQLite no runtime.
 
 ## Desenvolvimento e validação
 

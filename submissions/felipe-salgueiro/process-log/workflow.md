@@ -303,6 +303,10 @@ Cronologia numerada em primeira pessoa. Cada nova etapa registra pedido ou açã
 
 121. **Integrei o shell e testei o simulador no aplicativo completo.** Recebi o handoff estável do executor g4-ui: Astryx real, oito perguntas, navegação e estados técnicos. Lia preservou os arquivos do simulador, acrescentou seu acesso no menu e reexecutou os gates na branch de entrega: lint, tipagem, build e 12 testes unitários passaram. A primeira rodada de navegador teve 17/20: seletores globais encontraram elementos duplicados/transitórios do framework. Os testes foram delimitados às regiões corretas, mantendo as asserções, e a segunda rodada passou 20/20 (10 desktop e 10 mobile). Nenhuma captura, gravação, chamada de LLM ou deploy foi realizado. QA visual e humano continuam pendentes; os relatórios em revisão não foram integrados e o dashboard ainda não consome o snapshot.
 
+122. **Mantive a revisão dos relatórios separada da implementação do sistema.** O agente de dados entregou uma reestruturação executiva e depois uma revisão de microcopy, ambas aguardando minha validação final antes de integração. Lia não portou esses arquivos; a fonte de dados já publicada continuou sendo o contrato da aplicação.
+
+123. **Conectei os dados ao dashboard.** Lia implementou a MAR-105: panorama real do snapshot, sete dimensões de comparação, filtros com estados vazio/incompatível e oito recomendações ligadas a evidência, regra e limite. O sistema não inventa receita, custo por venda ou CAC. A raiz do build foi ajustada para consumir o JSON canônico sem duplicá-lo. Na branch de entrega passaram lint, tipagem, build, 18 testes unitários e 26 testes browser (13 desktop e 13 mobile). Foram corrigidos tamanho de título e seletores ambíguos dos testes. Não houve QA visual por imagem, chamada de LLM, deploy ou fechamento da issue. Os logs distinguem implementação validada tecnicamente de aprovação visual e publicação do site.
+
 ### Onde a IA errou e como corrigi
 
 | Ocorrência | Minha intervenção ou correção do agente | Resultado e evidência |

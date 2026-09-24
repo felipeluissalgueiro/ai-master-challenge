@@ -346,6 +346,17 @@
     }
   }
 
+  .metric-value { display: block; font-size: clamp(1.6rem, 4vw, 2.2rem); }
+  .page-section h3 { font-size: 18px; line-height: 1.4; }
+  .dashboard-filters { display: flex; flex-wrap: wrap; gap: 1rem; align-items: end; margin: 1rem 0; }
+  .dashboard-filters label { display: grid; gap: .4rem; max-width: 100%; }
+  .dashboard-filters input, .dashboard-filters select, .dashboard-filters button {
+    font: inherit; padding: .7rem; border: 1px solid #64748b; border-radius: .4rem; max-width: 100%;
+  }
+  .dashboard-notice { padding: 1.25rem; border: 1px solid #64748b; border-radius: .5rem; }
+  .decision-card details { overflow-wrap: anywhere; }
+  .decision-card summary { cursor: pointer; padding: .7rem 0; font-weight: 600; }
+
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
