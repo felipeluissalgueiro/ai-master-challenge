@@ -1,74 +1,142 @@
-<!-- Export revisado do diário Obsidian. Caminhos, IDs de sessão e detalhes internos de segurança omitidos. Estados históricos preservados. -->
+# Registro do processo — Felipe Salgueiro — Challenge 004
 
-Estado atual: Preview pública sem login, relatórios e simulador integrados; QA remoto parcial. SQLite versionado como evidência, fora do deploy. Chat e CRM fora do escopo. O primeiro commit agrupa preparação anterior e não simula histórico retroativo.
+Edição pública do diário de trabalho. O registro foi encerrado; não são acrescentadas novas interações. As seções iniciais resumem a entrega atual; a cronologia conserva o estado de cada momento. Trechos de pesquisa pessoal sobre possíveis avaliadores foram omitidos, mantendo a numeração original para preservar referências. Os originais privados e os exports de conversa não foram reescritos.
 
-# Preparação da submissão — Felipe Salgueiro — Challenge 004
 
-[Quem são as personas do meu OS de agentes](README.md#quem-são-as-personas-mencionadas)
-· [Conversas por sessão](chat-exports/README.md).
-
-Registro em primeira pessoa, redigido com apoio da Lia no Codex a partir das conversas e verificações realizadas. Os itens iniciais reconstituem a preparação de 21/09 e o trabalho de 23/09; não são anotações feitas em tempo real naqueles momentos. As interpretações propostas pela IA estão identificadas. Estado atual: pipeline e aplicação implementados, Preview pública e QA remoto parcial. A cronologia preserva o estado de cada momento; o resumo inicial foi atualizado para não apresentar pendências antigas como atuais.
-
-Estrutura baseada no [template oficial](https://github.com/Gestao-Quatro-Ponto-Zero/ai-master-challenge/blob/main/templates/submission-template.md) e no [guia de submissão](https://github.com/Gestao-Quatro-Ponto-Zero/ai-master-challenge/blob/main/submission-guide.md), relidos em 23/09/2026. Esta é uma exportação revisada do diário de trabalho; a cronologia mantém o estado de cada momento. Publicação no fork não equivale ao envio da PR ao G4.
+**Preview publicada; pacote preparado para PR.** [Abrir aplicação](https://g4-social-insight-da2ghmdai-felipeluissalgueiros-projects.vercel.app), sem login. Pipeline, dashboard, relatórios, explorador e simulador integrados. Fluxo principal e correções retestados no Brave; [cobertura e limites](../docs/05-validacao/checkpoint-qa-brave.md). [Estado do deploy](../docs/05-validacao/checkpoint-preview-vercel.md).
 
 ## Sobre mim
-
 - **Nome:** Felipe Salgueiro.
-- **LinkedIn:** [Felipe Luis Salgueiro](https://www.linkedin.com/in/felipe-luis-salgueiro/) — endereço confirmado por mim.
-- **Challenge escolhido:** 004 — Estratégia Social Media. A decisão posterior substitui a prioridade anterior de tentar três; 003 e 001 ficam fora da execução por enquanto. Envio da PR final não autorizado; checkpoints no fork autorizados posteriormente, conforme workflow 77.
+- **LinkedIn:** [Felipe Luis Salgueiro](https://www.linkedin.com/in/felipe-luis-salgueiro/).
+- **Challenge:** 004 — Estratégia Social Media.
 
 ## Executive Summary
-
-Escolhi o Challenge 004 pela aderência à minha experiência em gestão de marcas e conteúdo. Organizei o trabalho no Linear e Obsidian, com documentos exportados para o fork. A auditoria da fonte sintética limitou o que poderíamos recomendar: construímos comparações descritivas, relatório executivo e simulador hipotético, sem inventar retorno financeiro. Reprovei versões técnicas demais, pedi tradução para decisões de gestão e retirei o chat para reduzir o escopo. A aplicação está em Preview pública, com QA remoto parcial registrado separadamente.
+Escolhi o case pela minha experiência com marcas e conteúdo. Usei IA para investigar uma base sintética e transformar a análise em dashboard, relatório executivo e explorador. As diferenças descritivas não justificam prometer um canal vencedor ou retorno financeiro sem custos e conversões. Recomendo testes orientados ao objetivo da campanha e medição antes de ampliar ou cortar investimentos; um simulador separado permite explorar custos hipotéticos sem inventar vendas.
 
 ## Solução
 
+### Acesso e roteiro de avaliação
+
+Abra a **[Preview pública](https://g4-social-insight-da2ghmdai-felipeluissalgueiros-projects.vercel.app)** no navegador. Não precisa de conta, senha, chave de API ou instalação.
+
+1. **Performance e decisões:** leia os três cards e o plano de ação proposto. Eles separam engajamento observado, condições de patrocínio e lacunas para decidir cortes.
+2. **Comparações:** escolha dimensão e grupo. A URL e o painel comparativo mudam; as conclusões gerais não são recalculadas pelo filtro.
+3. **Ver relatórios:** abra o relatório executivo para consultar as oito respostas, gráficos e provas. Use a opção de tela inteira para leitura ampliada.
+4. **Explorar dados:** consulte o dicionário e os recortes do Ouro. O navegador lê artefatos exportados; não acessa o SQLite diretamente.
+5. **Simulador:** escolha o escopo e informe um período comum (ex.: “1 a 7 de outubro”). Exemplo: R$ 2.000, 10.000 views, 2.000 interações e 20 vendas resultam em R$ 200 por mil views, R$ 1 por interação e R$ 100 por venda. Esses valores são hipotéticos, não resultados do dataset.
+
+Para rodar localmente, clone o fork e siga o [setup da aplicação](../solution/app/README.md). Para conferir a origem dos números, consulte o [banco de evidência](../solution/data/evidence/README.md). O snapshot é sintético e estático: não é um painel conectado aos canais ou CRM do G4.
+
+[Relatório executivo para o Head de Marketing](../solution/reports/README.md): oito respostas organizadas em três pilares, provas numéricas e estratégia. Acesse pela aplicação ou baixe/clone e abra `solution/reports/performance-strategy.html` no navegador.
+
+As versões iniciais foram reprovadas por mim e reformuladas para leitura gerencial. As correções e os limites dos testes estão nos [checkpoints](../docs/05-validacao/).
+
+[Aplicação e setup](../solution/app/README.md), [contrato de dados](../solution/data/app/README.md) e [simulador](../docs/05-validacao/checkpoint-mar103-simulator.md): cálculo determinístico de custo por mil views, interação e venda; cenário hipotético, não resultado comercial observado.
+
+[Explorador dos dados Ouro](../solution/prototype/README.md): disponível na aplicação e como HTML local em `solution/prototype/index.html`. O GitHub exibe o código-fonte; a Preview permite navegar.
+
 ### Abordagem
 
-Defini uma análise de um case por vez, confrontando o pedido, a evidência disponível e minha experiência. Escolhi o 004 e adotei processamento Bronze/Prata/Ouro; a ingestão e as primeiras validações estão implementadas.
+**Por que escolhi o 004.** Minha experiência combina gestão de marcas, criação de conteúdo e construção de ferramentas de marketing no Cadência. O desafio permitia conectar essas três frentes: analisar performance, propor uma estratégia e demonstrar como a análise pode virar uma decisão recorrente. Eu queria mostrar mais do que capacidade de produzir código com IA: queria testar se conseguiria reconhecer uma informação útil para um gestor, questionar a conclusão do modelo e transformar o resultado em uma interface utilizável. O 003 também se aproximava do lead scoring que já havíamos trabalhado, e cheguei a considerar três cases; escolher apenas o 004 foi uma decisão de foco. A menor presença de Social Media no levantamento parcial das PRs também pesou, mas não foi tratada como prova de menor concorrência ativa nem como substituto da aderência à minha experiência.
+
+**Por que separei análise, estratégia e interface.** São três responsabilidades diferentes: verificar o que a tabela sustenta, decidir o que fazer com isso e comunicar a decisão ao usuário. Pedi análise independente para que uma tela desejada não determinasse antecipadamente o resultado dos dados. Separei também relatório executivo de explorador: o primeiro responde às perguntas do gestor; o segundo permite conferir o banco e os recortes. Essa separação de responsabilidades evita confundir uma tabela correta com uma recomendação útil.
+
+**Que técnica usei nos dados e por quê.** Adotei a organização em camadas Bronze/Prata/Ouro, conhecida como arquitetura medalhão, em uma implementação local com Python e SQLite — não uma infraestrutura de datalake em nuvem. Na Bronze preservei o CSV recebido e sua proveniência; na Prata fiz tipagem, padronização, validações e métricas; na Ouro reuni agregações e comparações para responder às perguntas do case. Assim, uma correção de fórmula ou classificação pode ser rastreada até a origem sem apagar o dado recebido, e a interface não precisa refazer cálculos. As tabelas temáticas da Prata separam métricas, creators, datas, audiência e conteúdo para reduzir dependências entre regras.
+
+Nas comparações de patrocínio, usei recortes por plataforma, categoria e quartil de seguidores na data do post, em vez de depender somente de uma média geral que mistura perfis diferentes. Mediana, dispersão e tamanho da amostra contextualizam a comparação; a segmentação melhora a leitura, mas não elimina fatores de confusão nem prova causalidade. O [contrato do banco](../solution/data/evidence/README.md) documenta fórmulas, tabelas e correções conhecidas. SQLite tornou essa cadeia portátil e auditável, e as exportações Ouro desacoplaram o site do banco.
+
+**Como conduzi a execução:**
+
+1. **Comecei pela decisão do gestor, não pelo gráfico.** Escolhi Social Media pela proximidade com minha experiência em gerir marcas e produzir conteúdo. Queria responder o que continuar fazendo, quando patrocinar e o que interromper. Comparei os cases com apoio das personas de Marketing e Desenvolvimento, mas mantive comigo a escolha e a revisão do resultado.
+2. **Confrontei minha experiência com o que a base realmente permite.** Trouxe critérios que uso em conteúdo: views, retenção nos primeiros três segundos e comentários como pistas para novos ganchos. Pedi verificar esses campos antes de desenhar a solução. Não transformei métricas ausentes nem textos sintéticos em evidência de comportamento real.
+3. **Separei as perguntas em análise, estratégia e ferramenta de decisão.** Pedi uma frente independente de auditoria enquanto discutia os requisitos com o time de agentes. O planejamento passou por [Brief](../docs/01-brief/brief.md), [PRD](../docs/02-prd/prd.md), arquitetura e [tarefas](../docs/04-planejamento/issues/README.md). Os documentos preservam propostas históricas; nem toda capacidade discutida virou implementação.
+4. **Exigi uma origem verificável para cada número.** Preservei a fonte na Bronze, validei e derivei métricas na Prata e produzi comparações na Ouro. Mantive o SQLite reconstruível no fork para auditoria e usei exportações estáticas na aplicação, evitando banco e infraestrutura adicionais no deploy. O [contrato de dados](../solution/data/app/README.md) explica o consumo.
+5. **Distingui engajamento de aquisição e venda.** Meu racional é que conteúdo pode ser um canal de aquisição, mas seu retorno precisa ser medido conforme o objetivo. Como faltam custos e conversões, preferi um simulador explícito a inventar ROI. CRM, atribuição e modelo especializado de marketing ficaram como evolução, não entrega atual.
+6. **Reduzi escopo e revisei a usabilidade.** Considerei aproveitar o Cadência inteiro, depois optei por uma aplicação mais simples. Separei relatório executivo, explorador e dashboard; reprovei versões com números sem contexto e pedi conclusão, justificativa e ação. Retirei o chat com LLM para concentrar a entrega em análise verificável e navegação funcional.
+7. **Validei antes de preparar a submissão.** Usei gates de lint, tipos, testes e build, além de QA no Brave e correções após minha leitura. Autorizei revisão pelo próprio modelo para equilibrar prazo e qualidade, sem declarar revisão independente inexistente. A [matriz de validação](../docs/05-validacao/submission-audit.md) distingue cobertura comprovada de limites.
+
+O [diário do processo](workflow.md) preserva a sequência, mudanças de ideia e intervenções; os [exports multiagente](chat-exports/README.md) mostram mensagens visíveis de 15 sessões. Esta seção é a síntese das decisões registradas, não uma reconstrução de raciocínio interno dos modelos.
 
 ### Resultados / Findings
+Pipeline analítico, banco de evidência, exportador e comparações descritivas integrados. A análise utiliza 52.214 posts; os resultados e suas provas estão no relatório executivo. [Reprodução e artefatos](../solution/README.md).
 
-O pipeline reconstrói 52.214 registros. Relatório, explorador, exportador e aplicação estão integrados. As diferenças entre segmentos são descritivas; não comprovam causalidade nem retorno financeiro. As evidências técnicas e os limites acompanham os resultados.
-
+- Nas dimensões de conteúdo, a maior diferença entre medianas equivale a cerca de 1,7 interação por 10 mil views: não basta para escolher um vencedor de negócio.
+- Das 60 células de patrocínio comparáveis, 33 favoreceram posts marcados como patrocinados e 27 os demais; o sentido mudou entre faixas de seguidores em 14 de 15 combinações.
+- Retorno financeiro permanece desconhecido. O simulador separa explicitamente hipóteses comerciais dos resultados da base.
 ### Recomendações
 
-Foco decidido: 004 — Estratégia Social Media. Recomendações de negócio dependem da análise dos dados; os demais cases não estão em execução.
+1. **Definir objetivo e medição antes de investir.** Para engajamento, acompanhar interações por views; para aquisição e vendas, registrar custos e conversões com rastreamento e CRM. Sem isso, não recomendo escolher canais por suposto retorno financeiro.
+2. **Testar conteúdo em recortes comparáveis.** As diferenças pequenas entre grupos não justificam reorganizar a produção só pelo ranking da base. Formular uma hipótese por teste e avaliar contexto, volume e consistência antes de escalar.
+3. **Tratar patrocínio como experimento, não regra universal.** A divisão de 33 contra 27 células e as mudanças entre faixas de seguidores não sustentam um perfil vencedor universal. Escolher parceiros pela aderência ao objetivo e à audiência e pactuar medição antes do investimento.
+4. **Não recomendar cortes financeiros sem evidência financeira.** Interromper a prática de decidir apenas por seguidores ou médias agregadas; a base não permite declarar que um investimento específico desperdiçou dinheiro.
+5. **Executar os primeiros passos nesta semana.** Definir objetivo e indicadores, selecionar uma hipótese de conteúdo e uma de parceria, registrar o cenário no simulador e preparar a coleta comercial. São ações propostas a partir das lacunas e dos achados, não ganhos já demonstrados.
+
+O [relatório executivo](../solution/reports/README.md) detalha as oito perguntas, números e condições. O plano semanal é proposto, não uma série temporal real do G4.
 
 ### Limitações
 
-A inspeção confirmou fonte sintética e ausência de custos, receita e retenção de 3s. Datas não sustentam uma cadência real; demografia descreve perfis predominantes, não pessoas individualmente. A pesquisa das PRs é um retrato parcial, não um censo definitivo. Participação de João Vitor ou Tallis na banca não confirmada; a pesquisa de suas posições públicas não é uma rubrica oficial.
+- **Fonte e causalidade:** dataset sintético. Comparações são descritivas; associação não prova causa. A marcação de patrocínio não comprova compra de mídia nem permite calcular seu retorno.
+- **Criativo e audiência:** faltam retenção de 3s e evidência real dos comentários para testar meus critérios de gancho e conteúdo. Campos textuais sintéticos não representam a voz real de consumidores.
+- **Negócio:** sem alcance, impressões, custos ou conversões, não determinei ROI, CAC, custo por venda observado nem um threshold de investimento validado. O simulador calcula cenários informados pelo usuário.
+- **Tempo e recorrência:** o snapshot não sustenta recomendações de frequência de postagem nem “insights desta semana” como monitoramento real. Não há integração ativa com canais ou CRM.
+- **Escopo entregue:** chat/LLM, SLM especializado e atribuição comercial não foram implementados na versão final. Não anexei notebook; disponibilizei scripts, banco, manifestos, relatórios e aplicação.
+- **Validação:** os gates e o QA cobrem os casos registrados, não todos os dispositivos ou uma auditoria completa de acessibilidade. O [checkpoint do Brave](../docs/05-validacao/checkpoint-qa-brave.md) explicita o que foi testado.
+
+#### O que retirei e o que faria com mais tempo
+
+**Decisões de corte para esta entrega:** não portar o Cadência inteiro; não hospedar SQLite como backend; não acrescentar autenticação a um painel público sem dados privados; retirar o chat com LLM. Mantive o banco como evidência no fork e o deploy com dados estáticos. Também deixei de perseguir um modelo preditivo experimental para não desviar da análise e da estratégia obrigatórias. Esses cortes preservaram o núcleo da entrega e reduziram dependências.
+
+**Próximo ciclo, em ordem de prioridade:**
+
+1. **Validar com dados reais e um gestor.** Testar a compreensão das recomendações e coletar métricas de conteúdo, retenção e audiência com definições consistentes. Só então propor uma cadência recorrente de atualização.
+2. **Conectar resultados comerciais.** Integrar custos, links/cupom e CRM para acompanhar leads e vendas por campanha/parceiro, explicitando limites de atribuição. Separar custo por venda de CAC, que exige identificar novos clientes e delimitar quais custos entram no cálculo.
+3. **Validar critérios de decisão.** Comparar o creator com seu próprio histórico e, havendo fonte comparável, com benchmark externo. Testar regras determinísticas antes de definir thresholds ou automatizar recomendações; não tratar benchmark ilustrativo como resultado medido.
+4. **Ampliar qualidade e operação.** Completar a matriz de QA mobile/acessibilidade, testar atualização dos dados e monitorar o uso. A implantação atual é uma Preview, não uma operação de marketing integrada.
+5. **Reavaliar assistência por IA.** Retomar uma conversa contextual sobre a recomendação, restrita às evidências, com avaliações de respostas, autenticação e controles de custo. Um SLM especializado em marketing foi uma proposta futura minha, condicionada a dados, acesso e validação; não um modelo treinado ou disponível neste projeto.
+
+Mais tempo, sozinho, não resolveria a ausência de dados comerciais nem transformaria uma base sintética em evidência de retorno real.
 
 ## Process Log — Como usei IA
 
+### Organização e quality gates
+
+Segui meu **Dev Workflow do PD Framework**: briefing → PRD → RFC/arquitetura → decomposição em tarefas → implementação → validação → Preview → revisão humana → preparação da PR. Usei Linear para organizar o trabalho, Obsidian para registrar decisões e Git para checkpoints. A [documentação por etapa](../docs/README.md) e as [tarefas exportadas](../docs/04-planejamento/issues/README.md) permitem conferir esse processo sem acesso às minhas ferramentas privadas.
+
+Separei as frentes de dados, interface, UX e QA e revisei os handoffs antes da integração. As personas são papéis de IA do meu OS de agentes, não uma equipe humana adicional. Usei DRY, facilidade de mudança e separação de responsabilidades como critérios de arquitetura.
+
+Para equilibrar prazo e qualidade, **autorizei a revisão pelo próprio modelo em vez de exigir revisão por pares/múltiplos modelos**. Essa simplificação não dispensou os gates técnicos: lint, tipos, 19 testes unitários da aplicação, 10 testes Python do exportador e build passaram na revisão registrada. O QA visual e funcional teve checkpoints e retestes no Brave; mantive explícita sua cobertura limitada. Não afirmo que cada commit passou novamente por todos esses gates.
+
+O histórico preserva erros e correções: relatório difícil de ler, navegação/âncoras, linguagem do simulador e redução de escopo. O [registro de validação](../docs/05-validacao/submission-audit.md) mostra evidências e pendências, em vez de usar o método como garantia abstrata de qualidade. **Publicar a Preview e preparar a branch não equivale a enviar a PR.**
 ### Ferramentas usadas
 
-| Ferramenta | Para que usei e por quê |
-|---|---|
-| Codex — Lia, persona do PD Framework | Apoio à análise da candidatura, pesquisa, síntese e documentação; usei o contexto de carreira já existente para orientar o debate. |
-| Subagentes Codex — Maria e Vitor | Pareceres independentes sobre negócio/comunicação e rigor técnico do case 001. Modelo herdado; IDs no workflow. Personas são instruções de papel, não modelos diferentes por si mesmas. |
-| Codex no pane de pesquisa — `gpt-5.6-terra medium` observado | Investigação paralela das PRs públicas; separação do levantamento extenso da discussão principal. |
-| Codex — agente `g4-capturas`, `gpt-5.6-luna medium` confirmado | Agente exclusivo de screenshots por evento; preparação inicial em Terra, depois troca para Luna a meu pedido. Capturas dependem de verificação visual antes de serem declaradas válidas. |
-| Omarchy / GPU Screen Recorder | Gravação de tela iniciada por mim para documentar o trabalho; diagnóstico somente de leitura feito pela Lia, sem validar ainda os vídeos finais. |
-| Herdr | Coordenação dos terminais: identificação do pane preparado, envio da tarefa e acompanhamento do agente. |
-| Obsidian | Registro contínuo e revisão deste processo em uma nota única. |
-| PD Framework e suas skills | Contexto das personas, recuperação de registros e convenções de escrita no vault. |
-| Pesquisa web e leitura de páginas | Consulta dos enunciados e posições públicas; fontes e limites registrados no workflow. |
-| Linear | Consulta à oportunidade MAR-49 e ao estado do processo. |
-| GitHub API, `curl`, `jq` e Git | Conferência do fork, leitura dos arquivos oficiais e levantamento público das PRs pelo agente. |
-| ai-memory, lookup local, `rg` e transcripts Codex | Recuperação de contexto anterior; a busca no ai-memory não trouxe o conteúdo, localizado depois no transcript. |
+Uso o **PD Framework como meu OS de agentes**: é o meu sistema de trabalho para reunir contexto do projeto, instruções reutilizáveis (skills), papéis de IA, planejamento, coordenação e critérios de qualidade. Ele não substitui o modelo nem decide por mim. Sua função neste projeto foi dar contexto e limites às tarefas, organizar as passagens entre análise e implementação e manter decisões e evidências recuperáveis. As personas são papéis dentro desse sistema, não ferramentas adicionais nem pessoas da equipe; a [legenda dos papéis](README.md#quem-são-as-personas-mencionadas) explica a participação de cada uma.
 
-Os modelos da condução principal mudaram durante a conversa; não atribuí um único modelo a todo o histórico. A versão exata por trecho poderá ser conferida no export antes de eventual envio. Ferramentas de organização e consulta estão separadas dos agentes de IA nesta tabela.
+| Ferramenta / tecnologia | Como usei neste projeto e por quê |
+|---|---|
+| PD Framework | Organizei o trabalho com contexto, skills e Dev Workflow; usei os princípios DRY, facilidade de mudança e separação de responsabilidades para orientar as decisões. |
+| Codex | Ambiente de execução dos agentes de IA para ler documentos, propor análises, escrever código, revisar e testar. Separei frentes e confrontei suas entregas antes de integrar. |
+| Gemini | Consulta pontual durante a pesquisa preparatória; não produziu os cálculos nem validou os resultados do dataset. |
+| Herdr | Coordenei sessões e panes de agentes em paralelo, com tarefas delimitadas e handoffs, mantendo análise de dados e construção da interface separadas. |
+| Linear | Organizei briefing, PRD, RFC, marcos e tarefas. Exportei os documentos para o fork para o avaliador não depender de acesso ao meu workspace. |
+| Obsidian | Mantive o diário de decisões, perguntas e correções. O workflow publicado é uma edição desse registro para leitura externa, não uma transcrição integral. |
+| Python | Executei ingestão, validações, cálculos, geração dos relatórios e exportações determinísticas. A IA ajudou a escrever os scripts; os números vêm de código, não de uma resposta textual do modelo. |
+| SQLite | Reuni a fonte, transformações e resultados em um arquivo consultável, com integridade e hashes registrados. Permite auditar a análise sem servidor ou credencial. |
+| Next.js, React, TypeScript e Astryx | Construí a aplicação e seus componentes, com contratos de tipos e interface reutilizável, em vez de somente anexar tabelas. |
+| Vercel | Publiquei a aplicação como Preview pública. O site consome exportações estáticas; não hospeda o SQLite como backend e não usa chave de LLM na versão final. |
+| Git e GitHub | Mantive fork, branch de entrega, diffs e checkpoints reais; reuni código, documentos e evidências dentro da pasta exigida pela submissão. |
+| ESLint, TypeScript, testes Node/Python e Playwright | Verifiquei estilo, tipos, cálculos, contratos e fluxos automatizados locais. Esses testes não substituíram leitura gerencial nem inspeção visual. |
+| Brave | Fizemos QA funcional da Preview e retestes no navegador conectado, sem usar Playwright nessa etapa remota. |
+| Omarchy / GPU Screen Recorder e FFmpeg | Gravei a tela e preparei uma seleção de vídeo sem áudio, com cortes e limites documentados. Omacut foi consultado, mas não fez a exportação. |
+
+Não atribuo um único modelo a toda a execução nem confundo uma persona com um modelo independente. O [método](../docs/metodo/README.md), os [checkpoints de validação](../docs/05-validacao/submission-audit.md) e os [exports](chat-exports/README.md) documentam o uso e seus limites.
+
 
 ### Workflow
+
 
 Cronologia numerada em primeira pessoa. Cada nova etapa registra pedido ou ação, racional explicitado, participação da IA, resultado/limite e evidência quando disponível. Sugestão da IA não é automaticamente decisão minha.
 
 1. **Antes do desafio, investiguei o mandato da vaga com apoio da Lia.** Quis entender o que o G4 esperava de um AI Master e como minha experiência se conectava ao trabalho. A análise apontou um ciclo de diagnóstico, construção, adoção e resultado. Usei esse enquadramento para orientar a preparação da candidatura.
-
-2. **Pedi uma pesquisa pública sobre João Vitor e Tallis Gomes.** Meu objetivo foi entender como as lideranças falam de IA, implementação e resultado, para avaliar a pertinência da minha entrega. Considerei João um possível avaliador; sua participação pessoal na banca não estava confirmada. Também não identifiquei uma lista confirmada dos demais avaliadores.
-
-3. **Explorei, com a Lia, duas perspectivas para a entrega.** A pesquisa anterior associou João a profundidade de implementação, contexto, custo, validação e adoção. As publicações de Tallis apontaram para produtividade, escala e melhores decisões. Tratei isso como orientação de pesquisa, sem assumir que essas interpretações fossem critérios oficiais da seleção.
 
 4. **Recebi o convite para a fase do desafio e fiz o fork.** O e-mail orientava escolher um case no repositório e resolvê-lo por lá. Fiz o fork na minha conta e comecei a ler os desafios antes de pedir apoio à Lia nesta etapa. [Repositório original](https://github.com/Gestao-Quatro-Ponto-Zero/ai-master-challenge) · [Meu fork](https://github.com/felipeluissalgueiro/ai-master-challenge).
 
@@ -85,12 +153,6 @@ Cronologia numerada em primeira pessoa. Cada nova etapa registra pedido ou açã
 10. **Recebi uma primeira análise crítica dos enunciados.** A Lia levantou quatro pontos para verificar nos dados: patrocínio sozinho não permite calcular ROI; tempo de resolução não equivale necessariamente a horas trabalhadas; informações de fechamento podem introduzir dados do futuro em um scorer; e associação entre variáveis não prova a causa do churn. Esses pontos são hipóteses de investigação sugeridas pela IA, não achados de uma análise das bases. Os datasets ainda não foram inspecionados.
 
 11. **Mantive aberta a comparação entre Suporte e Lead Scorer.** Foram as duas opções sugeridas pela Lia pela conexão com processo, CRM, automação e produto. A sugestão ainda não é minha decisão final. Quero avaliar a qualidade dos dados e a possibilidade de demonstrar julgamento e resultado antes de escolher.
-
-12. **Corrigi uma lacuna na recuperação de contexto da IA.** A primeira busca da Lia recuperou a triagem e o recebimento da candidatura, mas não a pesquisa que eu lembrava sobre João e Tallis. Pedi que ela resgatasse a conversa ou refizesse a pesquisa. A busca seguinte encontrou o transcript original de 21/09. Isso recuperou uma base relevante que o resumo da sessão havia omitido.
-
-13. **Pedi que a análise recuperada fosse usada na preparação.** A Lia recuperou o pedido original, a resposta estratégica e a discussão sobre um possível contato com João. A leitura anterior também distinguia recrutamento, influência técnica e decisão executiva, sem confirmar quem avaliaria pessoalmente o case. Não considerei cargo ou proximidade como confirmação de participação na banca.
-
-14. **Acompanhei a revalidação das fontes recuperadas.** A Lia reabriu dois posts de Tallis: um sobre a meta de crescer receita com limite de equipe e outro sobre usar IA para ampliar perspectivas de decisão. A meta declarada não foi tratada como resultado alcançado. O perfil de João retornou erro de acesso, e a análise antiga não preservava links individuais dos posts; mantive essa parte identificada como pesquisa histórica ainda não revalidada. [Escala com IA](https://pt.linkedin.com/posts/tallisgomes_crescer-10x-em-receita-sem-passar-de-460-activity-7439324611554615296-Kww8) · [IA e decisão](https://pt.linkedin.com/posts/tallisgomes_inteligenciaartificial-ia-ai-activity-7405255132872884224-ZRFh).
 
 15. **Recebi uma proposta de critérios para comparar as entregas.** A Lia sugeriu perguntar: a solução é confiável e verificável; que resultado operacional permite melhorar; que decisão facilita para o usuário; e onde aparece minha contribuição ao trabalho da IA. Vou usar essas perguntas como apoio à discussão. Elas não substituem os critérios publicados pelo G4.
 
@@ -160,13 +222,9 @@ Cronologia numerada em primeira pessoa. Cada nova etapa registra pedido ou açã
 
 48. **Recebi uma conferência de exemplos e feedback direto no GitHub.** A Lia abriu as PRs [3](https://github.com/Gestao-Quatro-Ponto-Zero/ai-master-challenge/pull/3), [4](https://github.com/Gestao-Quatro-Ponto-Zero/ai-master-challenge/pull/4) e [84](https://github.com/Gestao-Quatro-Ponto-Zero/ai-master-challenge/pull/84). Na 84, a avaliação pública atribui 8,7/10 e destaca score explicável, confiança separada, resumo executivo e QA; a correção de join foi apontada por bot e reconhecida pelo autor. Na 4, a reavaliação pública reconhece rigor analítico, mas exige distinguir correções e decisões humanas de respostas da IA; menciona peso de 30% naquele feedback, sem confirmar rubrica atual universal. As PRs 3 e 84 têm mensagem explícita de avanço naquela etapa, não prova de contratação ou status atual. A Lia manteve 003 como primeira entrega por aderência ao meu repertório, mas deixou de tratar score explicável/confiança como diferenciais inéditos. Sugeriu demonstrar validação e utilidade operacional, além de produzir uma síntese curta das decisões humanas com links ao log. Nenhum código de candidato foi executado nesta conferência.
 
-49. **Questionei a prioridade do 003 a partir de concorrência e pertinência para o G4.** Lembrei de uma fala de Tallis no ROI Hunters sobre atribuição e recompensa a quem resolvesse esse problema. Pedi que a Lia recuperasse a nota no Obsidian para relacionar a fala ao Social Media. A busca nos dois vaults não localizou a nota desse episódio: encontrou o estudo e a transcrição do ROI Hunters 344, com Pedro Sobral e Rafael Kizo, que não são o episódio solicitado. Na web, a Lia identificou como candidato o ROI Hunters 300, com Tallis, publicado em 24/06/2025, mas não confirmou o trecho sobre atribuição/recompensa. Minha lembrança permanece identificada como relato, não citação validada. A hipótese estratégica é que o 004 combine menor frequência de submissões e afinidade com uma dor de marketing; isso não prova menor concorrência por vaga. É necessário distinguir análise de engagement, atribuição de conversões e efeito incremental: o enunciado não lista a jornada, custos e receita necessários para alegar solução completa de atribuição. A ordem ainda não foi alterada por decisão minha.
-
-50. **Solicitei um prompt para conferir a lembrança na IA do YouTube e trouxe a resposta do Gemini.** O prompt pediu citações exatas, timestamps, identificação de falante e separação de fatos/interpretações. O Gemini informou não encontrar naquele episódio a promessa de recompensa por resolver atribuição e trouxe trechos sobre funil, marca e NPS. A Lia recebeu minha cópia da resposta, sem assistir ou conferir diretamente esses timestamps; não tratou as citações como validadas de forma independente. A hipótese de recompensa deixou de servir como fundamento para escolher o case, sem concluir que Tallis nunca falou disso em outra ocasião. A Lia também apontou extrapolações na resposta: falar de NPS não prova desinteresse por atribuição; engajamento não é necessariamente vaidade; antes/depois sozinho não demonstra efeito incremental. Social Media continua candidato pela afinidade e menor frequência no corpus, não por uma recompensa confirmada.
-
 51. **Pedi uma avaliação sobre compartilhar a etapa de escolha.** A Lia recomendou preservar o registro completo para revisão e apresentar na versão final uma síntese de decisões e intervenções humanas, sem colocar configuração de ferramentas acima da solução. Decidi continuar registrando as interações e selecionar depois o que será entregue.
 
-52. **Escolhi definitivamente o Challenge 004 — Estratégia Social Media.** Meu motivo principal é a aderência à minha expertise em gestão de marcas e criação de conteúdo; também considerei a menor presença de submissões desse case. Essa escolha substitui a intenção anterior de executar três. Não a fundamentei na promessa de recompensa atribuída a Tallis, que não foi confirmada.
+52. **Escolhi definitivamente o Challenge 004 — Estratégia Social Media.** Meu motivo principal é a aderência à minha expertise em gestão de marcas e criação de conteúdo; também considerei a menor presença de submissões desse case. Essa escolha substitui a intenção anterior de executar três.
 
 53. **Autorizei abrir o projeto no Linear em Marketing e seguir a cascata formal.** Defini o enunciado como briefing de entrada e pedi reunir mais evidências antes das próximas etapas. A Lia leu as skills de criação de projeto e briefing, a taxonomia, os templates e a cascata do framework. A busca por projetos G4 não retornou duplicatas; a MAR-49 foi confirmada em Case/Desafio, apesar da descrição antiga. A skill exige confirmação da estrutura antes de criar; o enquadramento proposto é iniciativa técnica no time Marketing, sob Lia, reutilizando o fork existente. Neste registro o projeto ainda não foi criado; PRD, RFC e implementação não foram iniciados.
 
@@ -344,46 +402,35 @@ Cronologia numerada em primeira pessoa. Cada nova etapa registra pedido ou açã
 
 140. **Cortes, evolução e qualidade explícitos.** Pedi destacar o que faríamos com mais tempo, o que retiramos e como seguimos planejamento, Dev Workflow e quality gates. Lia documentou os cortes de Cadência completo, backend SQLite, login e chat; priorizou dados reais, mensuração comercial, critérios validados e ampliação de QA antes de retomar assistência por IA. Registrou minha autorização para revisão pelo próprio modelo, os gates comprovados e os limites de cobertura, sem apresentar capacidades futuras como implementadas.
 
+
 ### Onde a IA errou e como corrigi
 
-| Ocorrência | Minha intervenção ou correção do agente | Resultado e evidência |
-|---|---|---|
-| A primeira recuperação não encontrou nossa pesquisa sobre João e Tallis. | Lembrei que havíamos feito a pesquisa e pedi recuperação ou nova busca. | A Lia localizou o transcript original de 21/09; workflow 12–14. |
-| O panorama inicial repetia o STATE antigo, anterior à candidatura. | A Lia consultou a MAR-49 ao receber minha notícia da nova fase. | Status real em Case/Desafio, apesar da descrição antiga. Correção do agente a partir da atualização que forneci. |
-| O diário começou como cronologia sem as seções explícitas do template. | Pedi a conferência do submission guide e a adaptação. | Estrutura corrigida nesta revisão, preservando os registros; workflow 34. |
-| A Lia desviou a comparação dos cases para perguntas sobre minha trajetória. | Esclareci que quero pareceres dos agentes com base no perfil existente, sem loop de entrevista. | Maria e Vitor receberam a comparação dos quatro challenges; workflow 41. |
-| A proposta no pane de dados extrapolou para timestamps/retenção não disponíveis. | Questionei os timestamps e pedi manter a análise nos dados da tabela. | O agente retirou essas suposições da proposta atual; workflow 67. |
-| A discussão não havia aproveitado explicitamente o teor dos comentários nem recuperado a análise de campanhas do Cadência. | Apresentei meus critérios e o caso do gancho derivado de uma crítica sobre Supabase; pedi a consulta de campanhas à Catarina. | Cabeçalho conferido, auditoria de comentários iniciada e consulta complementar solicitada; workflow 68–70. |
+As correções mais importantes não foram de sintaxe, mas de direção do produto e de interpretação. Eu não tratei a primeira resposta da IA como requisito aprovado nem aceitei teste automatizado como prova de que a solução fazia sentido para o gestor.
 
-Falhas operacionais também foram preservadas: `gh`/mise e permissões do Obsidian (workflow 20–21), patch rejeitado e reaplicado (23) e bloqueio do registrador dedicado (65). As primeiras foram corrigidas pela Lia, não apresentadas como correções manuais minhas; retirei o registrador bloqueado. A extrapolação analítica corrigida está registrada acima, sem alegar testes de solução que não foram executados.
+1. **A comparação dos cases virou uma entrevista que não ajudava a decidir.** A IA começou a perguntar novamente sobre minha trajetória, embora o contexto já estivesse disponível. Expliquei que precisava comparar os desafios com minhas experiências, não recomeçar uma entrevista. Pedi perspectivas de Marketing e Desenvolvimento e fiz minha própria escolha pelo 004, mesmo quando os pareceres priorizavam Lead Scorer.
+2. **O PRD avançou antes de discutir comigo as decisões de uso.** Questionei o documento porque não estava claro o que havia sido colocado como requisito. Retomei a discussão a partir do dia a dia do Head de Marketing: entender o que funciona, quando patrocinar, o que parar e qual ação tomar. Isso mudou a prioridade de apresentar perguntas e métricas para apresentar decisões justificadas.
+3. **A análise ameaçou extrapolar os campos disponíveis.** Meus critérios de conteúdo incluíam retenção de três segundos e comentários que revelam novos ganchos. Pedi confrontá-los com a tabela e questionei suposições sobre timestamps. A análise passou a separar o que conseguimos calcular do que exigiria outra coleta. Também ressaltei que a base era fictícia: a simulação não deveria ser tratada, por si só, como falha do case. A revisão técnica corrigiu a interpretação de seguidores na data do post e identificou uma regra histórica de elegibilidade que não deveria orientar o produto.
+4. **O primeiro relatório não comunicava uma decisão de marketing.** Reprovei páginas com muitos números, linguagem técnica e pouca explicação. Um visualizador do banco é útil para auditoria, mas não substitui o relatório para o gestor. Pedi separar os dois usos e organizar a leitura em conclusão, número contextualizado, ação e acesso à evidência. Comparações passaram a ser explicadas também como interações por 10 mil views, sem transformar uma diferença pequena em promessa de retorno.
+5. **A interface passou em testes técnicos, mas ainda não cumpria o combinado.** Apontei cores inadequadas, acesso incompleto aos relatórios, filtros sem resposta clara e cards que exibiam perguntas cruas e identificadores internos como se fossem explicação. Pedi correção da experiência: filtros reativos, links para a evidência real e três decisões principais em vez de repetição de estatísticas. Isso mostrou por que lint, build e testes de navegação precisam ser complementados por QA visual e minha revisão do produto.
+6. **O escopo cresceu além do necessário para comprovar a solução.** Eu havia proposto conversar com um agente sobre cada recomendação, mas retirei o chat quando vi que acesso, custo e segurança aumentavam o esforço sem resolver a prioridade da entrega. A implementação anterior permanece no Git; a versão final não contém a funcionalidade. Mantive relatório, explorador, dashboard e simulador, que demonstram a análise e a decisão sem depender de inferência paga.
+
+As correções técnicas encontradas pelos agentes também estão identificadas como trabalho deles: por exemplo, unidade de taxa versus diferença em pontos percentuais, títulos encobertos pela navegação e rótulos em inglês no simulador. Minha contribuição foi exigir a conferência e revisar a utilidade da entrega; não reivindico ter localizado pessoalmente cada defeito.
+
+Evidências: [workflow](workflow.md) — especialmente itens 41, 67–70, 83, 89 e 126–138 —, [screenshots contextualizados](evidencias/README.md), [QA no Brave](../docs/05-validacao/checkpoint-qa-brave.md) e [histórico Git](git-history.md).
 
 ### O que eu adicionei que a IA sozinha não faria
-
-Registrei minha contribuição observável, sem alegar que uma IA seria incapaz de sugerir ideias semelhantes: priorizei compreender a avaliação antes de construir; recuperei uma informação que a primeira busca perdeu; questionei se a escolha do case transmite competência ou dificuldade; defini a comparação com problemas que já vivi; pedi perspectivas de Marketing e Dev; autorizei a investigação das PRs e exigi transparência das ferramentas. Também solicitei o diário contínuo e sua adequação ao guia. Escolhi o Challenge 004, pedi reaproveitar a experiência do Cadência, trouxe meus critérios de views/retenção/comentários e o exemplo de transformar uma objeção em gancho. A validação de resultados da solução continua pendente.
-
-### Iterações realizadas
-
-Esta seção adicional atende à pergunta do guia sobre quantidade de iterações. Conto ciclos de trabalho identificáveis, não número de comandos ou itens do diário. Não há total medido de prompts/tokens/horas. Os ciclos abaixo distinguem preparação, implementação analítica e entrega final.
-
-| Frente | Ciclos observados até esta revisão | Estado |
-|---|---|---|
-| Recuperação de contexto | 2 passagens: busca inicial incompleta; busca no transcript após minha correção. | Pesquisa histórica recuperada; fontes de João parcialmente sem revalidação. |
-| Diário/process log | 3 versões de estrutura: cronologia inicial; inclusão de ferramentas/multiagentes; adequação ao template oficial. | Em atualização contínua; não significa apenas três edições de arquivo. |
-| Comparação dos cases | 2 rodadas Maria/Vitor: primeira sobre Churn; segunda comparando os quatro após minha correção de condução. | Prioridade inicial no workflow 46; depois escolhi exclusivamente 004. |
-| Pesquisa das PRs | 1 levantamento em andamento. | Sem análise completa validada. |
-| Solução do challenge | Ciclos de auditoria, contrato de dados, visualizador, relatório executivo, tradução gerencial, integração da aplicação, retirada de chat e QA. | Aplicação publicada em Preview; ver cronologia para cada correção e evidência. Não há contagem total auditada de iterações. |
+Trouxe meu contexto de marcas/conteúdo, propus examinar gancho/contexto/informação/chamada se houver dados e defini o foco do projeto. São contribuições observáveis, não alegações de exclusividade humana.
 
 ## Evidências
+- [Histórico Git da branch de submissão](https://github.com/felipeluissalgueiro/ai-master-challenge/commits/submission/felipe-salgueiro/) e [guia dos checkpoints](git-history.md) — evolução real do código, correções e decisões de escopo.
+- [Revisão contra o guia e cobertura das oito perguntas](../docs/05-validacao/submission-audit.md).
+- [Planejamento e issues exportadas](../docs/04-planejamento/issues/README.md) — leitura no próprio repositório, sem depender do Linear ou da renderização do GitHub Projects.
+- [Projeto e marcos](../docs/00-projeto/README.md).
+- [Documentos por etapa](../docs/README.md).
+- [Pesquisa preparatória e ressalvas](../docs/01-brief/pesquisa/README.md).
+- [Workflow](README.md), [48 screenshots do processo](evidencias/README.md) e [proveniência dos exports](../docs/proveniencia.md).
+- [Conversas de 15 sessões do projeto](chat-exports/README.md), com [legenda das personas](README.md#quem-são-as-personas-mencionadas).
 
-- [x] Narrativa escrita: este documento, redigido com apoio de IA e ainda sujeito à minha revisão final.
-- [x] Cinco screenshots selecionados e anexados, com contexto e limites.
-- [x] Screen recording — seleção editada de 24 segundos incluída com origem e limites de revisão. Vídeos brutos não publicados.
-- [x] Chat exports — 15 sessões do projeto, sanitizadas e identificadas por frente; não inclui ferramentas, raciocínio interno ou sessões não localizadas.
-- [x] Git history — checkpoints de análise, implementação, correções e publicação na mesma branch de submissão.
-- [ ] Relatório e inventário das PRs — agente trabalhando; incorporar links após conferir os arquivos e a cobertura.
+O [snapshot integral do banco](../solution/data/evidence/README.md) está no fork com manifesto e limites conhecidos; a aplicação usa exportações Ouro, sem SQLite no deploy. O histórico Git registra a evolução, sem retroagir datas. Incluí uma [seleção de vídeo do processo](videos/README.md), de 24 segundos, com cortes documentados; gravações brutas e notebook não foram anexados. Chat com LLM e integração ao CRM não fazem parte da versão entregue.
 
-Referências de sessões locais omitidas da versão pública; o diário de origem preserva a rastreabilidade.
-
-Referências pessoais de carreira omitidas da versão pública.
-
-**Submissão enviada em:** não enviada.
+Estado do envio: consulte a PR no repositório oficial.

@@ -13,7 +13,7 @@ Snapshot revisado em 23/09/2026 para checkpoints no fork, autorizados por Felipe
 |---|---|---|
 | [Projeto](00-projeto/projeto.md) | Descrição real de P-MAR-55 | Removida linha de caminho privado do diário |
 | [Marcos](00-projeto/marcos.md) | Três marcos retornados pela API | Formato Markdown; IDs/estado preservados |
-| [Workflow](../process-log/workflow.md) | Nota “2026-09-23 - G4 AI Master - Diario de processo” | Frontmatter, caminhos locais, IDs internos de sessão e referências privadas de navegação removidos; histórico preservado |
+| [Workflow](../process-log/workflow.md) | Nota “2026-09-23 - G4 AI Master - Diario de processo” | Edição pública revisada: dados privados e pesquisa pessoal sobre possíveis avaliadores omitidos; numeração histórica preservada. Hash abaixo corresponde ao diário privado de origem |
 | [Panorama](01-brief/pesquisa/panorama-submissoes.md) | Nota “2026-09-23 - G4 AI Master - Panorama das submissoes” | Frontmatter e navegação específica do Obsidian removidos |
 | [Inventário](01-brief/pesquisa/inventario-prs.md) | Nota “2026-09-23 - G4 AI Master - Inventario das PRs” | Mesmo tratamento; documento permanece PARCIAL |
 | [Revisão crítica](01-brief/pesquisa/revisao-critica.md) | Conferências registradas no workflow 47–48 | Síntese editorial, não export de documento Linear |

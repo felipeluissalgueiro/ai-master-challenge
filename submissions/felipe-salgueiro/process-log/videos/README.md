@@ -1,6 +1,8 @@
 # Vídeo do processo
 
-[Assistir ou baixar a seleção de 24 segundos](processo-selecao-v1.mp4).
+[Baixar o vídeo — MP4, 24 segundos](https://raw.githubusercontent.com/felipeluissalgueiro/ai-master-challenge/submission/felipe-salgueiro/submissions/felipe-salgueiro/process-log/videos/processo-selecao-v1.mp4).
+
+[Cópia no repositório](processo-selecao-v1.mp4).
 Se o GitHub não reproduzir, use **Download raw file** e abra o MP4 no player local.
 
 Seleção editada de duas gravações feitas por Felipe; não é demonstração completa

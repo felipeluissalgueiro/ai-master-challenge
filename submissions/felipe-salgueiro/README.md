@@ -34,6 +34,16 @@ As versões iniciais foram reprovadas por mim e reformuladas para leitura gerenc
 
 ### Abordagem
 
+**Por que escolhi o 004.** Minha experiência combina gestão de marcas, criação de conteúdo e construção de ferramentas de marketing no Cadência. O desafio permitia conectar essas três frentes: analisar performance, propor uma estratégia e demonstrar como a análise pode virar uma decisão recorrente. Eu queria mostrar mais do que capacidade de produzir código com IA: queria testar se conseguiria reconhecer uma informação útil para um gestor, questionar a conclusão do modelo e transformar o resultado em uma interface utilizável. O 003 também se aproximava do lead scoring que já havíamos trabalhado, e cheguei a considerar três cases; escolher apenas o 004 foi uma decisão de foco. A menor presença de Social Media no levantamento parcial das PRs também pesou, mas não foi tratada como prova de menor concorrência ativa nem como substituto da aderência à minha experiência.
+
+**Por que separei análise, estratégia e interface.** São três responsabilidades diferentes: verificar o que a tabela sustenta, decidir o que fazer com isso e comunicar a decisão ao usuário. Pedi análise independente para que uma tela desejada não determinasse antecipadamente o resultado dos dados. Separei também relatório executivo de explorador: o primeiro responde às perguntas do gestor; o segundo permite conferir o banco e os recortes. Essa separação de responsabilidades evita confundir uma tabela correta com uma recomendação útil.
+
+**Que técnica usei nos dados e por quê.** Adotei a organização em camadas Bronze/Prata/Ouro, conhecida como arquitetura medalhão, em uma implementação local com Python e SQLite — não uma infraestrutura de datalake em nuvem. Na Bronze preservei o CSV recebido e sua proveniência; na Prata fiz tipagem, padronização, validações e métricas; na Ouro reuni agregações e comparações para responder às perguntas do case. Assim, uma correção de fórmula ou classificação pode ser rastreada até a origem sem apagar o dado recebido, e a interface não precisa refazer cálculos. As tabelas temáticas da Prata separam métricas, creators, datas, audiência e conteúdo para reduzir dependências entre regras.
+
+Nas comparações de patrocínio, usei recortes por plataforma, categoria e quartil de seguidores na data do post, em vez de depender somente de uma média geral que mistura perfis diferentes. Mediana, dispersão e tamanho da amostra contextualizam a comparação; a segmentação melhora a leitura, mas não elimina fatores de confusão nem prova causalidade. O [contrato do banco](solution/data/evidence/README.md) documenta fórmulas, tabelas e correções conhecidas. SQLite tornou essa cadeia portátil e auditável, e as exportações Ouro desacoplaram o site do banco.
+
+**Como conduzi a execução:**
+
 1. **Comecei pela decisão do gestor, não pelo gráfico.** Escolhi Social Media pela proximidade com minha experiência em gerir marcas e produzir conteúdo. Queria responder o que continuar fazendo, quando patrocinar e o que interromper. Comparei os cases com apoio das personas de Marketing e Desenvolvimento, mas mantive comigo a escolha e a revisão do resultado.
 2. **Confrontei minha experiência com o que a base realmente permite.** Trouxe critérios que uso em conteúdo: views, retenção nos primeiros três segundos e comentários como pistas para novos ganchos. Pedi verificar esses campos antes de desenhar a solução. Não transformei métricas ausentes nem textos sintéticos em evidência de comportamento real.
 3. **Separei as perguntas em análise, estratégia e ferramenta de decisão.** Pedi uma frente independente de auditoria enquanto discutia os requisitos com o time de agentes. O planejamento passou por [Brief](docs/01-brief/brief.md), [PRD](docs/02-prd/prd.md), arquitetura e [tarefas](docs/04-planejamento/issues/README.md). Os documentos preservam propostas históricas; nem toda capacidade discutida virou implementação.
@@ -95,7 +105,28 @@ Para equilibrar prazo e qualidade, **autorizei a revisão pelo próprio modelo e
 
 O histórico preserva erros e correções: relatório difícil de ler, navegação/âncoras, linguagem do simulador e redução de escopo. O [registro de validação](docs/05-validacao/submission-audit.md) mostra evidências e pendências, em vez de usar o método como garantia abstrata de qualidade. **Publicar a Preview e preparar a branch não equivale a enviar a PR.**
 ### Ferramentas usadas
-Codex apoiou análise, implementação, documentação e QA por agentes com papéis definidos; Gemini apoiou uma consulta sobre a transcrição de podcast trazida por mim. Usei Herdr para coordenar sessões, Linear para planejar, Obsidian para o diário e Git para versionar a evolução. Python/SQLite fizeram os cálculos determinísticos; FFmpeg preparou o vídeo. [Método de trabalho](docs/metodo/README.md).
+
+Uso o **PD Framework como meu OS de agentes**: é o meu sistema de trabalho para reunir contexto do projeto, instruções reutilizáveis (skills), papéis de IA, planejamento, coordenação e critérios de qualidade. Ele não substitui o modelo nem decide por mim. Sua função neste projeto foi dar contexto e limites às tarefas, organizar as passagens entre análise e implementação e manter decisões e evidências recuperáveis. As personas são papéis dentro desse sistema, não ferramentas adicionais nem pessoas da equipe; a [legenda dos papéis](process-log/README.md#quem-são-as-personas-mencionadas) explica a participação de cada uma.
+
+| Ferramenta / tecnologia | Como usei neste projeto e por quê |
+|---|---|
+| PD Framework | Organizei o trabalho com contexto, skills e Dev Workflow; usei os princípios DRY, facilidade de mudança e separação de responsabilidades para orientar as decisões. |
+| Codex | Ambiente de execução dos agentes de IA para ler documentos, propor análises, escrever código, revisar e testar. Separei frentes e confrontei suas entregas antes de integrar. |
+| Gemini | Consulta pontual durante a pesquisa preparatória; não produziu os cálculos nem validou os resultados do dataset. |
+| Herdr | Coordenei sessões e panes de agentes em paralelo, com tarefas delimitadas e handoffs, mantendo análise de dados e construção da interface separadas. |
+| Linear | Organizei briefing, PRD, RFC, marcos e tarefas. Exportei os documentos para o fork para o avaliador não depender de acesso ao meu workspace. |
+| Obsidian | Mantive o diário de decisões, perguntas e correções. O workflow publicado é uma edição desse registro para leitura externa, não uma transcrição integral. |
+| Python | Executei ingestão, validações, cálculos, geração dos relatórios e exportações determinísticas. A IA ajudou a escrever os scripts; os números vêm de código, não de uma resposta textual do modelo. |
+| SQLite | Reuni a fonte, transformações e resultados em um arquivo consultável, com integridade e hashes registrados. Permite auditar a análise sem servidor ou credencial. |
+| Next.js, React, TypeScript e Astryx | Construí a aplicação e seus componentes, com contratos de tipos e interface reutilizável, em vez de somente anexar tabelas. |
+| Vercel | Publiquei a aplicação como Preview pública. O site consome exportações estáticas; não hospeda o SQLite como backend e não usa chave de LLM na versão final. |
+| Git e GitHub | Mantive fork, branch de entrega, diffs e checkpoints reais; reuni código, documentos e evidências dentro da pasta exigida pela submissão. |
+| ESLint, TypeScript, testes Node/Python e Playwright | Verifiquei estilo, tipos, cálculos, contratos e fluxos automatizados locais. Esses testes não substituíram leitura gerencial nem inspeção visual. |
+| Brave | Fizemos QA funcional da Preview e retestes no navegador conectado, sem usar Playwright nessa etapa remota. |
+| Omarchy / GPU Screen Recorder e FFmpeg | Gravei a tela e preparei uma seleção de vídeo sem áudio, com cortes e limites documentados. Omacut foi consultado, mas não fez a exportação. |
+
+Não atribuo um único modelo a toda a execução nem confundo uma persona com um modelo independente. O [método](docs/metodo/README.md), os [checkpoints de validação](docs/05-validacao/submission-audit.md) e os [exports](process-log/chat-exports/README.md) documentam o uso e seus limites.
+
 ### Workflow
 1. Comparei os cases e escolhi Social Media pela aderência à minha experiência.
 2. Pedi auditoria dos dados antes de fechar recomendações e requisitos.
@@ -105,7 +136,20 @@ Codex apoiou análise, implementação, documentação e QA por agentes com pap�
 
 O [registro detalhado](process-log/workflow.md) documenta as iterações por frente. Não há contagem auditada de todos os prompts; os ciclos documentados não são apresentados como total exato.
 ### Onde a IA errou e como corrigi
-Uma lembrança sobre Tallis não foi confirmada e deixou de sustentar a escolha. Questionei o PRD elaborado sem discussão suficiente, reprovei relatórios tecnicamente corretos mas difíceis de usar e pedi conclusões, números contextualizados e ações. Também retirei o chat para concentrar a entrega no que já estava sustentado por dados. Os prints e o workflow mostram essas intervenções.
+
+As correções mais importantes não foram de sintaxe, mas de direção do produto e de interpretação. Eu não tratei a primeira resposta da IA como requisito aprovado nem aceitei teste automatizado como prova de que a solução fazia sentido para o gestor.
+
+1. **A comparação dos cases virou uma entrevista que não ajudava a decidir.** A IA começou a perguntar novamente sobre minha trajetória, embora o contexto já estivesse disponível. Expliquei que precisava comparar os desafios com minhas experiências, não recomeçar uma entrevista. Pedi perspectivas de Marketing e Desenvolvimento e fiz minha própria escolha pelo 004, mesmo quando os pareceres priorizavam Lead Scorer.
+2. **O PRD avançou antes de discutir comigo as decisões de uso.** Questionei o documento porque não estava claro o que havia sido colocado como requisito. Retomei a discussão a partir do dia a dia do Head de Marketing: entender o que funciona, quando patrocinar, o que parar e qual ação tomar. Isso mudou a prioridade de apresentar perguntas e métricas para apresentar decisões justificadas.
+3. **A análise ameaçou extrapolar os campos disponíveis.** Meus critérios de conteúdo incluíam retenção de três segundos e comentários que revelam novos ganchos. Pedi confrontá-los com a tabela e questionei suposições sobre timestamps. A análise passou a separar o que conseguimos calcular do que exigiria outra coleta. Também ressaltei que a base era fictícia: a simulação não deveria ser tratada, por si só, como falha do case. A revisão técnica corrigiu a interpretação de seguidores na data do post e identificou uma regra histórica de elegibilidade que não deveria orientar o produto.
+4. **O primeiro relatório não comunicava uma decisão de marketing.** Reprovei páginas com muitos números, linguagem técnica e pouca explicação. Um visualizador do banco é útil para auditoria, mas não substitui o relatório para o gestor. Pedi separar os dois usos e organizar a leitura em conclusão, número contextualizado, ação e acesso à evidência. Comparações passaram a ser explicadas também como interações por 10 mil views, sem transformar uma diferença pequena em promessa de retorno.
+5. **A interface passou em testes técnicos, mas ainda não cumpria o combinado.** Apontei cores inadequadas, acesso incompleto aos relatórios, filtros sem resposta clara e cards que exibiam perguntas cruas e identificadores internos como se fossem explicação. Pedi correção da experiência: filtros reativos, links para a evidência real e três decisões principais em vez de repetição de estatísticas. Isso mostrou por que lint, build e testes de navegação precisam ser complementados por QA visual e minha revisão do produto.
+6. **O escopo cresceu além do necessário para comprovar a solução.** Eu havia proposto conversar com um agente sobre cada recomendação, mas retirei o chat quando vi que acesso, custo e segurança aumentavam o esforço sem resolver a prioridade da entrega. A implementação anterior permanece no Git; a versão final não contém a funcionalidade. Mantive relatório, explorador, dashboard e simulador, que demonstram a análise e a decisão sem depender de inferência paga.
+
+As correções técnicas encontradas pelos agentes também estão identificadas como trabalho deles: por exemplo, unidade de taxa versus diferença em pontos percentuais, títulos encobertos pela navegação e rótulos em inglês no simulador. Minha contribuição foi exigir a conferência e revisar a utilidade da entrega; não reivindico ter localizado pessoalmente cada defeito.
+
+Evidências: [workflow](process-log/workflow.md) — especialmente itens 41, 67–70, 83, 89 e 126–138 —, [screenshots contextualizados](process-log/evidencias/README.md), [QA no Brave](docs/05-validacao/checkpoint-qa-brave.md) e [histórico Git](process-log/git-history.md).
+
 ### O que eu adicionei que a IA sozinha não faria
 Trouxe meu contexto de marcas/conteúdo, propus examinar gancho/contexto/informação/chamada se houver dados e defini o foco do projeto. São contribuições observáveis, não alegações de exclusividade humana.
 
@@ -116,7 +160,7 @@ Trouxe meu contexto de marcas/conteúdo, propus examinar gancho/contexto/informa
 - [Projeto e marcos](docs/00-projeto/README.md).
 - [Documentos por etapa](docs/README.md).
 - [Pesquisa preparatória e ressalvas](docs/01-brief/pesquisa/README.md).
-- [Workflow](process-log/README.md), [cinco screenshots comentados](process-log/evidencias/README.md) e [proveniência dos exports](docs/proveniencia.md).
+- [Workflow](process-log/README.md), [48 screenshots do processo](process-log/evidencias/README.md) e [proveniência dos exports](docs/proveniencia.md).
 - [Conversas de 15 sessões do projeto](process-log/chat-exports/README.md), com [legenda das personas](process-log/README.md#quem-são-as-personas-mencionadas).
 
 O [snapshot integral do banco](solution/data/evidence/README.md) está no fork com manifesto e limites conhecidos; a aplicação usa exportações Ouro, sem SQLite no deploy. O histórico Git registra a evolução, sem retroagir datas. Incluí uma [seleção de vídeo do processo](process-log/videos/README.md), de 24 segundos, com cortes documentados; gravações brutas e notebook não foram anexados. Chat com LLM e integração ao CRM não fazem parte da versão entregue.
