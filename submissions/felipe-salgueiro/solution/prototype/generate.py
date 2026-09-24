@@ -58,6 +58,12 @@ def json_for_html(value: object) -> str:
 
 
 def build_page(database: Path) -> str:
+    font_base64 = (
+        Path(__file__).resolve().parent.parent
+        / "assets"
+        / "fonts"
+        / "manrope-latin-variable.woff2.b64"
+    ).read_text(encoding="ascii").strip()
     database = database.resolve()
     uri = f"file:{quote(str(database), safe='/')}?mode=ro"
     with sqlite3.connect(uri, uri=True) as connection:
@@ -180,25 +186,33 @@ def build_page(database: Path) -> str:
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Protótipo exploratório estático da análise de engajamento e patrocínio do Challenge 004.">
-  <title>Evidência Social — protótipo exploratório</title>
+  <meta name="description" content="Explorador das tabelas Ouro da análise de engajamento e patrocínio do Challenge 004.">
+  <title>Explorador de dados — Challenge 004</title>
   <style>
+    @font-face {
+      font-family: "Manrope";
+      font-style: normal;
+      font-weight: 200 800;
+      font-display: swap;
+      src: url("data:font/woff2;base64,__MANROPE_FONT__") format("woff2");
+    }
     :root {
       color-scheme: light;
-      --paper: #f5f6f8;
+      --paper: #f5f4f3;
       --paper-strong: #ffffff;
-      --ink: #111827;
-      --muted: #5d6676;
-      --line: #d9dde5;
-      --line-dark: #b8c0cc;
-      --orange: #f2675c;
-      --orange-soft: #fff0ee;
-      --teal: #1e293b;
-      --teal-soft: #dce5ef;
-      --navy: #111827;
-      --sand: #e8eef6;
-      --danger: #a33b34;
-      --shadow: 0 12px 32px rgba(17, 24, 39, .08);
+      --ink: #031a26;
+      --muted: #184560;
+      --line: #e5e7eb;
+      --line-dark: #184560;
+      --gold: #b9915b;
+      --gold-dark: #001f35;
+      --gold-soft: #f5f4f3;
+      --teal: #184560;
+      --teal-soft: #f5f4f3;
+      --navy: #001f35;
+      --sand: #f5f4f3;
+      --danger: #184560;
+      --shadow: 0 12px 32px rgba(0, 31, 53, .10);
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -206,53 +220,69 @@ def build_page(database: Path) -> str:
       margin: 0;
       background: var(--paper);
       color: var(--ink);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: "Manrope", Arial, sans-serif;
       font-variant-numeric: tabular-nums;
     }
     a { color: inherit; }
     button, select { font: inherit; }
-    .skip-link { position: fixed; left: 12px; top: -50px; z-index: 50; background: var(--orange); color: var(--ink); padding: 10px 14px; font-weight: 850; }
+    .skip-link { position: fixed; left: 12px; top: -50px; z-index: 50; background: var(--gold); color: var(--ink); padding: 10px 14px; font-weight: 850; }
     .skip-link:focus { top: 12px; }
     .shell { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
-    .topline { border-bottom: 1px solid #334155; background: var(--navy); color: white; position: sticky; top: 0; z-index: 20; }
+    .topline { border-bottom: 1px solid rgba(245,244,243,.22); background: var(--navy); color: white; position: sticky; top: 0; z-index: 20; }
     .topline .shell { min-height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
     .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: -.02em; }
-    .brand-mark { width: 28px; height: 28px; display: grid; place-items: center; background: var(--orange); color: var(--ink); font-size: 10px; font-weight: 950; transform: rotate(-4deg); }
+    .brand-mark { width: 28px; height: 28px; display: grid; place-items: center; background: var(--gold); color: var(--ink); font-size: 10px; font-weight: 950; transform: rotate(-4deg); }
     .brand-mark::after { content: "G4"; }
-    .status { font-size: 12px; color: #cbd5e1; display: flex; gap: 8px; align-items: center; }
-    .status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--orange); }
+    .status { font-size: 12px; color: #f5f4f3; display: flex; gap: 8px; align-items: center; }
+    .status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); }
     .report-tabs { background: var(--paper-strong); border-bottom: 1px solid var(--line); }
     .report-tabs .shell { display: flex; gap: 8px; overflow-x: auto; padding-top: 10px; padding-bottom: 10px; }
     .report-tabs a { white-space: nowrap; text-decoration: none; border: 1px solid var(--line); border-radius: 8px; padding: 9px 13px; color: var(--muted); font-weight: 750; font-size: 13px; }
     .report-tabs a[aria-current="page"] { background: var(--navy); border-color: var(--navy); color: white; }
-    header { width: auto !important; max-width: none !important; padding: 70px max(16px, calc((100% - 1180px) / 2)) 46px; background: var(--navy); color: white; border-bottom: 5px solid var(--orange); }
-    .eyebrow { color: var(--orange); font-size: 12px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
-    h1 { font-size: clamp(42px, 7vw, 76px); line-height: .98; letter-spacing: -.055em; max-width: 900px; margin: 18px 0 24px; font-weight: 880; }
-    .lede { font-size: clamp(18px, 2vw, 23px); line-height: 1.45; max-width: 780px; color: #d8e0ea; margin: 0; }
+    header { width: auto !important; max-width: none !important; padding: 46px max(16px, calc((100% - 1180px) / 2)) 34px; background: var(--navy); color: white; border-bottom: 5px solid var(--gold); }
+    .eyebrow { color: var(--gold); font-size: 12px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+    h1 { font-size: clamp(34px, 5vw, 58px); line-height: 1.02; letter-spacing: -.05em; max-width: 900px; margin: 14px 0 18px; font-weight: 800; }
+    .lede { font-size: clamp(18px, 2vw, 23px); line-height: 1.45; max-width: 780px; color: #f5f4f3; margin: 0; }
     .summary-grid { display: grid; grid-template-columns: 1.2fr repeat(3, 1fr); gap: 12px; margin-top: 46px; }
+    .intro-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .intro-actions a { display: inline-flex; align-items: center; padding: 10px 14px; border-radius: 7px; text-decoration: none; font-weight: 800; border: 1px solid rgba(245,244,243,.35); }
+    .intro-actions a:first-child { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+    .onboarding { padding-top: 48px; }
+    .how-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 20px 0 18px; }
+    .how-card { padding: 18px; border: 1px solid var(--line); border-top: 4px solid var(--gold); border-radius: 9px; background: var(--paper-strong); }
+    .how-card b { display: block; color: var(--navy); margin-bottom: 7px; }
+    .how-card p { margin: 0; color: var(--muted); line-height: 1.5; font-size: 14px; }
+    .reading-note { margin: 16px 0; padding: 16px 18px; background: var(--paper-strong); border-left: 5px solid var(--teal); color: var(--muted); }
+    .dictionary { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; overflow: hidden; border: 1px solid var(--line); border-radius: 9px; background: var(--line); }
+    .dictionary div { padding: 14px 16px; background: var(--paper-strong); }
+    .dictionary strong { display: block; color: var(--navy); margin-bottom: 4px; }
+    .dictionary span { color: var(--muted); font-size: 13px; line-height: 1.45; }
+    details.guide { margin-top: 14px; border: 1px solid var(--line); border-radius: 9px; background: var(--paper-strong); overflow: hidden; }
+    details.guide summary { cursor: pointer; padding: 15px 18px; font-weight: 800; color: var(--navy); }
+    details.guide .guide-body { padding: 0 18px 18px; }
     .summary-card { color: var(--ink); background: var(--paper-strong); border: 1px solid var(--line); border-radius: 12px; padding: 22px; min-height: 145px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: var(--shadow); }
-    .summary-card.primary { background: var(--navy); color: white; border-top: 5px solid var(--orange); }
+    .summary-card.primary { background: var(--navy); color: white; border-top: 5px solid var(--gold); }
     .summary-label { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 800; }
-    .primary .summary-label { color: #b8cad7; }
+    .primary .summary-label { color: #f5f4f3; }
     .summary-value { font-size: clamp(28px, 4vw, 42px); font-weight: 900; letter-spacing: -.04em; line-height: 1; margin: 12px 0; }
     .summary-note { font-size: 12px; color: var(--muted); line-height: 1.4; }
-    .primary .summary-note { color: #cbd8e1; }
+    .primary .summary-note { color: #f5f4f3; }
     main { padding-bottom: 80px; }
     .section { padding: 68px 0; border-top: 1px solid var(--line); }
     .section-head { display: grid; grid-template-columns: minmax(240px, .8fr) minmax(320px, 1.2fr); gap: 42px; align-items: end; margin-bottom: 32px; }
-    .section-index { font-size: 12px; color: var(--orange); font-weight: 900; letter-spacing: .12em; }
+    .section-index { font-size: 12px; color: var(--gold-dark); font-weight: 900; letter-spacing: .12em; }
     h2 { font-size: clamp(31px, 4vw, 50px); font-weight: 860; letter-spacing: -.045em; line-height: 1.05; margin: 8px 0 0; }
-    .section-copy { color: #4d5a61; line-height: 1.65; max-width: 660px; margin: 0; }
+    .section-copy { color: var(--muted); line-height: 1.65; max-width: 660px; margin: 0; }
     .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 22px; }
     .tab { border: 1px solid var(--line); background: var(--paper-strong); color: var(--ink); padding: 9px 13px; cursor: pointer; border-radius: 8px; font-weight: 750; }
     .tab[aria-selected="true"] { background: var(--ink); color: white; border-color: var(--ink); }
-    .tab:focus-visible, select:focus-visible, a:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+    .tab:focus-visible, select:focus-visible, a:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
     .legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 12px; color: var(--muted); margin-bottom: 14px; }
     .legend-item { display: flex; align-items: center; gap: 7px; }
     .legend-dot { width: 9px; height: 9px; border-radius: 50%; }
     .legend-dot.organic { background: var(--teal); }
-    .legend-dot.sponsored { background: var(--orange); }
-    .scale-note { font-size: 12px; padding: 12px 14px; border-left: 4px solid var(--orange); background: var(--orange-soft); margin-bottom: 18px; color: var(--muted); }
+    .legend-dot.sponsored { background: var(--gold); }
+    .scale-note { font-size: 12px; padding: 12px 14px; border-left: 4px solid var(--gold); background: var(--gold-soft); margin-bottom: 18px; color: var(--muted); }
     .segment-list { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--paper-strong); box-shadow: var(--shadow); }
     .segment-row { display: grid; grid-template-columns: minmax(150px, .7fr) minmax(390px, 1.7fr) minmax(135px, .55fr); gap: 22px; padding: 20px; border-bottom: 1px solid var(--line); align-items: center; }
     .segment-row:last-child { border-bottom: 0; }
@@ -262,10 +292,10 @@ def build_page(database: Path) -> str:
     .axis { position: absolute; left: 0; right: 0; top: 30px; height: 1px; background: var(--line); }
     .range { position: absolute; height: 4px; border-radius: 4px; transform: translateY(-50%); }
     .range.organic { background: var(--teal-soft); top: 20px; }
-    .range.sponsored { background: var(--orange-soft); top: 42px; }
+    .range.sponsored { background: var(--gold-soft); top: 42px; }
     .point { position: absolute; width: 10px; height: 10px; border-radius: 50%; transform: translate(-50%, -50%); border: 2px solid var(--paper-strong); box-shadow: 0 0 0 1px currentColor; }
     .point.organic { top: 20px; color: var(--teal); background: var(--teal); }
-    .point.sponsored { top: 42px; color: var(--orange); background: var(--orange); }
+    .point.sponsored { top: 42px; color: var(--gold); background: var(--gold); }
     .range-value { position: absolute; right: 0; font-size: 11px; color: var(--muted); }
     .range-value.organic { top: 5px; }
     .range-value.sponsored { top: 47px; }
@@ -278,7 +308,7 @@ def build_page(database: Path) -> str:
     select { width: 100%; border: 1px solid var(--line); background: var(--paper-strong); color: var(--ink); padding: 10px 12px; border-radius: 8px; }
     .delta-strip { position: relative; height: 76px; border: 1px solid var(--line); border-radius: 10px; background: var(--paper-strong); overflow: hidden; }
     .zero-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--ink); opacity: .35; }
-    .strip-dot { position: absolute; top: 50%; width: 9px; height: 9px; transform: translate(-50%, -50%); border-radius: 50%; background: var(--orange); opacity: .72; border: 1px solid var(--paper-strong); }
+    .strip-dot { position: absolute; top: 50%; width: 9px; height: 9px; transform: translate(-50%, -50%); border-radius: 50%; background: var(--gold); opacity: .82; border: 1px solid var(--paper-strong); }
     .strip-caption { display: flex; justify-content: space-between; color: var(--muted); font-size: 11px; margin-top: 6px; }
     .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--paper-strong); margin-top: 18px; }
     table { width: 100%; border-collapse: collapse; font-size: 13px; }
@@ -291,27 +321,27 @@ def build_page(database: Path) -> str:
     .negative { color: var(--danger); font-weight: 800; }
     .decision-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
     .decision-card { border: 1px solid var(--line); border-radius: 12px; background: var(--paper-strong); padding: 24px; display: flex; flex-direction: column; min-height: 330px; box-shadow: var(--shadow); }
-    .decision-kicker { font-size: 11px; color: var(--orange); text-transform: uppercase; letter-spacing: .1em; font-weight: 900; }
+    .decision-kicker { font-size: 11px; color: var(--gold-dark); text-transform: uppercase; letter-spacing: .1em; font-weight: 900; }
     .decision-card h3 { font-size: 26px; font-weight: 850; letter-spacing: -.03em; margin: 12px 0 16px; }
     .decision-block { border-top: 1px solid var(--line); padding-top: 12px; margin-top: 12px; }
     .decision-block strong { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 5px; }
-    .decision-block p { color: #4d5a61; margin: 0; line-height: 1.5; }
+    .decision-block p { color: var(--muted); margin: 0; line-height: 1.5; }
     .trace-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
     .trace-card { border: 1px solid var(--line); border-radius: 12px; background: var(--paper-strong); padding: 22px; }
     .trace-card h3 { margin: 0 0 12px; font-size: 17px; }
-    .formula { display: block; background: var(--ink); color: #fff8eb; padding: 12px; overflow-x: auto; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
+    .formula { display: block; background: var(--ink); color: #f5f4f3; padding: 12px; overflow-x: auto; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
     .trace-card dl { display: grid; grid-template-columns: 105px 1fr; gap: 8px 12px; font-size: 13px; margin: 16px 0 0; }
     .trace-card dt { color: var(--muted); }
     .trace-card dd { margin: 0; overflow-wrap: anywhere; }
-    .warning { margin-top: 18px; border: 1px solid #f4c5c0; border-radius: 10px; background: var(--orange-soft); padding: 18px; display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: start; }
-    .warning-icon { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--orange); color: white; font-weight: 900; }
+    .warning { margin-top: 18px; border: 1px solid #d8c3a6; border-radius: 10px; background: var(--gold-soft); padding: 18px; display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: start; }
+    .warning-icon { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--gold); color: var(--ink); font-weight: 900; }
     .warning strong { display: block; margin-bottom: 4px; }
-    .warning p { margin: 0; color: #5a5148; line-height: 1.5; }
+    .warning p { margin: 0; color: var(--muted); line-height: 1.5; }
     footer { background: var(--navy); color: white; padding: 36px 0; }
     .footer-grid { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; }
     .footer-title { font-size: 25px; font-weight: 850; letter-spacing: -.03em; }
-    .footer-meta { color: #b7c2c9; font-size: 12px; line-height: 1.7; overflow-wrap: anywhere; }
-    .prototype-stamp { border: 1px solid #7690a0; color: #d8e2e8; padding: 9px 11px; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; transform: rotate(-2deg); }
+    .footer-meta { color: #f5f4f3; font-size: 12px; line-height: 1.7; overflow-wrap: anywhere; }
+    .prototype-stamp { border: 1px solid #b9915b; color: #f5f4f3; padding: 9px 11px; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; transform: rotate(-2deg); }
     .empty { padding: 24px; color: var(--muted); }
     @media (max-width: 900px) {
       .summary-grid { grid-template-columns: repeat(2, 1fr); }
@@ -319,11 +349,13 @@ def build_page(database: Path) -> str:
       .segment-row { grid-template-columns: 1fr; gap: 12px; }
       .delta { justify-self: start; text-align: left; }
       .decision-grid, .trace-grid { grid-template-columns: 1fr; }
+      .how-grid, .dictionary { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 620px) {
       .shell { width: min(100% - 20px, 1180px); }
       header { padding-top: 46px; }
       .summary-grid { grid-template-columns: 1fr; }
+      .how-grid, .dictionary { grid-template-columns: 1fr; }
       .summary-card { min-height: 120px; }
       .control-bar { grid-template-columns: 1fr; }
       .topline .shell { align-items: flex-start; padding: 11px 0; flex-direction: column; gap: 4px; }
@@ -346,7 +378,7 @@ def build_page(database: Path) -> str:
   <div class="topline">
     <div class="shell">
       <div class="brand"><span class="brand-mark" aria-hidden="true"></span>Evidência Social</div>
-      <div class="status">Protótipo exploratório · dados Ouro estáticos</div>
+      <div class="status">Explorador SQLite · dados Ouro</div>
     </div>
   </div>
   <nav class="report-tabs" aria-label="Relatórios disponíveis">
@@ -357,14 +389,15 @@ def build_page(database: Path) -> str:
   </nav>
 
   <header class="shell">
-    <div class="eyebrow">Challenge 004 · análise rastreável</div>
-    <h1>O que os dados realmente sustentam?</h1>
-    <p class="lede">Uma leitura descritiva de __TOTAL_POSTS__ posts simulados. A página expõe tamanho da amostra, mediana, dispersão e magnitude — antes de sugerir qualquer próximo teste.</p>
+    <div class="eyebrow">Explorador do banco SQLite · dados Ouro</div>
+    <h1>Explore os dados que sustentam o relatório executivo.</h1>
+    <p class="lede">Esta página permite navegar, filtrar e comparar os resultados consolidados do banco <strong>social_media_analysis.sqlite</strong>. Ela não é o relatório executivo: é a camada de comprovação para quem deseja verificar os recortes e cálculos.</p>
+    <div class="intro-actions"><a href="../reports/performance-strategy.html">Voltar ao relatório executivo</a><a href="#como-usar">Como usar este explorador</a></div>
     <div class="summary-grid" aria-label="Resumo executivo">
       <article class="summary-card primary">
-        <div class="summary-label">Leitura central</div>
-        <div class="summary-value">Diferença pequena</div>
-        <div class="summary-note">Patrocínio não separa os grupos de forma material nesta simulação; isso não prova efeito zero.</div>
+        <div class="summary-label">O que você está consultando</div>
+        <div class="summary-value">Resultados consolidados</div>
+        <div class="summary-note">Tabelas Ouro geradas do SQLite em modo somente leitura. Nenhum filtro desta página altera o banco.</div>
       </article>
       <article class="summary-card">
         <div class="summary-label">Mediana · patrocinado</div>
@@ -385,18 +418,43 @@ def build_page(database: Path) -> str:
   </header>
 
   <main id="conteudo">
+    <section class="section onboarding" id="como-usar">
+      <div class="shell">
+        <div class="section-head">
+          <div><div class="section-index">GUIA DE LEITURA</div><h2>Como navegar e interpretar as comparações</h2></div>
+          <p class="section-copy">Use esta página quando quiser conferir os números apresentados no relatório. Comece escolhendo um recorte; depois compare os grupos e verifique o volume de posts antes de interpretar qualquer diferença.</p>
+        </div>
+        <div class="how-grid">
+          <article class="how-card"><b>1. Escolha a dimensão</b><p>Use as abas para comparar plataforma, formato, categoria, audiência ou tamanho do creator.</p></article>
+          <article class="how-card"><b>2. Compare os grupos</b><p>Cada linha coloca posts patrocinados e posts sem a marcação de patrocínio lado a lado.</p></article>
+          <article class="how-card"><b>3. Aplique os filtros</b><p>Em patrocínio, refine por plataforma, categoria e faixa de seguidores para comparar contextos equivalentes.</p></article>
+          <article class="how-card"><b>4. Verifique o volume</b><p>O número de posts mostra quanta informação sustenta cada comparação. Grupos menores pedem mais cautela.</p></article>
+        </div>
+        <div class="reading-note"><strong>Como ler os gráficos:</strong> o ponto representa o resultado típico do grupo. A linha mostra onde se concentra a parte central dos resultados. Quanto maior a sobreposição, menor a separação observada. A escala pode mudar entre dimensões; compare os números exibidos, não apenas o comprimento visual.</div>
+        <details class="guide"><summary>O que cada categoria representa</summary><div class="guide-body"><div class="dictionary">
+          <div><strong>Plataforma</strong><span>Rede em que o post foi publicado: Instagram, TikTok, YouTube, Bilibili ou RedNote.</span></div>
+          <div><strong>Formato</strong><span>Tipo do conteúdo: vídeo, imagem, texto ou formato misto.</span></div>
+          <div><strong>Categoria</strong><span>Tema atribuído ao post na base: beleza, lifestyle ou tecnologia.</span></div>
+          <div><strong>Tamanho do creator</strong><span>Quatro grupos com quantidades semelhantes de posts, ordenados pelos seguidores na data da publicação. Q1 é a menor faixa e Q4 a maior.</span></div>
+          <div><strong>Idade e gênero predominantes</strong><span>Rótulos predominantes informados na base; não representam a distribuição completa da audiência.</span></div>
+          <div><strong>Localização principal</strong><span>País descrito como principal; não identifica a localização de cada pessoa que interagiu.</span></div>
+          <div><strong>Patrocinado</strong><span>Post marcado como patrocinado na fonte. Ausência da marcação não comprova distribuição totalmente orgânica.</span></div>
+          <div><strong>Interações por visualização</strong><span>Curtidas, compartilhamentos e comentários em relação às visualizações. São eventos, não pessoas únicas.</span></div>
+        </div></div></details>
+      </div>
+    </section>
     <section class="section" id="engajamento">
       <div class="shell">
         <div class="section-head">
-          <div><div class="section-index">01 · ENGAGEMENT</div><h2>O que aparece associado ao engajamento</h2></div>
-          <p class="section-copy">Compare segmentos dentro da mesma dimensão. A escala abaixo é ampliada para tornar a dispersão legível; os números exatos e o delta evitam transformar diferenças mínimas em grandes vantagens.</p>
+          <div><div class="section-index">01 · DESEMPENHO</div><h2>Compare o desempenho por plataforma, formato e audiência</h2></div>
+          <p class="section-copy">Escolha uma dimensão nas abas. Cada linha compara o resultado típico, a faixa central e o volume de posts dos grupos patrocinado e sem marcação de patrocínio.</p>
         </div>
         <div class="tabs" id="dimension-tabs" role="tablist" aria-label="Dimensão analítica"></div>
         <div class="legend" aria-label="Legenda">
           <span class="legend-item"><span class="legend-dot organic"></span>Não patrocinado segundo a flag</span>
           <span class="legend-item"><span class="legend-dot sponsored"></span>Patrocinado</span>
         </div>
-        <div class="scale-note" id="scale-note">Escala ampliada por dimensão. Compare os valores exatos; não use o comprimento visual como tamanho de efeito absoluto.</div>
+        <div class="scale-note" id="scale-note">A escala é ajustada para cada dimensão. Use os números exibidos para comparar; barras próximas indicam pouca separação entre os grupos.</div>
         <div class="segment-list" id="segment-list" aria-live="polite"></div>
       </div>
     </section>
@@ -404,8 +462,8 @@ def build_page(database: Path) -> str:
     <section class="section" id="patrocinio">
       <div class="shell">
         <div class="section-head">
-          <div><div class="section-index">02 · SPONSORSHIP</div><h2>Patrocinado versus não patrocinado</h2></div>
-          <p class="section-copy">Sessenta células comparam os grupos dentro da mesma plataforma, categoria e quartil de seguidores na data do post. O foco é a magnitude do delta, não um placar de vencedores.</p>
+          <div><div class="section-index">02 · PATROCÍNIO</div><h2>Verifique onde o patrocínio ficou acima ou abaixo</h2></div>
+          <p class="section-copy">As comparações mantêm plataforma, categoria e faixa de seguidores equivalentes. Use os filtros para investigar um contexto específico e observe a diferença entre os grupos — não apenas quem ficou em primeiro.</p>
         </div>
         <div class="summary-grid" aria-label="Resumo das células comparáveis">
           <article class="summary-card primary"><div class="summary-label">Delta mediano nas 60 células</div><div class="summary-value">__MEDIAN_DELTA__ p.p.</div><div class="summary-note">Cada lado tem entre __MIN_SIDE_N__ e __MAX_SIDE_N__ posts.</div></article>
@@ -422,7 +480,7 @@ def build_page(database: Path) -> str:
         </div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>Plataforma</th><th>Categoria</th><th>Faixa</th><th class="number">n patroc.</th><th class="number">n não patroc.</th><th class="number">Mediana patroc.</th><th class="number">Mediana não patroc.</th><th class="number">Delta</th></tr></thead>
+            <thead><tr><th>Plataforma</th><th>Categoria</th><th>Faixa</th><th class="number">Posts patrocinados</th><th class="number">Posts sem marcação</th><th class="number">Resultado típico patrocinado</th><th class="number">Resultado típico sem marcação</th><th class="number">Diferença</th></tr></thead>
             <tbody id="comparison-body"></tbody>
           </table>
         </div>
@@ -432,8 +490,8 @@ def build_page(database: Path) -> str:
     <section class="section" id="decisao">
       <div class="shell">
         <div class="section-head">
-          <div><div class="section-index">03 · DECISION</div><h2>O que os dados permitem decidir</h2></div>
-          <p class="section-copy">Cada bloco separa o observado, o limite e a hipótese de próximo teste. Não há recomendação automática de cortar ou escalar investimento.</p>
+          <div><div class="section-index">03 · INTERPRETAÇÃO</div><h2>O que esta comparação prova — e o que não prova</h2></div>
+          <p class="section-copy">Os blocos abaixo ajudam a distinguir resultado observado, limite da fonte e próximo teste. O explorador não recomenda automaticamente cortar ou escalar investimento.</p>
         </div>
         <div class="decision-grid">
           <article class="decision-card">
@@ -457,7 +515,7 @@ def build_page(database: Path) -> str:
         </div>
         <div class="warning">
           <div class="warning-icon" aria-hidden="true">!</div>
-          <div><strong>Creators fora deste visualizador</strong><p>O ranking de creators não integra este recorte por escolha de escopo. <code>creator_id</code> é uma chave válida, mas <code>creator_name</code> é inconsistente. A regra histórica <code>creator_profile_eligible</code> e o campo de ação fixa não foram usados.</p></div>
+          <div><strong>Creators</strong><p>O ranking de creators não aparece nesta página. <code>creator_id</code> é uma chave válida, mas <code>creator_name</code> varia para o mesmo ID e exige tratamento separado.</p></div>
         </div>
       </div>
     </section>
@@ -465,8 +523,8 @@ def build_page(database: Path) -> str:
     <section class="section" id="metodo">
       <div class="shell">
         <div class="section-head">
-          <div><div class="section-index">04 · TRACEABILITY</div><h2>Da fórmula à evidência</h2></div>
-          <p class="section-copy">A página é gerada deterministicamente das tabelas Ouro. Nenhuma chamada de rede, LLM, backend ou número ilustrativo participa do resultado.</p>
+          <div><div class="section-index">04 · RASTREABILIDADE</div><h2>Origem dos dados e regras de cálculo</h2></div>
+          <p class="section-copy">Fórmula, tabelas de origem, integridade do SQLite e limites da comparação.</p>
         </div>
         <div class="trace-grid">
           <article class="trace-card">
@@ -502,8 +560,8 @@ def build_page(database: Path) -> str:
 
   <footer>
     <div class="shell footer-grid">
-      <div><div class="footer-title">Evidência antes de recomendação.</div><div class="footer-meta">Protótipo estático gerado de dados Ouro · sem login · sem LLM · sem backend · sem deploy<br>Projeto desenvolvido para o Challenge 004; não é produto oficial e não implica afiliação com o G4 Educação.</div></div>
-      <div class="prototype-stamp">Não é interface final aprovada</div>
+      <div><div class="footer-title">Evidência antes de recomendação.</div><div class="footer-meta">Tabelas Ouro do Challenge 004 · fonte simulada · análise descritiva<br>Projeto independente, sem afiliação com o G4 Educação.</div></div>
+      <div class="prototype-stamp">Explorador de dados</div>
     </div>
   </footer>
 
@@ -640,6 +698,7 @@ def build_page(database: Path) -> str:
 '''
 
     replacements = {
+        "__MANROPE_FONT__": font_base64,
         "__SPONSORED_MEDIAN__": br_number(float(sponsored["interaction_per_view_pct_median"])),
         "__SPONSORED_N__": f'{int(sponsored["n"]):,}'.replace(",", "."),
         "__NOT_SPONSORED_MEDIAN__": br_number(float(not_sponsored["interaction_per_view_pct_median"])),

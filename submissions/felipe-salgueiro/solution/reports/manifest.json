@@ -22,24 +22,24 @@
     ],
     "generator": {
       "relative_path": "generate.py",
-      "sha256": "45add35927b9f0df81e7baaff7b9caf6383628eb3b6fc89ff9c85c17e8775215"
+      "sha256": "c46a209e7202ae170087b563c3583936732f2bee14dd03141b378649e8656f68"
     }
   },
   "outputs": {
     "evidence": {
       "relative_path": "evidence.json",
-      "sha256": "e4a0b622450b1dbd089bac8e2c910772a817a028fb7fca2f819b56a7eeda6c4f",
+      "sha256": "de0502d33bec4b09fe6970686196f4c83c1fe484b659c40fc607b75d6d1ddf1d",
       "rows_analyzed": 52214
     },
     "html": {
       "relative_path": "performance-strategy.html",
-      "sha256": "57a2cbd5837499b353d53668799e52e7efc6eec1863ad8557b131f244954b165",
+      "sha256": "b3f4a9e1cb3a04021926fef6aa3d98910fdefd5a6830cc004b25009194e98f2f",
       "self_contained": true,
       "external_assets": 0
     },
     "readme": {
       "relative_path": "README.md",
-      "sha256": "df2f6634c0ce2ff628670b435291a71c634c2dc492e5b82036bb182b3479cc44"
+      "sha256": "fee0900b5b2f936124e7d6e4e43fa342b04b5127e46ace75837ef8d36f987377"
     }
   },
   "separation_of_concerns": {

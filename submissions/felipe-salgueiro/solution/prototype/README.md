@@ -1,9 +1,10 @@
-# Protótipo exploratório — relatório Ouro
+# Explorador dos dados analisados — tabelas Ouro
 
-Página HTML estática e autocontida, gerada deterministicamente das tabelas Ouro
-do SQLite de evidência. Não possui login, LLM, backend, dependências externas ou
-deploy. Não é a interface final aprovada. Compartilha o padrão visual G4 do
-relatório executivo e oferece navegação direta entre os dois artefatos.
+Página HTML estática e autocontida para navegar, filtrar e conferir os
+resultados que sustentam o relatório executivo. É gerada deterministicamente
+das tabelas Ouro do SQLite de evidência e abre o banco somente para leitura.
+Não possui login, LLM, backend, dependências externas ou deploy. Não é a
+interface final aprovada.
 
 ## Gerar
 
@@ -41,6 +42,7 @@ explicitamente fora deste protótipo.
 
 ## O que a página mostra
 
+- guia de leitura e dicionário das categorias antes das comparações;
 - comparações de engajamento por plataforma, formato, categoria, idade/gênero
   predominantes e localização principal;
 - `n`, mediana e p25–p75 por segmento e grupo de patrocínio;
@@ -51,9 +53,9 @@ explicitamente fora deste protótipo.
 
 ## Limites deliberados
 
-- Não usa `creator_profile_eligible`. O ranking de creators ficou fora deste
-  visualizador por escolha de escopo; `creator_id` é válido, enquanto
-  `creator_name` é inconsistente na fonte.
+- Não usa `creator_profile_eligible`. O ranking de creators não integra esta
+  página; `creator_id` é válido, enquanto `creator_name` é inconsistente na
+  fonte.
 - Não consome `action_candidate` nem apresenta `measure_better` como decisão.
 - Não calcula ROI, alcance, impressões ou retenção ausentes.
 - Não transforma diferenças pequenas em instrução de corte ou escala.

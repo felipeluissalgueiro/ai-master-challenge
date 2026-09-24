@@ -7987,5 +7987,30 @@
     "O exemplo Instagram-Tech é pós-hoc e exige validação independente.",
     "Nenhum portfólio, cadência ou prática operacional atual do G4 é presumido.",
     "Política e limiares de teste são propostas, não achados do dataset."
-  ]
+  ],
+  "executive_translation": {
+    "unit": "additional_interactions_per_10000_views",
+    "formula": "difference_in_percentage_points × 100",
+    "why": "Uma diferença de 1 ponto percentual equivale a 100 interações a cada 10 mil visualizações.",
+    "primary_group_spreads": {
+      "platform": 1.567600220850096,
+      "content_type": 1.6698027146563987,
+      "content_category": 0.5912995394428577,
+      "follower_band": 1.6470999274876164
+    },
+    "audience_group_spreads": {
+      "audience_age_label": 0.5293289511495658,
+      "audience_gender_label": 1.231699417177623,
+      "audience_location_label": 1.7584613665505344
+    },
+    "sponsorship_typical_difference": 0.24007317714325183,
+    "sponsorship_positive_comparisons": 33,
+    "sponsorship_negative_comparisons": 27,
+    "sponsorship_mixed_pairs": 14,
+    "sponsorship_pairs_scanned": 15,
+    "origin": {
+      "performance": "performance.rank_context.*.median_spread_percentage_points",
+      "sponsorship": "sponsorship.matched_cell_summary"
+    }
+  }
 }

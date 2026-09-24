@@ -37,15 +37,18 @@ python3 solution/reports/generate.py \
 
 ## Contrato de leitura
 
-- O corpo principal organiza as oito perguntas em três decisões: o que gera
-  engajamento, se vale patrocinar influenciadores e qual estratégia adotar.
-- O painel visual destaca os indicadores centrais e mantém uma escala comum
-  para que diferenças de centésimos não pareçam grandes efeitos.
-- Cada resposta exibe número, amostra, tabela de origem, cálculo e ID de
-  evidência. IQR, correlações e hashes também ficam no apêndice recolhível.
+- O corpo principal responde aos três pilares: o que gera engajamento, se vale
+  patrocinar influenciadores e qual estratégia de conteúdo adotar.
+- Os indicadores usam interações adicionais a cada 10 mil visualizações como
+  unidade de comparação executiva.
+- A leitura executiva apresenta conclusão, implicação e ação; amostra,
+  mediana, IQR, correlações, nomes SQL e hashes ficam no apêndice recolhível e
+  no explorador de dados.
+- As oito perguntas do desafio possuem uma cobertura resumida no apêndice.
 - O dataset é simulado e não é benchmark de mercado.
 - Diferenças observadas são descritivas; não são efeito causal, teste de
   equivalência ou limiar econômico.
-- O recorte Instagram/Tech foi encontrado após examinar as combinações e serve
-  apenas como exemplo exploratório de teste, se houver aderência comercial.
-- Campos ausentes e análises pendentes são separados explicitamente.
+- ROI permanece desconhecido porque gasto, conversão, receita e atribuição não
+  existem na fonte.
+- O relatório não recomenda vencedor, corte, frequência ou threshold que os
+  dados não sustentem.

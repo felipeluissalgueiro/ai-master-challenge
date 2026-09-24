@@ -539,6 +539,47 @@ def build_evidence(database: Path) -> dict[str, object]:
             "Política e limiares de teste são propostas, não achados do dataset.",
         ],
     }
+    rank_contexts = evidence["performance"]["rank_context"]
+    matched_summary = evidence["sponsorship"]["matched_cell_summary"]
+    evidence["executive_translation"] = {
+        "unit": "additional_interactions_per_10000_views",
+        "formula": "difference_in_percentage_points × 100",
+        "why": (
+            "Uma diferença de 1 ponto percentual equivale a 100 interações "
+            "a cada 10 mil visualizações."
+        ),
+        "primary_group_spreads": {
+            dimension: float(rank_contexts[dimension]["median_spread_percentage_points"])
+            * 100
+            for dimension in (
+                "platform",
+                "content_type",
+                "content_category",
+                "follower_band",
+            )
+        },
+        "audience_group_spreads": {
+            dimension: float(rank_contexts[dimension]["median_spread_percentage_points"])
+            * 100
+            for dimension in (
+                "audience_age_label",
+                "audience_gender_label",
+                "audience_location_label",
+            )
+        },
+        "sponsorship_typical_difference": float(
+            matched_summary["median_delta_percentage_points"]
+        )
+        * 100,
+        "sponsorship_positive_comparisons": matched_summary["positive_cells"],
+        "sponsorship_negative_comparisons": matched_summary["negative_cells"],
+        "sponsorship_mixed_pairs": matched_summary["pair_pattern_counts"]["mixed"],
+        "sponsorship_pairs_scanned": matched_summary["platform_category_pairs_scanned"],
+        "origin": {
+            "performance": "performance.rank_context.*.median_spread_percentage_points",
+            "sponsorship": "sponsorship.matched_cell_summary",
+        },
+    }
     connection.close()
     return evidence
 
@@ -554,6 +595,10 @@ def fmt_pct(value: float, digits: int = 2) -> str:
 def fmt_pp(value: float, digits: int = 3, signed: bool = False) -> str:
     pattern = f"{{:{'+' if signed else ''}.{digits}f}}"
     return pattern.format(float(value)).replace(".", ",") + " pp"
+
+
+def fmt_decimal(value: float, digits: int = 1) -> str:
+    return f"{float(value):.{digits}f}".replace(".", ",")
 
 
 def esc(value: object) -> str:
@@ -692,6 +737,12 @@ def answer_card(
 
 
 def render_html(evidence: dict[str, object]) -> str:
+    font_base64 = (
+        Path(__file__).resolve().parent.parent
+        / "assets"
+        / "fonts"
+        / "manrope-latin-variable.woff2.b64"
+    ).read_text(encoding="ascii").strip()
     overall = evidence["overall"]
     performance = evidence["performance"]
     sponsor = evidence["sponsorship"]
@@ -704,6 +755,7 @@ def render_html(evidence: dict[str, object]) -> str:
     creators = evidence["creators"]
     temporal = evidence["temporal"]
     audience_crosses = evidence["audience"]["crosses"]
+    executive = evidence["executive_translation"]
 
     def rho(left: str, right: str) -> float:
         for row in evidence["correlations"]:
@@ -1056,6 +1108,40 @@ def render_html(evidence: dict[str, object]) -> str:
         for cell in post_hoc["cells"]
     )
 
+    primary_spreads = (
+        ("Formato", float(executive["primary_group_spreads"]["content_type"])),
+        ("Tamanho do creator", float(executive["primary_group_spreads"]["follower_band"])),
+        ("Plataforma", float(executive["primary_group_spreads"]["platform"])),
+        ("Categoria", float(executive["primary_group_spreads"]["content_category"])),
+    )
+    decision_spread_bars = "".join(
+        "<div class='manager-bar-row'>"
+        f"<span>{esc(label)}</span>"
+        "<div class='manager-bar-track' aria-hidden='true'>"
+        f"<i style='width:{min(value / 2 * 100, 100):.2f}%'></i></div>"
+        f"<strong>{fmt_decimal(value)} interações</strong>"
+        "</div>"
+        for label, value in primary_spreads
+    )
+    audience_spreads = (
+        ("Idade predominante", float(executive["audience_group_spreads"]["audience_age_label"])),
+        ("Gênero predominante", float(executive["audience_group_spreads"]["audience_gender_label"])),
+        ("Localização principal", float(executive["audience_group_spreads"]["audience_location_label"])),
+    )
+    audience_spread_bars = "".join(
+        "<div class='manager-bar-row'>"
+        f"<span>{esc(label)}</span>"
+        "<div class='manager-bar-track' aria-hidden='true'>"
+        f"<i style='width:{min(value / 2 * 100, 100):.2f}%'></i></div>"
+        f"<strong>{fmt_decimal(value)}</strong>"
+        "</div>"
+        for label, value in audience_spreads
+    )
+    max_primary_spread_per_10k = max(value for _, value in primary_spreads)
+    sponsor_delta_per_10k = float(executive["sponsorship_typical_difference"])
+    mixed_pairs = int(executive["sponsorship_mixed_pairs"])
+    pairs_scanned = int(executive["sponsorship_pairs_scanned"])
+
     return f"""<!doctype html>
 <html lang="pt-BR">
 <head>
@@ -1064,55 +1150,63 @@ def render_html(evidence: dict[str, object]) -> str:
   <meta name="description" content="Relatório executivo de performance e estratégia social media do Challenge 004.">
   <title>Análise de performance e estratégia · Challenge 004</title>
   <style>
+    @font-face {{
+      font-family: "Manrope";
+      font-style: normal;
+      font-weight: 200 800;
+      font-display: swap;
+      src: url("data:font/woff2;base64,{font_base64}") format("woff2");
+    }}
     :root {{
-      --g4-navy-950: #111827; --g4-navy-800: #1e293b; --g4-coral-500: #f2675c;
-      --g4-coral-100: #fff0ee; --g4-surface: #ffffff; --g4-surface-muted: #f5f6f8;
-      --g4-border: #d9dde5; --g4-ink: #111827; --g4-muted: #5d6676;
-      --g4-blue-soft: #e8eef6; --radius: 14px; --shadow: 0 12px 32px rgba(17,24,39,.08);
+      --g4-black: #001f35; --g4-charcoal: #184560; --g4-gold-500: #b9915b;
+      --g4-gold-700: #001f35; --g4-gold-100: #f5f4f3; --g4-surface: #ffffff;
+      --g4-surface-muted: #f5f4f3; --g4-border: #e5e7eb; --g4-ink: #031a26;
+      --g4-muted: #184560; --g4-warm-soft: #f5f4f3; --radius: 14px;
+      --shadow: 0 12px 32px rgba(0,31,53,.10);
     }}
     * {{ box-sizing: border-box; }}
     html {{ scroll-behavior: smooth; }}
-    body {{ margin: 0; color: var(--g4-ink); background: var(--g4-surface-muted); font: 16px/1.58 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-variant-numeric: tabular-nums; }}
+    body {{ margin: 0; color: var(--g4-ink); background: var(--g4-surface-muted); font: 16px/1.58 "Manrope", Arial, sans-serif; font-variant-numeric: tabular-nums; }}
     a {{ color: inherit; }}
-    .skip-link {{ position: fixed; left: 16px; top: -60px; z-index: 100; background: var(--g4-coral-500); color: var(--g4-navy-950); padding: 10px 14px; font-weight: 800; }}
+    .skip-link {{ position: fixed; left: 16px; top: -60px; z-index: 100; background: var(--g4-gold-500); color: var(--g4-black); padding: 10px 14px; font-weight: 800; }}
     .skip-link:focus {{ top: 16px; }}
     .wrap {{ width: min(1180px, calc(100% - 40px)); margin: 0 auto; }}
-    .topbar {{ background: var(--g4-navy-950); color: white; border-bottom: 1px solid #334155; }}
+    .topbar {{ background: var(--g4-black); color: white; border-bottom: 1px solid rgba(245,244,243,.22); }}
     .topbar .wrap {{ min-height: 66px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }}
     .brand {{ display: flex; align-items: center; gap: 12px; font-weight: 850; letter-spacing: -.02em; }}
-    .brand-mark {{ width: 28px; height: 28px; display: grid; place-items: center; background: var(--g4-coral-500); color: var(--g4-navy-950); font-size: .72rem; font-weight: 950; transform: rotate(-4deg); }}
-    .topbar-meta {{ color: #cbd5e1; font-size: .8rem; }}
+    .brand-mark {{ width: 28px; height: 28px; display: grid; place-items: center; background: var(--g4-gold-500); color: var(--g4-black); font-size: .72rem; font-weight: 950; transform: rotate(-4deg); }}
+    .topbar-meta {{ color: #f5f4f3; font-size: .8rem; }}
     .report-tabs {{ background: var(--g4-surface); border-bottom: 1px solid var(--g4-border); }}
     .report-tabs .wrap {{ display: flex; gap: 8px; overflow-x: auto; padding-top: 10px; padding-bottom: 10px; }}
     .report-tabs a {{ white-space: nowrap; text-decoration: none; border: 1px solid var(--g4-border); border-radius: 8px; padding: 9px 13px; color: var(--g4-muted); font-weight: 750; font-size: .86rem; }}
-    .report-tabs a[aria-current="page"] {{ background: var(--g4-navy-950); border-color: var(--g4-navy-950); color: white; }}
-    .hero {{ padding: 64px 0 48px; background: var(--g4-navy-950); color: white; border-bottom: 5px solid var(--g4-coral-500); }}
-    .badges {{ display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }}
-    .badge {{ border: 1px solid #475569; border-radius: 999px; padding: 5px 10px; font-size: .72rem; font-weight: 800; letter-spacing: .055em; text-transform: uppercase; background: var(--g4-navy-800); color: #e2e8f0; }}
-    .badge.coral {{ border-color: var(--g4-coral-500); background: var(--g4-coral-500); color: var(--g4-navy-950); }}
-    h1 {{ font-size: clamp(2.35rem, 6vw, 4.7rem); line-height: 1.02; letter-spacing: -.055em; max-width: 970px; margin: 0 0 22px; font-weight: 880; }}
-    .dek {{ max-width: 900px; font-size: clamp(1.08rem, 2vw, 1.35rem); color: #d8e0ea; margin: 0 0 32px; }}
+    .report-tabs a[aria-current="page"] {{ background: var(--g4-black); border-color: var(--g4-black); color: white; }}
+    .hero {{ padding: 36px 0 30px; background: var(--g4-black); color: white; border-bottom: 5px solid var(--g4-gold-500); }}
+    .badges {{ display: none; }}
+    .badge {{ border: 1px solid rgba(245,244,243,.30); border-radius: 999px; padding: 5px 10px; font-size: .72rem; font-weight: 800; letter-spacing: .055em; text-transform: uppercase; background: var(--g4-charcoal); color: #f5f4f3; }}
+    .badge.coral {{ border-color: var(--g4-gold-500); background: var(--g4-gold-500); color: var(--g4-black); }}
+    h1 {{ font-size: clamp(2rem, 4vw, 3.15rem); line-height: 1.08; letter-spacing: -.045em; max-width: 970px; margin: 8px 0 16px; font-weight: 800; }}
+    .dek {{ max-width: 950px; font-size: clamp(1rem, 1.6vw, 1.18rem); color: #f5f4f3; margin: 0 0 24px; }}
     .hero-grid {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }}
-    .hero-note {{ background: var(--g4-navy-800); border: 1px solid #3c4a5e; border-radius: 10px; padding: 20px; color: #e2e8f0; }}
+    .hero-note {{ background: var(--g4-charcoal); border: 1px solid rgba(245,244,243,.24); border-radius: 10px; padding: 20px; color: #f5f4f3; }}
     .hero-note strong {{ display: block; color: white; margin-bottom: 7px; font-size: 1.02rem; }}
-    .hero-note .number {{ display: block; color: var(--g4-coral-500); font-size: 1.65rem; font-weight: 900; margin-bottom: 4px; }}
+    .hero-note .number {{ display: block; color: var(--g4-gold-500); font-size: 1.65rem; font-weight: 900; margin-bottom: 4px; }}
     nav.section-nav {{ position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--g4-border); }}
     nav.section-nav .wrap {{ display: flex; gap: 20px; overflow-x: auto; padding-top: 13px; padding-bottom: 13px; white-space: nowrap; }}
-    nav.section-nav a {{ text-decoration: none; font-weight: 750; font-size: .85rem; color: var(--g4-navy-800); }}
+    nav.section-nav a {{ text-decoration: none; font-weight: 750; font-size: .85rem; color: var(--g4-charcoal); }}
     main {{ padding: 48px 0 80px; }}
-    .executive-call {{ display: grid; grid-template-columns: .8fr 1.2fr; gap: 28px; padding: 28px; background: var(--g4-surface); border: 1px solid var(--g4-border); border-left: 6px solid var(--g4-coral-500); border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 56px; }}
+    .executive-call {{ display: grid; grid-template-columns: .8fr 1.2fr; gap: 28px; padding: 28px; background: var(--g4-surface); border: 1px solid var(--g4-border); border-left: 6px solid var(--g4-gold-500); border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 56px; }}
     .executive-call h2 {{ margin: 0; }}
     .priority-list {{ counter-reset: priority; display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }}
     .priority-list li {{ counter-increment: priority; display: grid; grid-template-columns: 32px 1fr; gap: 10px; align-items: start; }}
-    .priority-list li::before {{ content: counter(priority); width: 28px; height: 28px; display: grid; place-items: center; background: var(--g4-coral-500); color: var(--g4-navy-950); font-weight: 900; border-radius: 6px; }}
+    .priority-list li::before {{ content: counter(priority); width: 28px; height: 28px; display: grid; place-items: center; background: var(--g4-gold-500); color: var(--g4-black); font-weight: 900; border-radius: 6px; }}
     .dashboard-section {{ margin: 0 0 68px; }}
     .dashboard-intro {{ display: grid; grid-template-columns: .9fr 1.1fr; gap: 24px; align-items: end; margin-bottom: 20px; }}
     .dashboard-intro p {{ margin: 0; }}
     .kpi-grid {{ display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; margin-bottom: 16px; }}
-    .kpi-card {{ min-height: 165px; padding: 20px; border-radius: 12px; color: white; background: var(--g4-navy-950); border-top: 5px solid var(--g4-coral-500); display: flex; flex-direction: column; }}
-    .kpi-card strong {{ display: block; color: var(--g4-coral-500); font-size: clamp(1.65rem, 3vw, 2.4rem); line-height: 1; letter-spacing: -.04em; margin: 10px 0 8px; }}
+    .kpi-card {{ min-height: 150px; padding: 20px; border-radius: 10px; color: var(--g4-ink); background: var(--g4-surface); border: 1px solid var(--g4-border); border-top: 5px solid var(--g4-gold-500); display: flex; flex-direction: column; }}
+    .kpi-card strong {{ display: block; color: var(--g4-black); font-size: clamp(1.55rem, 3vw, 2.2rem); line-height: 1.05; letter-spacing: -.04em; margin: 10px 0 8px; }}
     .kpi-card span {{ font-weight: 800; }}
-    .kpi-card small {{ color: #cbd5e1; margin-top: auto; padding-top: 10px; }}
+    .kpi-card small {{ color: var(--g4-muted); margin-top: auto; padding-top: 10px; }}
     .chart-grid {{ display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; }}
     .chart-card {{ padding: 22px; background: var(--g4-surface); border: 1px solid var(--g4-border); border-radius: 12px; box-shadow: var(--shadow); }}
     .chart-title {{ display: flex; justify-content: space-between; gap: 12px; align-items: baseline; margin-bottom: 18px; }}
@@ -1123,61 +1217,74 @@ def render_html(evidence: dict[str, object]) -> str:
     .dot-label {{ font-size: .78rem; font-weight: 750; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }}
     .dot-track {{ position: relative; display: block; height: 4px; border-radius: 999px; background: #dfe4eb; }}
     .dot-track::before {{ content: ""; position: absolute; left: 50%; top: -4px; width: 1px; height: 12px; background: #9aa4b2; }}
-    .dot-marker {{ position: absolute; top: 50%; width: 12px; height: 12px; border: 3px solid white; border-radius: 50%; background: var(--g4-coral-500); box-shadow: 0 0 0 1px var(--g4-navy-950); transform: translate(-50%,-50%); }}
+    .dot-marker {{ position: absolute; top: 50%; width: 12px; height: 12px; border: 3px solid white; border-radius: 50%; background: var(--g4-gold-500); box-shadow: 0 0 0 1px var(--g4-black); transform: translate(-50%,-50%); }}
     .dot-row strong {{ text-align: right; font-size: .8rem; }}
     .dot-row small {{ color: var(--g4-muted); text-align: right; }}
-    .scale-caption {{ display: flex; justify-content: space-between; gap: 20px; margin: 10px 0 22px; padding: 11px 14px; border-left: 4px solid var(--g4-coral-500); background: var(--g4-coral-100); color: var(--g4-muted); font-size: .77rem; }}
+    .scale-caption {{ display: flex; justify-content: space-between; gap: 20px; margin: 10px 0 22px; padding: 11px 14px; border-left: 4px solid var(--g4-gold-500); background: var(--g4-gold-100); color: var(--g4-muted); font-size: .77rem; }}
     .sponsor-board {{ display: grid; grid-template-columns: 1.05fr .95fr; gap: 14px; margin-top: 16px; }}
     .visual-card {{ padding: 22px; background: var(--g4-surface); border: 1px solid var(--g4-border); border-radius: 12px; box-shadow: var(--shadow); }}
     .visual-card h3 {{ font-size: 1.15rem; margin-bottom: 7px; }}
     .sponsor-values {{ display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; margin: 16px 0; }}
-    .sponsor-values div {{ padding: 14px; background: var(--g4-blue-soft); border-radius: 8px; }}
+    .sponsor-values div {{ padding: 14px; background: var(--g4-warm-soft); border-radius: 8px; }}
     .sponsor-values strong {{ display: block; font-size: 1.45rem; }}
     .sponsor-values span {{ color: var(--g4-muted); font-size: .75rem; }}
     .split-bar {{ display: flex; height: 34px; overflow: hidden; border-radius: 8px; margin: 18px 0 8px; color: white; font-size: .75rem; font-weight: 900; }}
     .split-positive, .split-negative {{ display: grid; place-items: center; }}
-    .split-positive {{ background: var(--g4-navy-800); }}
-    .split-negative {{ background: var(--g4-coral-500); color: var(--g4-navy-950); }}
+    .split-positive {{ background: var(--g4-charcoal); }}
+    .split-negative {{ background: var(--g4-gold-500); color: var(--g4-black); }}
     .split-legend {{ display: flex; justify-content: space-between; gap: 14px; color: var(--g4-muted); font-size: .74rem; }}
+    .manager-bars {{ display: grid; gap: 14px; margin: 20px 0 12px; }}
+    .manager-bar-row {{ display: grid; grid-template-columns: 150px minmax(120px,1fr) 108px; gap: 12px; align-items: center; }}
+    .manager-bar-row > span {{ font-size: .84rem; font-weight: 750; }}
+    .manager-bar-row strong {{ font-size: .84rem; text-align: right; white-space: nowrap; }}
+    .manager-bar-track {{ height: 14px; border-radius: 3px; overflow: hidden; background: #e5e7eb; }}
+    .manager-bar-track i {{ display: block; height: 100%; background: var(--g4-gold-500); border-right: 4px solid var(--g4-black); }}
+    .manager-note {{ margin: 18px 0 0; padding: 14px 16px; border-left: 4px solid var(--g4-gold-500); background: var(--g4-surface-muted); color: var(--g4-muted); }}
+    .decision-table {{ display: grid; gap: 0; border: 1px solid var(--g4-border); border-radius: 10px; overflow: hidden; background: white; }}
+    .decision-row {{ display: grid; grid-template-columns: 1fr 1.15fr 1fr; gap: 18px; padding: 18px 20px; border-top: 1px solid var(--g4-border); }}
+    .decision-row:first-child {{ border-top: 0; }}
+    .decision-row span {{ color: var(--g4-muted); }}
+    .decision-row strong {{ color: var(--g4-black); }}
     .audience-grid {{ display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-top: 16px; }}
     .audience-card {{ padding: 16px; border: 1px solid var(--g4-border); border-radius: 9px; background: var(--g4-surface-muted); }}
     .audience-card span, .audience-card small {{ display: block; color: var(--g4-muted); }}
-    .audience-card strong {{ display: block; font-size: 1.55rem; color: var(--g4-navy-950); margin: 5px 0; }}
-    .strategy-plan {{ display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin: 22px 0 18px; }}
-    .strategy-step {{ position: relative; padding: 22px; border-radius: 12px; background: var(--g4-navy-950); color: white; border-top: 5px solid var(--g4-coral-500); }}
-    .strategy-step > span {{ display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 6px; background: var(--g4-coral-500); color: var(--g4-navy-950); font-weight: 950; }}
+    .audience-card strong {{ display: block; font-size: 1.55rem; color: var(--g4-black); margin: 5px 0; }}
+    .strategy-plan {{ display: grid; grid-template-columns: repeat(5,1fr); gap: 10px; margin: 22px 0 18px; }}
+    .strategy-step {{ position: relative; padding: 22px; border-radius: 12px; background: var(--g4-black); color: white; border-top: 5px solid var(--g4-gold-500); }}
+    .strategy-step > span {{ display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 6px; background: var(--g4-gold-500); color: var(--g4-black); font-weight: 950; }}
     .strategy-step h3 {{ margin: 14px 0 8px; font-size: 1.18rem; }}
-    .strategy-step p {{ margin: 0; color: #d8e0ea; font-size: .9rem; }}
-    .strategy-step small {{ display: block; margin-top: 14px; color: #aebacc; }}
+    .strategy-step p {{ margin: 0; color: #f5f4f3; font-size: .9rem; }}
+    .strategy-step small {{ display: block; margin-top: 14px; color: #f5f4f3; }}
     .section-heading {{ margin: 0 0 24px; max-width: 780px; }}
-    .eyebrow {{ margin: 0 0 7px; color: var(--g4-coral-500); font-size: .73rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }}
+    .eyebrow {{ margin: 0 0 7px; color: var(--g4-gold-700); font-size: .73rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }}
     h2 {{ font-size: clamp(1.9rem, 4vw, 3rem); line-height: 1.08; letter-spacing: -.04em; margin: 0 0 10px; font-weight: 860; }}
     h3 {{ font-size: clamp(1.25rem, 2.4vw, 1.75rem); line-height: 1.22; margin: 0 0 18px; letter-spacing: -.025em; }}
     h4 {{ margin: 28px 0 10px; }}
     .muted {{ color: var(--g4-muted); }}
     .pillar {{ margin-top: 64px; }}
     .pillar-head {{ display: grid; grid-template-columns: 170px 1fr; gap: 24px; align-items: start; margin-bottom: 22px; }}
-    .pillar-index {{ color: var(--g4-coral-500); font-size: .8rem; font-weight: 900; text-transform: uppercase; letter-spacing: .1em; border-top: 3px solid var(--g4-coral-500); padding-top: 10px; }}
+    .pillar-index {{ color: var(--g4-gold-700); font-size: .8rem; font-weight: 900; text-transform: uppercase; letter-spacing: .1em; border-top: 3px solid var(--g4-gold-500); padding-top: 10px; }}
     .answers {{ display: grid; gap: 18px; }}
     .answer-card {{ display: grid; grid-template-columns: 52px 1fr; gap: 20px; padding: 28px; background: var(--g4-surface); border: 1px solid var(--g4-border); border-radius: var(--radius); box-shadow: var(--shadow); }}
-    .answer-number {{ width: 44px; height: 44px; display: grid; place-items: center; border-radius: 8px; background: var(--g4-navy-950); color: white; font-weight: 900; }}
+    .answer-number {{ width: 44px; height: 44px; display: grid; place-items: center; border-radius: 8px; background: var(--g4-black); color: white; font-weight: 900; }}
     .proof-grid {{ display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; margin: 18px 0; }}
-    .proof-tile {{ display: flex; flex-direction: column; gap: 3px; background: var(--g4-blue-soft); border-left: 4px solid var(--g4-navy-800); border-radius: 6px; padding: 14px; }}
-    .proof-tile strong {{ font-size: 1.35rem; color: var(--g4-navy-950); }}
+    .proof-tile {{ display: flex; flex-direction: column; gap: 3px; background: var(--g4-warm-soft); border-left: 4px solid var(--g4-charcoal); border-radius: 6px; padding: 14px; }}
+    .proof-tile strong {{ font-size: 1.35rem; color: var(--g4-black); }}
     .proof-tile span {{ font-weight: 750; }}
     .proof-tile small {{ color: var(--g4-muted); }}
     .answer-flow {{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 0; }}
     .answer-flow div {{ padding: 14px; border-radius: 8px; background: var(--g4-surface-muted); border: 1px solid var(--g4-border); }}
-    .answer-flow .action {{ background: var(--g4-navy-950); color: white; border-color: var(--g4-navy-950); }}
-    .answer-flow .action dt {{ color: var(--g4-coral-500); }}
-    .answer-flow .limit {{ background: var(--g4-coral-100); border-color: #f4c5c0; }}
-    dt {{ font-size: .7rem; font-weight: 900; letter-spacing: .07em; text-transform: uppercase; color: var(--g4-navy-800); margin-bottom: 5px; }}
+    .answer-flow .action {{ background: var(--g4-black); color: white; border-color: var(--g4-black); }}
+    .answer-flow .action dt {{ color: var(--g4-gold-500); }}
+    .answer-flow .limit {{ background: var(--g4-gold-100); border-color: #d8c3a6; }}
+    dt {{ font-size: .7rem; font-weight: 900; letter-spacing: .07em; text-transform: uppercase; color: var(--g4-charcoal); margin-bottom: 5px; }}
     dd {{ margin: 0; }}
     .source-strip {{ display: flex; gap: 10px 16px; flex-wrap: wrap; align-items: center; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--g4-border); color: var(--g4-muted); font-size: .76rem; }}
-    .source-strip strong {{ color: var(--g4-navy-950); }}
-    .source-strip a {{ color: var(--g4-navy-800); font-weight: 800; }}
+    .source-strip strong {{ color: var(--g4-black); }}
+    .source-strip a {{ color: var(--g4-gold-700); font-weight: 800; }}
     .section-block {{ margin-top: 64px; }}
-    .coverage {{ background: var(--g4-navy-950); color: white; padding: 34px; border-radius: var(--radius); }}
+    .coverage {{ background: var(--g4-black); color: white; padding: 34px; border-radius: var(--radius); }}
+    #coverage, #availability {{ display: none; }}
     .coverage h2, .coverage .eyebrow {{ color: white; }}
     .coverage .table-wrap {{ border-color: rgba(255,255,255,.22); }}
     .coverage table {{ background: transparent; color: white; }}
@@ -1188,22 +1295,23 @@ def render_html(evidence: dict[str, object]) -> str:
     .availability ul {{ padding-left: 20px; margin-bottom: 0; }}
     details {{ margin-top: 14px; border: 1px solid var(--g4-border); border-radius: 10px; background: var(--g4-surface); overflow: hidden; }}
     summary {{ cursor: pointer; padding: 18px 20px; font-weight: 850; background: #e9edf3; }}
-    summary:focus-visible, a:focus-visible {{ outline: 3px solid var(--g4-coral-500); outline-offset: 3px; }}
+    summary:focus-visible, a:focus-visible {{ outline: 3px solid var(--g4-gold-500); outline-offset: 3px; }}
     .details-body {{ padding: 4px 20px 24px; }}
-    .callout {{ margin: 18px 0; padding: 18px; border-left: 5px solid var(--g4-coral-500); background: var(--g4-coral-100); border-radius: 4px 10px 10px 4px; }}
+    .callout {{ margin: 18px 0; padding: 18px; border-left: 5px solid var(--g4-gold-500); background: var(--g4-gold-100); border-radius: 4px 10px 10px 4px; }}
+    .primary-link {{ display: inline-flex; align-items: center; gap: 8px; margin: 8px 0 18px; padding: 11px 16px; border-radius: 7px; background: var(--g4-black); color: white; text-decoration: none; font-weight: 800; }}
     .table-wrap {{ overflow-x: auto; border: 1px solid var(--g4-border); border-radius: 10px; }}
     table {{ width: 100%; border-collapse: collapse; background: var(--g4-surface); font-size: .86rem; }}
     th, td {{ padding: 11px 13px; text-align: left; border-bottom: 1px solid var(--g4-border); vertical-align: top; }}
-    th {{ color: white; background: var(--g4-navy-800); font-size: .72rem; text-transform: uppercase; letter-spacing: .035em; }}
+    th {{ color: white; background: var(--g4-charcoal); font-size: .72rem; text-transform: uppercase; letter-spacing: .035em; }}
     tbody tr:last-child td {{ border-bottom: 0; }}
     code {{ font: .84em ui-monospace, SFMono-Regular, Menlo, monospace; background: #e8ebf0; padding: 2px 5px; border-radius: 4px; }}
-    footer {{ background: var(--g4-navy-950); color: #cbd5e1; padding: 32px 0 46px; font-size: .84rem; }}
+    footer {{ background: var(--g4-black); color: #f5f4f3; padding: 32px 0 46px; font-size: .84rem; }}
     footer strong {{ color: white; }}
     @media (max-width: 920px) {{ .kpi-grid {{ grid-template-columns: repeat(2,1fr); }} .chart-grid, .sponsor-board, .strategy-plan {{ grid-template-columns: 1fr; }} }}
-    @media (max-width: 820px) {{ .hero-grid, .availability, .answer-flow, .proof-grid, .executive-call, .dashboard-intro {{ grid-template-columns: 1fr; }} .answer-card {{ grid-template-columns: 1fr; }} .pillar-head {{ grid-template-columns: 1fr; gap: 8px; }} .topbar-meta {{ display: none; }} }}
-    @media (max-width: 640px) {{ .kpi-grid, .audience-grid {{ grid-template-columns: 1fr; }} .dot-row {{ grid-template-columns: minmax(80px,1fr) minmax(90px,1fr) 60px; }} .dot-row small {{ display: none; }} .scale-caption {{ display: block; }} .scale-caption span {{ display: block; }} }}
+    @media (max-width: 820px) {{ .hero-grid, .availability, .answer-flow, .proof-grid, .executive-call, .dashboard-intro {{ grid-template-columns: 1fr; }} .answer-card {{ grid-template-columns: 1fr; }} .pillar-head {{ grid-template-columns: 1fr; gap: 8px; }} .topbar-meta {{ display: none; }} .decision-row {{ grid-template-columns: 1fr; gap: 5px; }} }}
+    @media (max-width: 640px) {{ .kpi-grid, .audience-grid {{ grid-template-columns: 1fr; }} .dot-row {{ grid-template-columns: minmax(80px,1fr) minmax(90px,1fr) 60px; }} .dot-row small {{ display: none; }} .scale-caption {{ display: block; }} .scale-caption span {{ display: block; }} .manager-bar-row {{ grid-template-columns: 1fr 90px; }} .manager-bar-track {{ grid-column: 1 / -1; grid-row: 2; }} }}
     @media (max-width: 560px) {{ .wrap {{ width: min(100% - 24px, 1180px); }} .topbar .wrap {{ min-height: 58px; }} .hero {{ padding-top: 44px; }} .answer-card {{ padding: 20px; }} }}
-    @media print {{ .topbar, .report-tabs, nav.section-nav {{ display: none; }} body {{ background: white; }} .answer-card, details, .availability article, .executive-call {{ box-shadow: none; break-inside: avoid; }} details {{ break-inside: auto; }} details > * {{ display: block; }} .hero {{ padding-top: 28px; background: white; color: var(--g4-ink); border-top: 6px solid var(--g4-coral-500); }} .dek {{ color: var(--g4-muted); }} }}
+    @media print {{ .topbar, .report-tabs, nav.section-nav {{ display: none; }} body {{ background: white; }} .answer-card, details, .availability article, .executive-call {{ box-shadow: none; break-inside: avoid; }} details {{ break-inside: auto; }} details > * {{ display: block; }} .hero {{ padding-top: 28px; background: white; color: var(--g4-ink); border-top: 6px solid var(--g4-gold-500); }} .dek {{ color: var(--g4-muted); }} }}
   </style>
 </head>
 <body>
@@ -1222,74 +1330,93 @@ def render_html(evidence: dict[str, object]) -> str:
   </div>
   <header class="hero">
     <div class="wrap">
-      <div class="badges"><span class="badge coral">Decisão executiva</span><span class="badge">Dataset simulado</span><span class="badge">52.214 posts analisados</span></div>
-      <h1>Não há um canal vencedor. Patrocínio precisa provar retorno antes de ganhar escala.</h1>
-      <p class="dek">Plataformas, formatos, categorias e faixas de seguidores ficaram muito próximos em interações por view. A estratégia mais segura é não realocar investimento só pelo ranking e transformar a próxima campanha em um teste comparável, com custo e resultado de negócio registrados.</p>
+      <p class="eyebrow" style="color:var(--g4-gold-500)">Análise de performance e estratégia de Social Media</p>
+      <h1>Os dados não apontam um canal vencedor e ainda não comprovam retorno do patrocínio.</h1>
+      <p class="dek">Foram analisados {fmt_int(overall['rows'])} posts simulados. Plataforma, formato, categoria e tamanho do creator apresentaram resultados muito próximos. A recomendação é não concentrar investimento com base neste ranking, testar patrocínio com controle e usar o próximo ciclo para descobrir quais mensagens geram resultado comercial.</p>
       <div class="hero-grid">
-        <div class="hero-note"><span class="number">{fmt_pp(max_primary_spread)}</span><strong>Maior distância nos recortes principais</strong>Plataforma, formato, categoria e faixa de seguidores não se separam o bastante para escolher um vencedor. <small>Fonte: tabelas Prata · mediana maior − menor</small></div>
-        <div class="hero-note"><span class="number">{fmt_int(sponsored['views']['median'])} = {fmt_int(non_sponsored['views']['median'])}</span><strong>Views medianas por patrocínio</strong>Patrocinado e não patrocinado segundo a flag chegam ao mesmo valor mediano. <small>Fonte: silver_posts_metrics + dimensions</small></div>
-        <div class="hero-note"><span class="number">Teste antes de escalar</span><strong>Estratégia recomendada</strong>Objetivo, comparação, gasto, entrega e conversão devem ser definidos antes da campanha. <small>Política proposta; não é achado causal</small></div>
+        <div class="hero-note"><strong>Conteúdo</strong>Não realocar esforço exclusivamente pelo primeiro colocado. Escolher canal e formato pelo objetivo comercial e pelo custo de produção.</div>
+        <div class="hero-note"><strong>Patrocínio</strong>Não escalar automaticamente. Cada parceria precisa registrar investimento e resultado de negócio.</div>
+        <div class="hero-note"><strong>Próximo ciclo</strong>Testar uma variável por vez e medir retenção, CTA, custo e conversão antes de ampliar.</div>
       </div>
     </div>
   </header>
-  <nav class="section-nav" aria-label="Navegação do relatório"><div class="wrap"><a href="#decisao">Decisão em 60 segundos</a><a href="#painel">Painel visual</a><a href="#engajamento">1. Engajamento</a><a href="#patrocinio">2. Patrocínio</a><a href="#estrategia">3. Estratégia</a><a href="#coverage">8 perguntas</a><a href="#appendix">Evidências</a></div></nav>
+  <nav class="section-nav" aria-label="Navegação do relatório"><div class="wrap"><a href="#decisao">Resumo de decisões</a><a href="#painel">Números centrais</a><a href="#engajamento">1. Engajamento</a><a href="#patrocinio">2. Patrocínio</a><a href="#estrategia">3. Estratégia</a><a href="#appendix">Comprovação</a></div></nav>
   <main id="conteudo" class="wrap">
     <section id="decisao" class="executive-call">
-      <div><p class="eyebrow">Decisão em 60 segundos</p><h2>O que fazer com este diagnóstico</h2><p class="muted">Três decisões para reduzir risco sem transformar diferenças pequenas em certeza.</p></div>
+      <div><p class="eyebrow">Direção recomendada</p><h2>Decisões para conteúdo e investimento</h2><p class="muted">Evite concentrar verba em diferenças que, na prática, quase não mudam o resultado.</p></div>
       <ol class="priority-list">
-        <li><div><strong>Não escolher canal ou formato só pela posição no ranking.</strong><br>As diferenças entre os grandes recortes são estreitas e não demonstram retorno econômico.</div></li>
-        <li><div><strong>Não ampliar patrocínio sem teste comparável.</strong><br>Defina objetivo, controle, gasto, entrega e conversão antes de veicular.</div></li>
-        <li><div><strong>Usar a próxima campanha para produzir a evidência que falta.</strong><br>Escolha uma hipótese com aderência comercial e um limite econômico acordado previamente.</div></li>
+        <li><div><strong>Não concentrar verba por canal, formato ou tamanho de creator.</strong><br>A distância entre o melhor e o pior grupo ficou abaixo de duas interações a cada 10 mil visualizações.</div></li>
+        <li><div><strong>Não tratar patrocínio como atalho de performance.</strong><br>Os resultados ficaram divididos e a base não contém custo, conversão ou receita para calcular retorno.</div></li>
+        <li><div><strong>Transformar o próximo ciclo em aprendizado comercial.</strong><br>Definir a hipótese e o resultado esperado antes de publicar; depois decidir entre ampliar, ajustar ou interromper.</div></li>
       </ol>
     </section>
 
     <section id="painel" class="dashboard-section" aria-labelledby="painel-title">
       <div class="dashboard-intro">
-        <div><p class="eyebrow">Painel de decisão</p><h2 id="painel-title">Os sinais existem, mas estão comprimidos.</h2></div>
-        <p class="muted">Os gráficos usam a mesma escala — o intervalo P25–P75 dos {fmt_int(overall_rate['n'])} posts — para não ampliar visualmente diferenças de centésimos. Cada ponto mostra a mediana do recorte e seu tamanho de amostra.</p>
+        <div><p class="eyebrow">Visão geral</p><h2 id="painel-title">As diferenças são pequenas e o patrocínio não vence de forma consistente.</h2></div>
+        <p class="muted"><strong>Unidade:</strong> interações adicionais a cada 10 mil visualizações. Uma interação é uma curtida, um compartilhamento ou um comentário; não representa uma pessoa única.</p>
       </div>
       <div class="kpi-grid" aria-label="Números centrais">
-        <article class="kpi-card"><span>Post mediano</span><strong>{fmt_pct(overall_rate['median'], 2)}</strong><small>{fmt_int(overall['total_interactions']['median'])} interações para {fmt_int(overall['views']['median'])} views · n={fmt_int(overall_rate['n'])}</small></article>
-        <article class="kpi-card"><span>Dispersão central</span><strong>{fmt_pct(overall_rate['p25'], 2)}–{fmt_pct(overall_rate['p75'], 2)}</strong><small>P25–P75 da métrica em todos os posts · amplitude {fmt_pp(float(overall_rate['p75']) - float(overall_rate['p25']))}</small></article>
-        <article class="kpi-card"><span>Patrocínio comparável</span><strong>{fmt_pp(matched['median_delta_percentage_points'], signed=True)}</strong><small>Diferença mediana em {fmt_int(matched['cells'])} células controladas por plataforma × categoria × quartil</small></article>
-        <article class="kpi-card"><span>Retorno financeiro</span><strong>Não calculável</strong><small>Gasto, custo do creator, conversão e receita não existem na fonte</small></article>
+        <article class="kpi-card"><span>Maior distância entre grupos</span><strong>{fmt_decimal(max_primary_spread_per_10k)} em 10 mil</strong><small>Nem o melhor contra o pior recorte chegou a duas interações adicionais.</small></article>
+        <article class="kpi-card"><span>Comparações de patrocínio</span><strong>{fmt_int(matched['positive_cells'])} × {fmt_int(matched['negative_cells'])}</strong><small>Patrocinado ficou acima em {fmt_int(matched['positive_cells'])}; sem patrocínio ficou acima em {fmt_int(matched['negative_cells'])}.</small></article>
+        <article class="kpi-card"><span>Resultado instável</span><strong>{mixed_pairs} de {pairs_scanned}</strong><small>Combinações mudaram de direção conforme o tamanho do creator.</small></article>
+        <article class="kpi-card"><span>Retorno financeiro</span><strong>Não calculável</strong><small>Investimento, conversão, receita e atribuição não existem na fonte.</small></article>
       </div>
-      <div class="scale-caption"><span><strong>Escala comum:</strong> {fmt_pct(visual_scale_min, 3)} a {fmt_pct(visual_scale_max, 3)} — P25–P75 global.</span><span>A linha central é apenas referência visual; não é meta.</span></div>
-      <div class="chart-grid" aria-label="Comparações de engajamento por recorte">{segment_charts}</div>
+      <div class="chart-grid" aria-label="Comparações de desempenho">
+        <article class="chart-card"><div class="chart-title"><h3>Quanto separa o melhor do pior grupo?</h3><span>Por 10 mil visualizações</span></div><div class="manager-bars">{decision_spread_bars}</div><p class="manager-note">Nenhum recorte se destacou o suficiente para justificar concentração de investimento apenas por este ranking.</p></article>
+        <article class="chart-card"><div class="chart-title"><h3>A audiência revela um perfil vencedor?</h3><span>Maior distância agregada</span></div><div class="manager-bars">{audience_spread_bars}</div><p class="manager-note">Os rótulos predominantes não mantiveram uma vantagem relevante e estável quando o contexto mudou.</p></article>
+      </div>
       <div class="sponsor-board">
         <article class="visual-card">
-          <p class="eyebrow">Patrocinado versus flag não patrocinada</p><h3>As medianas quase coincidem.</h3>
-          <div class="sponsor-values"><div><strong>{fmt_pct(sponsored['interaction_per_view_pct']['median'], 3)}</strong><span>patrocinado · n={fmt_int(sponsored['interaction_per_view_pct']['n'])}</span></div><div><strong>{fmt_pct(non_sponsored['interaction_per_view_pct']['median'], 3)}</strong><span>não patrocinado segundo a flag · n={fmt_int(non_sponsored['interaction_per_view_pct']['n'])}</span></div></div>
+          <p class="eyebrow">O patrocínio vence de forma consistente?</p><h3>Não. O resultado ficou dividido.</h3>
           <div class="split-bar" aria-label="33 células positivas e 27 negativas"><span class="split-positive" style="width:{positive_share:.3f}%">{fmt_int(matched['positive_cells'])}</span><span class="split-negative" style="width:{negative_share:.3f}%">{fmt_int(matched['negative_cells'])}</span></div>
-          <div class="split-legend"><span>Patrocinado acima</span><span>Não patrocinado acima</span></div>
-          <p class="muted">Fonte: <code>gold_sponsorship_comparisons</code>. É associação descritiva; não mede alcance, custo ou ROI.</p>
+          <div class="split-legend"><span>Patrocinado acima</span><span>Sem marcação de patrocínio acima</span></div>
+          <p class="manager-note">A vantagem típica do patrocinado foi de apenas {fmt_decimal(sponsor_delta_per_10k, 2)} interação a cada 10 mil visualizações. Isso compara engajamento, não retorno financeiro.</p>
         </article>
         <article class="visual-card">
-          <p class="eyebrow">Perfil predominante de audiência</p><h3>A liderança muda conforme o contexto.</h3>
-          <div class="audience-grid">{audience_dashboard}</div>
-          <p class="muted">Em conteúdo de texto, a distância máxima por localização é {fmt_pp(text_location['median_spread_percentage_points'])}; no agregado, outro rótulo lidera. Fonte: <code>silver_posts_audience</code> + métricas e dimensões.</p>
+          <p class="eyebrow">Limite da decisão</p><h3>Pequena diferença não significa ausência de efeito.</h3>
+          <p>Sem custo, conversão e receita, estes resultados não medem retorno nem provam que o patrocínio causou a diferença.</p>
+          <p class="manager-note">Não realocar investimento exclusivamente por este ranking. Validar a próxima decisão em comparações controladas.</p>
         </article>
       </div>
     </section>
 
     <section id="engajamento" class="pillar">
-      <div class="pillar-head"><div class="pillar-index">Pilar 1</div><div><p class="eyebrow">O que gera engajamento de verdade</p><h2>O ranking descreve a base, mas não revela um vencedor confiável.</h2><p class="muted">A métrica utilizável é interações em relação às views. Ela compara eventos por post; não mede pessoas, alcance ou retenção.</p></div></div>
-      <div class="answers">{engagement_cards}</div>
+      <div class="pillar-head"><div class="pillar-index">Pilar 1</div><div><p class="eyebrow">O que gera engajamento de verdade?</p><h2>Nenhum canal, formato, categoria ou tamanho de creator se destacou o suficiente para concentrar esforço.</h2><p class="muted">Mesmo comparando o melhor e o pior grupo, a distância ficou abaixo de duas interações a cada 10 mil visualizações.</p></div></div>
+      <div class="decision-table">
+        <div class="decision-row"><strong>Resultado observado</strong><span>Os rankings mudam muito pouco o resultado. O primeiro colocado não abre uma vantagem relevante sobre o último.</span><span>Isso vale para plataforma, formato, categoria e tamanho do creator.</span></div>
+        <div class="decision-row"><strong>O que isso significa</strong><span>Escolher um canal ou formato apenas porque lidera esta tabela provavelmente não produzirá uma mudança material.</span><span>Adequação da mensagem, objetivo comercial e custo de produção devem orientar a escolha.</span></div>
+        <div class="decision-row"><strong>O que não foi identificado</strong><span>Não existe canal ou formato com desperdício comprovado nesta base.</span><span>Sem custo, receita e conversão, baixo engajamento relativo não é sinônimo de baixo retorno.</span></div>
+        <div class="decision-row"><strong>Decisão recomendada</strong><span>Não realocar investimento exclusivamente pelo ranking.</span><span>Manter as opções abertas e comparar uma variável por vez no próximo ciclo.</span></div>
+      </div>
+      <p class="manager-note"><strong>Audiência:</strong> idade, gênero e localização predominantes também não revelaram um perfil vencedor estável. Esses campos descrevem o rótulo predominante do post, não a composição completa de quem viu ou interagiu.</p>
     </section>
 
     <section id="patrocinio" class="pillar">
-      <div class="pillar-head"><div class="pillar-index">Pilar 2</div><div><p class="eyebrow">Vale a pena patrocinar influenciadores?</p><h2>A base não demonstra vantagem econômica; ela define como testar com menos risco.</h2><p class="muted">O desempenho observado é comparável dentro de plataforma, categoria e faixa de seguidores. ROI continua não calculável porque custo, alcance e conversão não existem no arquivo.</p></div></div>
-      <div class="answers">{sponsorship_cards}</div>
+      <div class="pillar-head"><div class="pillar-index">Pilar 2</div><div><p class="eyebrow">Vale a pena patrocinar influenciadores?</p><h2>O patrocínio não apresentou vantagem consistente e seu retorno financeiro não pode ser calculado.</h2><p class="muted">Das {fmt_int(matched['cells'])} comparações equivalentes, {fmt_int(matched['positive_cells'])} favoreceram posts patrocinados e {fmt_int(matched['negative_cells'])} favoreceram posts sem a marcação. Em {mixed_pairs} das {pairs_scanned} combinações, a direção mudou conforme o tamanho do creator.</p></div></div>
+      <div class="decision-table">
+        <div class="decision-row"><strong>Decisão</strong><span>Não escalar patrocínio automaticamente.</span><span>Também não concluir que patrocínio nunca funciona.</span></div>
+        <div class="decision-row"><strong>Magnitude observada</strong><span>A vantagem típica do patrocinado equivaleu a {fmt_decimal(sponsor_delta_per_10k, 2)} interação adicional a cada 10 mil visualizações.</span><span>Uma diferença pequena, descritiva e sem comprovação causal.</span></div>
+        <div class="decision-row"><strong>O que falta para decidir investimento</strong><span>Valor pago, alcance, leads, vendas, receita e atribuição.</span><span>Sem esses campos, ROI não é zero: ele é desconhecido.</span></div>
+        <div class="decision-row"><strong>Política recomendada</strong><span>Tratar cada parceria como experimento com objetivo e comparação definidos antes da publicação.</span><span>Ampliar somente quando custo e resultado comercial superarem o limite econômico do negócio.</span></div>
+      </div>
     </section>
 
     <section id="estrategia" class="pillar">
-      <div class="pillar-head"><div class="pillar-index">Pilar 3</div><div><p class="eyebrow">Qual deve ser a estratégia de conteúdo?</p><h2>Trocar a busca por um “campeão” por um sistema de testes com decisão econômica.</h2><p class="muted">A estratégia abaixo transforma os resultados em prioridade, política de patrocínio, regra de corte e quick wins para a próxima semana.</p></div></div>
+      <div class="pillar-head"><div class="pillar-index">Pilar 3</div><div><p class="eyebrow">Qual deve ser a estratégia de conteúdo?</p><h2>Sair da busca por um formato campeão e construir aprendizado sobre mensagem, audiência e resultado comercial.</h2><p class="muted">A base atual não revela o melhor tema, gancho, frequência ou CTA. O próximo ciclo precisa ser desenhado para responder essas decisões.</p></div></div>
       <div class="strategy-plan" aria-label="Estratégia recomendada em três etapas">
-        <article class="strategy-step"><span>1</span><h3>Uma hipótese comercial</h3><p>Escolha um tema ligado ao objetivo do negócio e aplique a mesma proposta em variações comparáveis de canal ou formato.</p><small>Decisão apoiada pela proximidade descritiva dos rankings; não é um tema vencedor descoberto.</small></article>
-        <article class="strategy-step"><span>2</span><h3>Conteúdo instrumentado</h3><p>Registre Gancho → Contexto → Explicação → CTA e capture retenção após 3s, ponto de 50%, conclusão e resposta ao CTA.</p><small>Método proposto. Esses campos não existem no dataset atual.</small></article>
-        <article class="strategy-step"><span>3</span><h3>Escala condicionada</h3><p>Patrocine apenas como teste controlado; amplie somente quando entrega, custo e resultado de negócio superarem o limite definido antes.</p><small>Política recomendada; nenhum threshold econômico foi inferido da simulação.</small></article>
+        <article class="strategy-step"><span>1</span><h3>Definir a hipótese</h3><p>Escolher o problema, desejo ou objeção que o conteúdo pretende mover e o resultado comercial esperado.</p><small>Antes de escrever ou publicar.</small></article>
+        <article class="strategy-step"><span>2</span><h3>Criar variações comparáveis</h3><p>Manter tema e CTA; variar apenas um elemento entre gancho, formato ou canal.</p><small>Uma mudança por teste.</small></article>
+        <article class="strategy-step"><span>3</span><h3>Medir a jornada</h3><p>Registrar retenção após 3 segundos, ponto em que 50% permanecem, conclusão e resposta ao CTA.</p><small>Esses campos precisam ser adicionados.</small></article>
+        <article class="strategy-step"><span>4</span><h3>Separar conteúdo de distribuição</h3><p>Comparar primeiro a qualidade do conteúdo; depois testar a amplificação paga.</p><small>Evita atribuir ao criativo o efeito da verba.</small></article>
+        <article class="strategy-step"><span>5</span><h3>Escalar com resultado</h3><p>Ampliar somente quando a variação superar o comparável em entrega e no indicador comercial definido.</p><small>Limite estabelecido antes do resultado.</small></article>
       </div>
-      <div class="answers">{strategy_cards}</div>
+      <div class="decision-table">
+        <div class="decision-row"><strong>O que fazer na próxima semana</strong><span>Escolher uma hipótese comercial, produzir variações comparáveis e definir o resultado esperado antes de publicar.</span><span>Registrar custo, retenção e resposta ao CTA.</span></div>
+        <div class="decision-row"><strong>O que parar de usar como critério isolado</strong><span>Posição no ranking, seguidores e pequenas diferenças de engajamento.</span><span>Esses sinais não provam retorno nem desperdício.</span></div>
+        <div class="decision-row"><strong>Frequência</strong><span>A base não permite recomendar quantidade ou horário de posts.</span><span>A frequência deve ser testada em uma janela comum, sem presumir que a operação atual existe ou funciona.</span></div>
+        <div class="decision-row"><strong>Regra de decisão</strong><span>Ao final do ciclo, escolher entre ampliar, ajustar ou interromper.</span><span>A escolha deve usar resultado de negócio, não apenas curtidas.</span></div>
+      </div>
     </section>
     <section id="coverage" class="section-block coverage">
       <p class="eyebrow">Controle de escopo</p><h2>As oito perguntas, sem esconder o que falta</h2>
@@ -1304,8 +1431,10 @@ def render_html(evidence: dict[str, object]) -> str:
       </div>
     </section>
     <section id="appendix" class="section-block">
-      <div class="section-heading"><p class="eyebrow">Apêndice recolhível</p><h2>Evidência técnica e rastreabilidade</h2><p class="muted">Detalhes para avaliadores e LLMs. O corpo principal permanece orientado à decisão.</p></div>
-      <details><summary>Definição da métrica e exemplo humano</summary><div class="details-body"><p><strong>Interações totais</strong> = likes + shares + comentários. <strong>Interações em relação às views</strong> = 100 × interações totais / views.</p><div class="callout">Na mediana dos {fmt_int(overall['rows'])} posts, são {fmt_int(overall['total_interactions']['median'])} eventos de interação para {fmt_int(overall['views']['median'])} views, ou {fmt_pct(overall['interaction_per_view_pct']['median'], 2)}. Isso não significa pessoas únicas: uma pessoa pode produzir mais de um evento e views não são alcance.</div><p>Origem: <code>silver_posts_metrics</code>, derivada de <code>bronze_posts_raw</code>.</p></div></details>
+      <div class="section-heading"><p class="eyebrow">Comprovação</p><h2>Fontes, cálculos e limites</h2><p class="muted">Amostras, fórmulas, dispersão e proveniência estão reunidas abaixo.</p></div>
+      <a class="primary-link" href="../prototype/index.html">Explorar os dados e verificar as comparações →</a>
+      <details><summary>Cobertura das oito perguntas do desafio</summary><div class="details-body"><ol><li><strong>Engajamento:</strong> nenhum vencedor claro por plataforma, formato, categoria ou tamanho.</li><li><strong>Patrocínio:</strong> vantagem inconsistente; retorno financeiro não calculável.</li><li><strong>Audiência:</strong> nenhum perfil predominante manteve liderança estável.</li><li><strong>O que não funciona:</strong> não foi identificado desperdício comprovado sem custo e receita.</li><li><strong>Concentração e frequência:</strong> não concentrar pelo ranking; frequência ainda exige teste prospectivo.</li><li><strong>Política:</strong> patrocínio entra como experimento com critério econômico definido antes.</li><li><strong>O que parar:</strong> não usar ranking, seguidores ou pequenas diferenças como regra isolada de corte.</li><li><strong>Quick win:</strong> iniciar um teste comparável com retenção, CTA, custo e conversão registrados.</li></ol></div></details>
+      <details><summary>Métrica principal e escala de 10 mil visualizações</summary><div class="details-body"><p><strong>Interações totais</strong> = likes + shares + comentários. <strong>Interações em relação às views</strong> = 100 × interações totais / views.</p><div class="callout">Na mediana dos {fmt_int(overall['rows'])} posts, são {fmt_int(overall['total_interactions']['median'])} eventos de interação para {fmt_int(overall['views']['median'])} views, ou {fmt_pct(overall['interaction_per_view_pct']['median'], 2)}. Isso não significa pessoas únicas: uma pessoa pode produzir mais de um evento e views não são alcance.</div><p><strong>Escala dos gráficos:</strong> diferença em pontos percentuais × 100 = interações adicionais a cada 10 mil visualizações. Os valores estão registrados em <code>evidence.json → executive_translation</code>.</p><p>Origem: <code>silver_posts_metrics</code>, derivada de <code>bronze_posts_raw</code>.</p></div></details>
       <details><summary>n, mediana e IQR por plataforma, formato, categoria e seguidores</summary><div class="details-body">{dimension_tables}<p class="muted">Os quartis são relativos à amostra e representam seguidores declarados na data do post; não são categorias de mercado nem tamanho estável do creator.</p></div></details>
       <details><summary>Patrocínio: comparação geral, células e seleção pós-hoc</summary><div class="details-body"><div class="table-wrap"><table><thead><tr><th>Grupo</th><th>n</th><th>Views medianas</th><th>Interações medianas</th><th>Interações/views</th></tr></thead><tbody><tr><td>Patrocinado</td><td>{fmt_int(sponsored['views']['n'])}</td><td>{fmt_int(sponsored['views']['median'])}</td><td>{fmt_int(sponsored['total_interactions']['median'])}</td><td>{fmt_pct(sponsored['interaction_per_view_pct']['median'], 3)}</td></tr><tr><td>Não patrocinado segundo a flag</td><td>{fmt_int(non_sponsored['views']['n'])}</td><td>{fmt_int(non_sponsored['views']['median'])}</td><td>{fmt_int(non_sponsored['total_interactions']['median'])}</td><td>{fmt_pct(non_sponsored['interaction_per_view_pct']['median'], 3)}</td></tr></tbody></table></div><p>Nas {fmt_int(matched['cells'])} células: diferença mediana {fmt_pp(matched['median_delta_percentage_points'], signed=True)}; mediana absoluta {fmt_pp(matched['median_absolute_delta_percentage_points'])}; extremos de {fmt_pp(matched['minimum_delta_percentage_points'], signed=True)} a {fmt_pp(matched['maximum_delta_percentage_points'], signed=True)}. Isso descreve a amostra; não testa causalidade, equivalência ou retorno.</p><h4>Instagram/Tech — exemplo exploratório encontrado após a varredura</h4><div class="table-wrap"><table><thead><tr><th>Faixa no post</th><th>n patrocinado</th><th>n não patrocinado</th><th>Diferença de mediana</th></tr></thead><tbody>{instagram_rows}</tbody></table></div><div class="callout">A combinação foi selecionada depois de inspecionar {fmt_int(matched['platform_category_pairs_scanned'])} pares e {fmt_int(matched['cells'])} células. Portanto, sofre risco de seleção pós-hoc e precisa de validação independente. Só é um exemplo de teste se também houver aderência comercial.</div></div></details>
       <details><summary>Audiência cruzada: maiores amplitudes observadas</summary><div class="details-body"><div class="table-wrap"><table><thead><tr><th>Contexto</th><th>Audiência</th><th>Recorte da maior amplitude</th><th>Amplitude</th><th>Menor n da célula</th></tr></thead><tbody>{''.join(audience_rows)}</tbody></table></div><p class="muted">Mostrar a maior amplitude de cada cruzamento é diagnóstico, não confirmação de um perfil vencedor. A posição dos rótulos muda entre contextos.</p></div></details>
@@ -1313,7 +1442,7 @@ def render_html(evidence: dict[str, object]) -> str:
       <details><summary>Proveniência, arquivos e limites</summary><div class="details-body"><ul><li>Fonte: Social Media Sponsorship &amp; Engagement Dataset, omenKJ/Kaggle.</li><li>Natureza: dataset simulado declarado pelo publicador; licença MIT.</li><li>SQLite: <code>../data/evidence/social_media_analysis.sqlite</code>.</li><li>SHA-256: <code>{esc(evidence['source']['database_sha256'])}</code>.</li><li>Leitura: SQLite URI <code>mode=ro</code>, <code>PRAGMA query_only=ON</code>, <code>integrity_check=ok</code>.</li><li>Evidência estruturada: <a href="evidence.json">evidence.json</a>; linhagem: <a href="manifest.json">manifest.json</a>; instruções: <a href="README.md">README.md</a>.</li></ul></div></details>
     </section>
   </main>
-  <footer><div class="wrap"><strong>Challenge 004 · análise de performance e estratégia.</strong><br>Relatório executivo estático, separado do visualizador de dados. Projeto desenvolvido para o Challenge 004; não é produto oficial e não implica afiliação com o G4 Educação. Dataset simulado · sem login, LLM, backend ou deploy.</div></footer>
+  <footer><div class="wrap"><strong>Challenge 004 · análise de performance e estratégia.</strong><br>Base simulada, utilizada para análise descritiva do cenário proposto. Os resultados não são benchmark de mercado nem prova de causalidade. Projeto independente, sem afiliação com o G4 Educação.</div></footer>
 </body>
 </html>
 """
