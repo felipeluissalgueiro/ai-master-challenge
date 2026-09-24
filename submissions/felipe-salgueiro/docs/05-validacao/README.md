@@ -1,5 +1,15 @@
 # Validação
 
+## Aplicação e entrega
+
+- [Preview e QA remoto](checkpoint-preview-vercel.md): ambiente publicado, acesso público e cobertura do navegador.
+- [QA visual local](checkpoint-qa-visual-local.md): evidência local, distinta da validação remota.
+- [Política de quality gates](quality-gates.md): critérios, exceções e atribuição dos resultados.
+- [Correções da interface](checkpoint-correcao-ui-head.md): ajustes derivados do feedback de Felipe.
+
+Os demais checkpoints preservam o estado de cada etapa; pendências históricas
+não devem ser confundidas com o estado atual acima.
+
 Destino dos testes e verificações reais, incluindo falhas e limites. [Checkpoint Bronze/Silver](checkpoint-bronze-silver.md): reprodução inicial concluída em banco isolado. Isso não valida Gold, interface ou estratégia final.
 
 ## Pipeline completo e revisão

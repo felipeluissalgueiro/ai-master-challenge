@@ -17,7 +17,7 @@ export function formatNumber(value: number, digits = 0): string {
   return new Intl.NumberFormat('pt-BR', {maximumFractionDigits: digits, minimumFractionDigits: digits}).format(value);
 }
 export function label(value: string): string {
-  const labels: Record<string, string> = {image: 'Imagem', video: 'Vídeo', text: 'Texto',
+  const labels: Record<string, string> = {image: 'Imagem', video: 'Vídeo', text: 'Texto', mixed: 'Misto',
     beauty: 'Beleza', tech: 'Tecnologia', fitness: 'Fitness', female: 'Feminino', male: 'Masculino',
     'non-binary': 'Não binário', post_followers_q1: '1º quartil de seguidores',
     post_followers_q2: '2º quartil de seguidores', post_followers_q3: '3º quartil de seguidores',

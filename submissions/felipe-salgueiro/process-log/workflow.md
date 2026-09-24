@@ -1,10 +1,10 @@
-<!-- Export do diário Obsidian, 23/09/2026, até workflow 107. Caminhos, IDs de sessão e detalhes internos de segurança omitidos. Estados históricos preservados. -->
+<!-- Export revisado do diário Obsidian. Caminhos, IDs de sessão e detalhes internos de segurança omitidos. Estados históricos preservados. -->
 
-> Estado atual: PRD Draft v0.3 incorpora acesso protegido e Ouro na Vercel. SQLite completo integrado como evidência com integridade e hashes conferidos; scripts finais e relatório corrigido integrados, com regras históricas superadas explicitadas. Página não implementada. O primeiro commit agrupa preparação anterior e não simula histórico retroativo.
+Estado atual: Preview pública sem login, relatórios e simulador integrados; QA remoto parcial. SQLite versionado como evidência, fora do deploy. Chat e CRM fora do escopo. O primeiro commit agrupa preparação anterior e não simula histórico retroativo.
 
 # Preparação da submissão — Felipe Salgueiro — Challenge 004
 
-Registro em primeira pessoa, redigido com apoio da Lia no Codex a partir das conversas e verificações realizadas. Os itens iniciais reconstituem a preparação de 21/09 e o trabalho de 23/09; não são anotações feitas em tempo real naqueles momentos. Este é um rascunho pessoal para minha revisão, que poderá compor o process log. As interpretações propostas pela IA estão identificadas. Estado atual: processamento Bronze/Prata inicial implementado; análise de performance, interface e estratégia final pendentes.
+Registro em primeira pessoa, redigido com apoio da Lia no Codex a partir das conversas e verificações realizadas. Os itens iniciais reconstituem a preparação de 21/09 e o trabalho de 23/09; não são anotações feitas em tempo real naqueles momentos. As interpretações propostas pela IA estão identificadas. Estado atual: pipeline e aplicação implementados, Preview pública e QA remoto parcial. A cronologia preserva o estado de cada momento; o resumo inicial foi atualizado para não apresentar pendências antigas como atuais.
 
 Estrutura baseada no [template oficial](https://github.com/Gestao-Quatro-Ponto-Zero/ai-master-challenge/blob/main/templates/submission-template.md) e no [guia de submissão](https://github.com/Gestao-Quatro-Ponto-Zero/ai-master-challenge/blob/main/submission-guide.md), relidos em 23/09/2026. Esta é uma exportação revisada do diário de trabalho; a cronologia mantém o estado de cada momento. Publicação no fork não equivale ao envio da PR ao G4.
 
@@ -16,7 +16,7 @@ Estrutura baseada no [template oficial](https://github.com/Gestao-Quatro-Ponto-Z
 
 ## Executive Summary
 
-Escolhi o Challenge 004 — Estratégia Social Media pela aderência à minha experiência em gestão de marcas e criação de conteúdo, considerando também a menor frequência de submissões desse case no levantamento público. Pedi a abertura de um projeto no Linear, no time Marketing, e a cascata formal de desenvolvimento. O Brief foi consolidado e autorizei iniciar o PRD em paralelo à auditoria. Já há scripts e validações Bronze/Prata; ainda não há interface nem estratégia final validada. A cronologia preserva as alternativas anteriores e as correções de direção.
+Escolhi o Challenge 004 pela aderência à minha experiência em gestão de marcas e conteúdo. Organizei o trabalho no Linear e Obsidian, com documentos exportados para o fork. A auditoria da fonte sintética limitou o que poderíamos recomendar: construímos comparações descritivas, relatório executivo e simulador hipotético, sem inventar retorno financeiro. Reprovei versões técnicas demais, pedi tradução para decisões de gestão e retirei o chat para reduzir o escopo. A aplicação está em Preview pública, com QA remoto parcial registrado separadamente.
 
 ## Solução
 
@@ -26,7 +26,7 @@ Defini uma análise de um case por vez, confrontando o pedido, a evidência disp
 
 ### Resultados / Findings
 
-O checkpoint publicado reconstrói 52.214 registros na Bronze e nas métricas Prata. O checkpoint posterior do agente de dados valida dimensões e patrocínio; ainda aguarda integração. Esses resultados não equivalem a conclusões de performance nem à resolução do challenge.
+O pipeline reconstrói 52.214 registros. Relatório, explorador, exportador e aplicação estão integrados. As diferenças entre segmentos são descritivas; não comprovam causalidade nem retorno financeiro. As evidências técnicas e os limites acompanham os resultados.
 
 ### Recomendações
 
@@ -34,7 +34,7 @@ Foco decidido: 004 — Estratégia Social Media. Recomendações de negócio dep
 
 ### Limitações
 
-A inspeção confirmou fonte sintética e ausência de custos, receita e retenção de 3s. Creators, datas, demografia e comparações de performance permanecem em análise. A pesquisa das PRs é um retrato parcial, não um censo definitivo. Participação de João Vitor ou Tallis na banca não confirmada; a pesquisa de suas posições públicas não é uma rubrica oficial.
+A inspeção confirmou fonte sintética e ausência de custos, receita e retenção de 3s. Datas não sustentam uma cadência real; demografia descreve perfis predominantes, não pessoas individualmente. A pesquisa das PRs é um retrato parcial, não um censo definitivo. Participação de João Vitor ou Tallis na banca não confirmada; a pesquisa de suas posições públicas não é uma rubrica oficial.
 
 ## Process Log — Como usei IA
 
@@ -325,6 +325,12 @@ Cronologia numerada em primeira pessoa. Cada nova etapa registra pedido ou açã
 
 132. **Registrei o bloqueio real do QA remoto, sem substituir o navegador solicitado.** Camila não conseguiu abrir o in-app: Browser is not available: iab. Lia confirmou o mesmo erro na sessão principal e seguiu o diagnóstico da skill; somente uma extensão Brave apareceu. Nenhuma página ou feature foi testada remotamente, nenhum PASS foi atribuído e Playwright não foi utilizado. A Preview está Ready, mas a validação depende de disponibilizar iab ou autorizar explicitamente o navegador Brave conectado.
 
+133. **Preparação das evidências e QA no navegador conectado.** Esclareci que o navegador autorizado era o Brave, e Lia retomou o subagente de QA sem Playwright; o resultado continua pendente neste registro. Pedi preparar o PR em paralelo e indiquei Pictures/Videos como origem das capturas e gravações. Lia inspecionou oito prints e incluiu cinco originais com legendas sobre minhas decisões, hipóteses e correções. Vídeos brutos não foram publicados nem declarados revisados: o guia aceita formatos alternativos. O README foi atualizado para a Preview pública, sem chat/CRM e sem alegar QA remoto concluído.
+
+134. **Seleção rápida de vídeo.** Autorizei editar gravações apenas se isso não atrasasse a entrega. Lia selecionou dois intervalos ligados aos prints já conferidos e gerou uma montagem local de 24 segundos com FFmpeg, títulos e sem áudio, preservando os originais. Omacut foi consultado, mas não usado na exportação. A inspeção visual foi por amostragem, não uma auditoria integral; o vídeo continua local e depende de revisão antes de publicação. Não juntamos todas as gravações nem apresentamos o recorte como documentação completa do processo.
+
+135. **Revisão do repositório para submissão.** Pedi conferir o repo, workflow e QA, com acesso claro para o avaliador. Lia corrigiu resumos antigos que ainda diziam interface/exportador pendentes, incluiu roteiro de uso e setup, preservando a cronologia. Camila retornou QA parcial real no Brave: navegação, filtros e cenário principal do simulador funcionaram; encontrou títulos encobertos pelo menu e rótulos em inglês. Lia corrigiu os dois pontos; lint, tipos, 18 testes unitários e build passaram, com evidence.json/SQLite intactos. Nova Preview Ready foi publicada para reteste. Links relativos dos documentos alterados e identidade dos cinco prints foram conferidos. Diff contra main oficial restrito à pasta da submissão; PR ainda não enviada.
+
 ### Onde a IA errou e como corrigi
 
 | Ocorrência | Minha intervenção ou correção do agente | Resultado e evidência |
@@ -352,15 +358,15 @@ Esta seção adicional atende à pergunta do guia sobre quantidade de iteraçõe
 | Diário/process log | 3 versões de estrutura: cronologia inicial; inclusão de ferramentas/multiagentes; adequação ao template oficial. | Em atualização contínua; não significa apenas três edições de arquivo. |
 | Comparação dos cases | 2 rodadas Maria/Vitor: primeira sobre Churn; segunda comparando os quatro após minha correção de condução. | Prioridade inicial no workflow 46; depois escolhi exclusivamente 004. |
 | Pesquisa das PRs | 1 levantamento em andamento. | Sem análise completa validada. |
-| Solução do challenge | Checkpoint Bronze/métricas Prata implementado, testado e publicado; segmento de dimensões documentado pelo outro agente. | PRD em elaboração; análise de performance, interface e estratégia final pendentes. |
+| Solução do challenge | Ciclos de auditoria, contrato de dados, visualizador, relatório executivo, tradução gerencial, integração da aplicação, retirada de chat e QA. | Aplicação publicada em Preview; ver cronologia para cada correção e evidência. Não há contagem total auditada de iterações. |
 
 ## Evidências
 
 - [x] Narrativa escrita: este documento, redigido com apoio de IA e ainda sujeito à minha revisão final.
-- [ ] Screenshots selecionados e anexados — ainda não preparados.
+- [x] Cinco screenshots selecionados e anexados, com contexto e limites.
 - [ ] Screen recording — primeira gravação confirmada em andamento no workflow 38; parada informada por mim no 39. Nova gravação informada no 40. Vídeos finais ainda não revisados ou selecionados para submissão.
 - [ ] Chat exports para submissão — transcripts locais existem, mas não foram selecionados, sanitizados e anexados.
-- [x] Git history iniciado — checkpoints `b137f2c` e `79d36ba` publicados na branch de submissão; novos segmentos ainda dependem de integração.
+- [x] Git history — checkpoints de análise, implementação, correções e publicação na mesma branch de submissão.
 - [ ] Relatório e inventário das PRs — agente trabalhando; incorporar links após conferir os arquivos e a cobertura.
 
 Referências de sessões locais omitidas da versão pública; o diário de origem preserva a rastreabilidade.

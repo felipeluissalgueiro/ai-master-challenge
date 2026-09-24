@@ -1,6 +1,6 @@
 # Challenge 004 Insight Lab — aplicação de decisão
 
-[Abrir Preview Vercel](https://g4-social-insight-1e2g3f722-felipeluissalgueiros-projects.vercel.app).
+[Abrir Preview Vercel](https://g4-social-insight-the4349yo-felipeluissalgueiros-projects.vercel.app).
 [Registro de publicação e limites](../../docs/05-validacao/checkpoint-preview-vercel.md).
 
 Aplicação Next.js/TypeScript com componentes Astryx, dashboard, simulador,
@@ -45,6 +45,17 @@ resolvem a raiz um nível acima para importar o JSON sem duplicá-lo.
 Não há dependência de SQLite no runtime.
 
 ## Desenvolvimento e validação
+
+Clone a branch de submissão e entre nesta pasta:
+
+```bash
+git clone --branch submission/felipe-salgueiro https://github.com/felipeluissalgueiro/ai-master-challenge.git
+cd ai-master-challenge/submissions/felipe-salgueiro/solution/app
+```
+
+Use Node.js 24 (versão do deploy) e npm. Não é necessário configurar variáveis
+de ambiente, chave de IA ou banco para abrir a aplicação. Após `npm run dev`,
+acesse `http://localhost:3000`. Preserve o diretório pai `solution/` ao clonar.
 
 ```bash
 npm ci

@@ -8,7 +8,8 @@ artefato separado em `../prototype/`.
 ## Abrir
 
 Abra `performance-strategy.html` diretamente no navegador. Não há login,
-backend, LLM, dependência externa ou deploy.
+backend, LLM ou dependência externa no HTML. Ele também está disponível na
+[aplicação publicada](../../README.md#acesso-e-roteiro-de-avaliação).
 
 ## Regerar
 

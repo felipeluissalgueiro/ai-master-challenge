@@ -22,7 +22,7 @@
     ],
     "generator": {
       "relative_path": "generate.py",
-      "sha256": "c46a209e7202ae170087b563c3583936732f2bee14dd03141b378649e8656f68"
+      "sha256": "55716b2a68a7fa13570a5ca91c059772d863df8cf28eb3f00d472df63ab34775"
     }
   },
   "outputs": {
@@ -33,13 +33,13 @@
     },
     "html": {
       "relative_path": "performance-strategy.html",
-      "sha256": "b3f4a9e1cb3a04021926fef6aa3d98910fdefd5a6830cc004b25009194e98f2f",
+      "sha256": "754a05702142ced9ce80ed5a7939219ae5fb899df3ae14583f5fad3639e54145",
       "self_contained": true,
       "external_assets": 0
     },
     "readme": {
       "relative_path": "README.md",
-      "sha256": "fee0900b5b2f936124e7d6e4e43fa342b04b5127e46ace75837ef8d36f987377"
+      "sha256": "4cccf79baeb7f878d007e986bce906980910d6561ae9729e242811c69a706a6a"
     }
   },
   "separation_of_concerns": {

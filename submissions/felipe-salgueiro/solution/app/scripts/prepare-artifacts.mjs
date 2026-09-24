@@ -5,10 +5,10 @@ import {fileURLToPath} from 'node:url';
 
 // Exact reviewed handoff. No directory copy: SQLite and other sources cannot enter public/.
 export const ARTIFACTS = {
-  'reports/performance-strategy.html': 'b3f4a9e1cb3a04021926fef6aa3d98910fdefd5a6830cc004b25009194e98f2f',
+  'reports/performance-strategy.html': '754a05702142ced9ce80ed5a7939219ae5fb899df3ae14583f5fad3639e54145',
   'reports/evidence.json': 'de0502d33bec4b09fe6970686196f4c83c1fe484b659c40fc607b75d6d1ddf1d',
-  'reports/manifest.json': 'f86dc7edec0e4a6364cecc661b475ff21518e085787eb4687509ba60050236ed',
-  'reports/README.md': 'fee0900b5b2f936124e7d6e4e43fa342b04b5127e46ace75837ef8d36f987377',
+  'reports/manifest.json': '78cad418d970c335b576cdab9e22363f573301ee6b01d4cd58f5438b2b6d184a',
+  'reports/README.md': '4cccf79baeb7f878d007e986bce906980910d6561ae9729e242811c69a706a6a',
   'prototype/index.html': '4bb3b412f47ba9932fe78db3eeeb74a90088b6bee1ff4a559deda090731d767b',
 };
 

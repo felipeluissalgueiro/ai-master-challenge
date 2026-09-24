@@ -2,6 +2,16 @@
 
 ## Publicado
 
+### Revisão após QA
+
+- Preview atual: https://g4-social-insight-the4349yo-felipeluissalgueiros-projects.vercel.app
+- Deployment `dpl_3c4p61YaXRvN4LPdhUJhMEA8JwVU`: target preview e Ready confirmados por `vercel inspect`.
+- Correções: menu do relatório sem sobreposição em âncoras e filtros traduzidos.
+- Lint, typecheck, 18 testes unitários e build passaram localmente; reteste remoto registrado no [checkpoint Brave](checkpoint-qa-brave.md).
+- Dados evidence.json e SQLite preservados. Sem novo domínio, credencial ou serviço.
+
+### Primeira Preview (histórico)
+
 - Projeto dedicado: g4-social-insight, sem domínio personalizado.
 - Código: 5fca9b2 + filtro de upload solution/.vercelignore.
 - Raiz de upload solution; raiz de build app; arquivos externos à raiz habilitados.
@@ -35,5 +45,9 @@ QA BLOQUEADO antes da navegação: subagente e sessão principal retornaram
 `Browser is not available: iab`. Diagnóstico documentado mostrou somente
 extensão Brave disponível. Nenhum fallback executado: zero rotas testadas,
 zero rodadas completas, nenhum PASS atribuído. Não é falha comprovada da aplicação.
-Necessário disponibilizar iab ou obter autorização de Felipe para usar Brave
-pela extensão. Ready não significa QA.
+Felipe esclareceu em seguida que se referia ao Brave conectado e autorizou
+explicitamente seu uso. O mesmo subagente foi retomado para executar a matriz
+pela extensão, sem Playwright. A rodada parcial foi concluída:
+[cobertura, achados e correções](checkpoint-qa-brave.md). Duas falhas de
+apresentação encontradas, corrigidas localmente e aguardando reteste.
+Ready não significa QA.

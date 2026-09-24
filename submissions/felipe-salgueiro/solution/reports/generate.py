@@ -1190,7 +1190,7 @@ def render_html(evidence: dict[str, object]) -> str:
     .hero-note {{ background: var(--g4-charcoal); border: 1px solid rgba(245,244,243,.24); border-radius: 10px; padding: 20px; color: #f5f4f3; }}
     .hero-note strong {{ display: block; color: white; margin-bottom: 7px; font-size: 1.02rem; }}
     .hero-note .number {{ display: block; color: var(--g4-gold-500); font-size: 1.65rem; font-weight: 900; margin-bottom: 4px; }}
-    nav.section-nav {{ position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--g4-border); }}
+    nav.section-nav {{ position: relative; z-index: 10; background: rgba(255,255,255,.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--g4-border); }}
     nav.section-nav .wrap {{ display: flex; gap: 20px; overflow-x: auto; padding-top: 13px; padding-bottom: 13px; white-space: nowrap; }}
     nav.section-nav a {{ text-decoration: none; font-weight: 750; font-size: .85rem; color: var(--g4-charcoal); }}
     main {{ padding: 48px 0 80px; }}
