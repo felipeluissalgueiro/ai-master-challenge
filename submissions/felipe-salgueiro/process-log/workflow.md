@@ -307,6 +307,8 @@ Cronologia numerada em primeira pessoa. Cada nova etapa registra pedido ou açã
 
 123. **Conectei os dados ao dashboard.** Lia implementou a MAR-105: panorama real do snapshot, sete dimensões de comparação, filtros com estados vazio/incompatível e oito recomendações ligadas a evidência, regra e limite. O sistema não inventa receita, custo por venda ou CAC. A raiz do build foi ajustada para consumir o JSON canônico sem duplicá-lo. Na branch de entrega passaram lint, tipagem, build, 18 testes unitários e 26 testes browser (13 desktop e 13 mobile). Foram corrigidos tamanho de título e seletores ambíguos dos testes. Não houve QA visual por imagem, chamada de LLM, deploy ou fechamento da issue. Os logs distinguem implementação validada tecnicamente de aprovação visual e publicação do site.
 
+124. **Implementei e testei o fluxo do chat sem expor a chave nem habilitar gasto.** Lia conectou uma consulta a cada recomendação, criou a montagem de contexto no servidor e o transporte OpenRouter com limites, timeout e resposta estruturada. Os adapters de acesso e quota real permanecem bloqueados: não simulei que essas proteções já existem. Passaram lint, tipagem, build, 27 testes unitários e 32 testes browser; sucesso e respostas atrasadas usaram mocks explícitos, enquanto a rota real foi verificada retornando 503 sem bloquear o simulador. A documentação oficial apontou cobrança possível da proteção por senha e escopo regional do WAF; nenhuma cobrança ou serviço foi habilitado. Chave real não foi lida e não houve chamada paga. Registrei os limites de validação e a necessidade de configuração comprovada antes de ativar inferência.
+
 ### Onde a IA errou e como corrigi
 
 | Ocorrência | Minha intervenção ou correção do agente | Resultado e evidência |

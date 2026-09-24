@@ -356,6 +356,11 @@
   .dashboard-notice { padding: 1.25rem; border: 1px solid #64748b; border-radius: .5rem; }
   .decision-card details { overflow-wrap: anywhere; }
   .decision-card summary { cursor: pointer; padding: .7rem 0; font-weight: 600; }
+  .recommendation-chat form { display: grid; gap: .6rem; }
+  .recommendation-chat textarea, .recommendation-chat button {
+    font: inherit; padding: .7rem; max-width: 100%; min-width: 0;
+    border: 1px solid #64748b; border-radius: .4rem;
+  }
 
   @media (prefers-reduced-motion: reduce) {
     *,

@@ -3,6 +3,7 @@ import {Card} from '@astryxdesign/core/Card';
 import {Badge} from '@astryxdesign/core/Badge';
 import {Grid} from '@astryxdesign/core/Grid';
 import {Heading} from '@astryxdesign/core/Heading';
+import {RecommendationChat} from '../chat/recommendation-chat';
 import {DIMENSIONS, formatNumber as number, label, selectProfiles, type Dashboard} from '../../lib/dashboard';
 
 function MetricRange({data, dimension}: {data: Dashboard; dimension: string}) {
@@ -76,6 +77,7 @@ export function PerformanceDashboard({data, query}: {data: Dashboard; query: Rec
               })}</ul>
               <p>Arquivos canônicos no fork: solution/data/app/dashboard.json e solution/reports/evidence.json.</p>
             </details>
+            <RecommendationChat key={data.snapshot_id + item.id} recommendationId={item.id} snapshotId={data.snapshot_id} />
           </article>
         </Card>)}
       </Grid>

@@ -31,7 +31,11 @@ as páginas em revisão.
 O simulador MAR-103 está integrado em `/simulador`, acessível pela navegação.
 Calcula custos hipotéticos por mil views, interação e venda, sem preencher
 dados comerciais inexistentes. Sua lógica pura permanece separada da UI.
-Chat e integração ao CRM ainda não estão implementados.
+Chat contextual tem UI, montagem de contexto e transporte OpenRouter implementados
+e testados com mocks. A rota real retorna 503 até autorização e quota global
+serem implementadas/verificadas; `chat-policy.ts` falha fechado, sem flag de bypass.
+Veja [checkpoint MAR-102](../../docs/05-validacao/checkpoint-mar102-chat.md).
+Integração ao CRM ainda não está implementada.
 
 O build precisa da pasta `solution/`, não só de `app/`: Turbopack e tracing
 resolvem a raiz um nível acima para importar o JSON sem duplicá-lo.
