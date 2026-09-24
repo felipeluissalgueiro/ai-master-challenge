@@ -165,4 +165,4 @@ Trouxe meu contexto de marcas/conteúdo, propus examinar gancho/contexto/informa
 
 O [snapshot integral do banco](solution/data/evidence/README.md) está no fork com manifesto e limites conhecidos; a aplicação usa exportações Ouro, sem SQLite no deploy. O histórico Git registra a evolução, sem retroagir datas. Incluí uma [seleção de vídeo do processo](process-log/videos/README.md), de 24 segundos, com cortes documentados; gravações brutas e notebook não foram anexados. Chat com LLM e integração ao CRM não fazem parte da versão entregue.
 
-**Submissão enviada em:** não enviada.
+**Submissão enviada em:** 24/09/2026 — [PR #152](https://github.com/Gestao-Quatro-Ponto-Zero/ai-master-challenge/pull/152).
