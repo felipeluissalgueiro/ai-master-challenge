@@ -15,7 +15,7 @@ export function PerformanceDashboard({data, query}: {data: Dashboard; query: Rec
   return <div className="page-stack">
     <section className="hero" aria-labelledby="page-title">
       <Heading id="page-title" level={1} type="display-2">Performance e decisões</Heading>
-      <p>Não troque de canal só pelo ranking. Antes de ampliar patrocínios, descubra quanto cada venda custa.</p>
+      <p>O ranking sozinho não justifica trocar de canal. Antes de ampliar patrocínios, defina o objetivo da campanha e como medir seu resultado.</p>
       <p><strong>Dados sintéticos.</strong> {number(data.overall.rows)} posts analisados. A base não representa resultados da semana nem a operação real do G4.</p>
       <div className="hero__actions"><Button href="/relatorios" label="Ver relatórios" variant="primary" /><Button href="/simulador" label="Simular custo por venda" variant="secondary" /></div>
     </section>
@@ -24,25 +24,25 @@ export function PerformanceDashboard({data, query}: {data: Dashboard; query: Rec
       <Grid columns={{minWidth: 280, max: 3, repeat: 'fit'}} gap={4}>
         <Card padding={5}><article className="decision-card" id="conteudo">
           <h3>Conteúdo: o ranking não justifica mudar de canal</h3>
-          <p className="metric-value">{number(platformGap, 1)} interação</p>
+          <p className="metric-value">{number(platformGap, 1)} interação por 10 mil views</p>
           <p>É a diferença entre as taxas medianas da plataforma com maior e menor resultado, expressa a cada 10 mil visualizações.</p>
           <p><strong>Decisão:</strong> não realoque toda a produção por essa diferença. Escolha o canal pela presença do seu público e pelo custo de produzir conteúdo.</p>
-          <p><strong>Próximo teste:</strong> mantenha canal, formato e oferta; compare dois ganchos e registre cliques e vendas. É uma proposta para coletar novos dados.</p>
+          <p><strong>Próximo teste:</strong> mantenha canal, formato e oferta; compare dois ganchos. Defina se quer medir atenção, interesse ou aquisição e colete as métricas correspondentes. É uma proposta para novos dados.</p>
           <Button href="/artifacts/reports/performance-strategy.html#engajamento" label="Ver análise de conteúdo" variant="secondary" />
         </article></Card>
         <Card padding={5}><article className="decision-card" id="patrocinio">
-          <h3>Patrocínio: não amplie o orçamento sem medir vendas</h3>
+          <h3>Patrocínio: defina o resultado esperado antes de ampliar</h3>
           <p className="metric-value">{sponsor.positive_cells} a {sponsor.negative_cells}</p>
           <p>Em {sponsor.positive_cells} dos {sponsor.cells} grupos comparáveis, patrocinados tiveram mais engajamento; em {sponsor.negative_cells}, menos. Não há vantagem consistente.</p>
-          <p><strong>Decisão:</strong> o selo de patrocinado não basta para escolher um creator. Antes de renovar ou ampliar, registre o investimento e as vendas atribuídas.</p>
-          <p><strong>Como medir:</strong> use um link ou cupom por parceiro e associe a compra à campanha. O resultado financeiro ainda não está nesta base.</p>
+          <p><strong>Decisão:</strong> esta base não sustenta recomendar aumento ou corte de verba. Avalie cada parceria conforme o objetivo da campanha e suas métricas de sucesso.</p>
+          <p><strong>Como medir:</strong> para aquisição, registre investimento e vendas atribuídas por link ou cupom. Para marca e consideração, defina indicadores próprios; venda imediata não é critério universal.</p>
           <Button href="/artifacts/reports/performance-strategy.html#patrocinio" label="Ver comparação de patrocínio" variant="secondary" />
         </article></Card>
         <Card padding={5}><article className="decision-card" id="retorno">
           <h3>Cortes: ainda não sabemos onde há desperdício</h3>
           <p className="metric-value">Retorno não medido</p>
           <p>Não há investimento, receita ou vendas atribuídas na fonte. Um post com menos interações pode vender mais; esta base não permite conferir isso.</p>
-          <p><strong>Decisão:</strong> não corte um canal nem dispense um creator somente por engajamento. Pare de aprovar aumento de verba sem uma meta comercial definida.</p>
+          <p><strong>Decisão:</strong> antes de cortar um canal ou dispensar um creator, confronte o resultado com o objetivo contratado. Os dados disponíveis não comprovam desperdício.</p>
           <p><strong>Próximo passo:</strong> informe custo e vendas esperadas no simulador para avaliar um cenário, sem confundi-lo com resultado realizado.</p>
           <Button href="/simulador" label="Simular custo por venda" variant="secondary" />
           <Link href="/artifacts/reports/performance-strategy.html#estrategia">Conferir estratégia e limites</Link>
@@ -52,9 +52,9 @@ export function PerformanceDashboard({data, query}: {data: Dashboard; query: Rec
     <section className="page-section dashboard-notice" aria-labelledby="week-title">
       <Heading id="week-title" level={2}>Seu plano para esta semana</Heading>
       <ol className="weekly-actions">
-        <li><strong>Instrumentar as campanhas.</strong> Criar uma identificação por parceiro e registrar investimento, link/cupom e vendas atribuídas.</li>
+        <li><strong>Instrumentar as campanhas.</strong> Registrar objetivo e indicadores por parceiro. Para aquisição, incluir investimento, link/cupom e vendas atribuídas.</li>
         <li><strong>Preparar um teste de conteúdo.</strong> Escolher uma oferta e variar apenas o gancho em conteúdos comparáveis. Não há dados de retenção ou texto para escolher o melhor gancho retrospectivamente.</li>
-        <li><strong>Definir a regra de investimento.</strong> Estabelecer o custo por venda aceitável conforme a margem do negócio; comparar o resultado do teste antes de escalar.</li>
+        <li><strong>Definir a regra de investimento.</strong> Estabelecer o resultado esperado conforme o objetivo. Para aquisição, definir o custo por venda aceitável conforme a margem; comparar o teste com essa meta antes de escalar.</li>
       </ol>
       <p>Plano recomendado para execução, não achados de uma semana observada. Frequência ideal, leads, vendas e CAC estão <strong>não mensurados</strong>.</p>
       <Link href="/artifacts/reports/performance-strategy.html#estrategia">Abrir o plano completo e sua justificativa</Link>

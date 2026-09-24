@@ -4,7 +4,9 @@ test('shows three decisions, weekly plan and working evidence links without chat
   const main = page.locator('#main-content');
   await expect(main).toContainText('52.214');
   await expect(main.locator('.decision-card')).toHaveCount(3);
-  await expect(main.locator('#conteudo')).toContainText('1,6 interação');
+  await expect(main.locator('#conteudo .metric-value')).toHaveText('1,6 interação por 10 mil views');
+  await expect(main.locator('#patrocinio')).toContainText('venda imediata não é critério universal');
+  await expect(main.locator('#retorno')).toContainText('objetivo contratado');
   await expect(main.locator('#patrocinio')).toContainText('33 a 27');
   await expect(main.getByRole('heading', {name: 'Seu plano para esta semana'})).toBeVisible();
   await expect(main).not.toContainText('descriptive-q1');

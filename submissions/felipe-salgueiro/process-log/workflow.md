@@ -319,6 +319,8 @@ Cronologia numerada em primeira pessoa. Cada nova etapa registra pedido ou açã
 
 129. **Retirei o chat para reduzir o escopo e reprovei a apresentação técnica dos cards.** Pedi uma leitura rápida para gestor, sem estatísticas repetidas e sem códigos internos apresentados como conferência. Lia removeu UI, endpoint, transporte OpenRouter, configuração de exemplo e testes exclusivos do chat; código anterior recuperável no Git. A home passou de oito cards para três decisões com consequência e ação, seguida de plano proposto para esta semana. A diferença de taxa entre plataformas foi traduzida em interações por 10 mil views, sem criar dados semanais. Os links agora abrem as seções reais do relatório e o JSON de evidências. Lint, TypeScript, build, 18 unitários e 30 testes de navegador passaram; QA por imagem realizado em desktop/mobile emulado. Sem deploy, chamada paga ou aceite humano presumido.
 
+130. **Incluí os ajustes de clareza e objetivo aprovados após o debate.** Recebi depois o parecer independente da Maria; a perspectiva de Rafael foi simulada na sessão, pois a abertura adicional encontrou limite de agentes. Pedi aplicar o denominador no destaque e condicionar recomendações ao objetivo da campanha. Lia manteve 1,6 interação por 10 mil views, sem arredondar para dois, e diferenciou aquisição de marca/consideração nos cards e no plano semanal. Nenhuma métrica ou fonte foi alterada. Lint, build com TypeScript e 30 testes de navegador passaram; imagens desktop/mobile foram inspecionadas. Sem nova funcionalidade ou deploy.
+
 ### Onde a IA errou e como corrigi
 
 | Ocorrência | Minha intervenção ou correção do agente | Resultado e evidência |
